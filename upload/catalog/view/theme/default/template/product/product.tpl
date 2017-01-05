@@ -38,6 +38,12 @@
             <?php if ($attribute_groups) { ?>
             <li><a href="#tab-specification" data-toggle="tab"><?php echo $tab_attribute; ?></a></li>
             <?php } ?>
+            <?php if ($specifications) { ?>
+            <li><a href="#tab-specifications" data-toggle="tab"><?php echo $tab_specifications; ?></a></li>
+            <?php } ?>
+            <?php if ($features) { ?>
+            <li><a href="#tab-features" data-toggle="tab"><?php echo $tab_features; ?></a></li>
+            <?php } ?>
             <?php if ($review_status) { ?>
             <li><a href="#tab-review" data-toggle="tab"><?php echo $tab_review; ?></a></li>
             <?php } ?>
@@ -64,6 +70,12 @@
                 <?php } ?>
               </table>
             </div>
+            <?php } ?>
+            <?php if ($specifications) { ?>
+            <div class="tab-pane" id="tab-specifications"><?php echo $specifications; ?></div>
+            <?php } ?>
+            <?php if ($features) { ?>
+            <div class="tab-pane" id="tab-features"><?php echo $features; ?></div>
             <?php } ?>
             <?php if ($review_status) { ?>
             <div class="tab-pane" id="tab-review">
