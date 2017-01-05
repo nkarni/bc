@@ -55,3 +55,7 @@
 
 # VQMod cache
 /upload/vqmod/*.cache
+
+# Product and Category images
+/upload/image/catalog/product
+/upload/image/catalog/category
