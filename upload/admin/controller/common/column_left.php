@@ -142,6 +142,14 @@ class ControllerCommonColumnLeft extends Controller {
 				);					
 			}
 			
+			if ($this->user->hasPermission('access', 'catalog/bulk_edit')) {		
+				$catalog[] = array(
+					'name'	   => $this->language->get('text_bulk_edit'),
+					'href'     => $this->url->link('catalog/bulk_edit', 'token=' . $this->session->data['token'], true),
+					'children' => array()		
+				);					
+			}
+			
 			if ($catalog) {
 				$data['menus'][] = array(
 					'id'       => 'menu-catalog',
