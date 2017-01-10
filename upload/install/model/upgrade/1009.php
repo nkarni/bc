@@ -15,13 +15,21 @@ class ModelUpgrade1009 extends Model {
       // Migrate data from specs_features table
       $query = $this->db->query("SELECT * FROM `specs_features`");
       $rows = $query->rows;
+      $products = array();
       foreach($query->rows as $product) {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "url_alias` WHERE keyword = '$product[post_name]' AND `query` LIKE 'product_id%'");
+        if (!isset($products[$product['post_name']])) {
+          $products[$product['post_name']] = array();
+        }
+        $products[$product['post_name']][$product['meta_key']] = str_replace('\r\n', "\n", $product['meta_value']);
+      }
+
+      foreach($products as $slug => $product) {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "url_alias` WHERE keyword = '$slug' AND `query` LIKE 'product_id%'");
         if ($query->row) {
           $product_id = $query->row['query'];
           $product_id = substr($product_id, strpos($product_id, "=") + 1);
 
-          $query = $this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET specifications = '" . $this->db->escape($product['specs']) . "', features = '" . $this->db->escape($product['features']) . "' WHERE product_id = " . (int)$product_id);
+          $query = $this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET specifications = '" . $this->db->escape($product['specifications']) . "', features = '" . $this->db->escape($product['features']) . "' WHERE product_id = " . (int)$product_id);
         }
       }
 		}
