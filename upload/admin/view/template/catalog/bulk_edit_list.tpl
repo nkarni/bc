@@ -34,49 +34,49 @@
             </div>
           </div>
         </div>
-        <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-product">
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <td class="text-left"><?php if ($sort == 'pd.name') { ?>
-                    <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_name; ?></a>
-                    <?php } else { ?>
-                    <a href="<?php echo $sort_name; ?>"><?php echo $column_name; ?></a>
-                    <?php } ?></td>
-                  <td class="text-right" width="20%"><?php if ($sort == 'p.price') { ?>
-                    <a href="<?php echo $sort_price; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_price; ?></a>
-                    <?php } else { ?>
-                    <a href="<?php echo $sort_price; ?>"><?php echo $column_price; ?></a>
-                    <?php } ?></td>
-                  <td class="text-right"><?php echo $column_action; ?></td>
-                </tr>
-              </thead>
-              <tbody>
-                <?php if ($products) { ?>
-                <?php foreach ($products as $product) { ?>
-                <tr data-id="<?php echo $product['product_id']; ?>" class="product-row">
-                  <td class="text-left" style="border-bottom: 0"><?php echo $product['name']; ?></td>
-                  <td class="text-right" style="border-bottom: 0">
-                    <input type="text" class="form-control product-price" value="<?php echo $product['price']; ?>">
-                  </td>
-                  <td class="text-right" style="border-bottom: 0"><a data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary product-edit"><i class="fa fa-pencil"></i></a></td>
-                </tr>
-                <tr data-id="<?php echo $product['product_id']; ?>" class="form-row" style="height: 0px">
-                <td colspan="3" style="padding: 0; border-top: 0;"><div style="padding: 8px">
-                  Inner form
-                </div></td>
-                </tr>
-                <?php } ?>
-                <?php } else { ?>
-                <tr>
-                  <td class="text-center" colspan="8"><?php echo $text_no_results; ?></td>
-                </tr>
-                <?php } ?>
-              </tbody>
-            </table>
-          </div>
-        </form>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <td class="text-left"><?php if ($sort == 'pd.name') { ?>
+                  <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_name; ?></a>
+                  <?php } else { ?>
+                  <a href="<?php echo $sort_name; ?>"><?php echo $column_name; ?></a>
+                  <?php } ?></td>
+                <td class="text-right" width="20%"><?php if ($sort == 'p.price') { ?>
+                  <a href="<?php echo $sort_price; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_price; ?></a>
+                  <?php } else { ?>
+                  <a href="<?php echo $sort_price; ?>"><?php echo $column_price; ?></a>
+                  <?php } ?></td>
+                <td class="text-right" width="100"><?php echo $column_action; ?></td>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if ($products) { ?>
+              <?php foreach ($products as $product) { ?>
+              <tr data-id="<?php echo $product['product_id']; ?>" class="product-row">
+                <td class="text-left" style="border-bottom: 0"><?php echo $product['name']; ?></td>
+                <td class="text-right" style="border-bottom: 0">
+                  <input type="text" class="form-control product-price" value="<?php echo $product['price']; ?>" data-current-value="<?php echo $product['price']; ?>">
+                </td>
+                <td class="text-right" style="border-bottom: 0">
+                  <button data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default product-cancel"><i class="fa fa-times"></i></button>
+                  <button data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary product-save"><i class="fa fa-save"></i></button>
+                  <button data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary product-edit"><i class="fa fa-pencil"></i></button>
+                </td>
+              </tr>
+              <tr data-id="<?php echo $product['product_id']; ?>" class="form-row" style="height: 0px">
+              <td colspan="3" style="padding: 0; border-top: 0;"><div></div></td>
+              </tr>
+              <?php } ?>
+              <?php } else { ?>
+              <tr>
+                <td class="text-center" colspan="8"><?php echo $text_no_results; ?></td>
+              </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
         <div class="row">
           <div class="col-sm-6 text-left"><?php echo $pagination; ?></div>
           <div class="col-sm-6 text-right"><?php echo $results; ?></div>
@@ -84,6 +84,28 @@
       </div>
  
   </div>
+  <style type="text/css">
+  .form-row > td > div {
+    padding: 8px; 
+    overflow: scroll;
+    max-height: 60vh;
+  }
+  .product-row > td > .product-cancel,
+  .product-row > td > .product-save {
+    display: none;
+  }
+  .product-row.price-changed > td > .product-cancel,
+  .product-row.price-changed > td > .product-save,
+  .product-row.open > td > .product-cancel,
+  .product-row.open > td > .product-save {
+    display: inline;
+  }
+
+  .product-row.price-changed > td > .product-edit,
+  .product-row.open > td > .product-edit {
+    display: none;
+  }
+  </style>
   <script type="text/javascript"><!--
   $('tr.form-row td div').hide();
 $('#button-filter').on('click', function() {
@@ -151,9 +173,81 @@ $('input[name=\'filter_category\']').autocomplete({
 	}
 });  
 
-$('a.product-edit').on('click', function(e) {
+$('button.product-cancel').on('click', function(e) {
   var id = $(e.target).parents('tr').data('id');
-  $('tr.form-row[data-id=' + id + '] td > div').slideToggle();
+  $('tr.product-row[data-id=' + id + '].open input.product-price').prop('disabled', false);
+  $('tr.product-row[data-id=' + id + '].open').removeClass('open');
+  if ($('tr.product-row[data-id=' + id + '].price-changed').length) {
+    $('tr.product-row[data-id=' + id + '].price-changed input.product-price').val($('tr.product-row.price-changed input.product-price').data('current-value'));
+    $('tr.product-row[data-id=' + id + '].price-changed').removeClass('price-changed');
+  }
+  $('tr.form-row[data-id=' + id + '] td > div.open').html('').slideToggle().css('min-height', 0).removeClass('open');
 });
+
+$('button.product-edit').on('click', function(e) {
+  var id = $(e.target).parents('tr').data('id');
+  if ($('tr.product-row.price-changed').length) {
+    $('tr.product-row.price-changed input.product-price').val($('tr.product-row.price-changed input.product-price').data('current-value'));
+    $('tr.product-row.price-changed').removeClass('price-changed');
+  }
+  $('tr.product-row.open input.product-price').prop('disabled', false);
+  $('tr.product-row.open').removeClass('open');
+  $('tr.form-row td > div.open').html('').slideToggle().css('min-height', 0).removeClass('open');
+  $.ajax({
+    url: 'index.php?route=catalog/product/editInPlace&token=<?php echo $token; ?>&product_id=' + parseInt(id),
+    dataType: 'html',
+    success: function(html) {
+      var prev_row = $('tr.form-row[data-id=' + id + ']').prev();
+      var row = $('tr.form-row[data-id=' + id + '] td > div');
+      prev_row.addClass('open');
+      prev_row.find('input.product-price').prop('disabled', true);
+      row.addClass('open');
+      row.html(html).slideToggle('slow', function() {
+        row.css('min-height', '250px');
+      });
+    }
+  });
+});
+
+function submitPrice(id, price) {
+  var data = {
+    product_id: id,
+    price: price
+  };
+  $('tr.product-row[data-id=' + id + '].price-changed input.product-price').prop('disabled', true);
+  $.post('index.php?route=catalog/bulk_edit/updatePrice&token=<?php echo $token; ?>', data, function(result) {
+    $('tr.product-row[data-id=' + id + '].price-changed input.product-price').prop('disabled', false).data('current-value', price);
+    $('tr.product-row[data-id=' + id + '].price-changed').removeClass('price-changed');
+  });
+}
+
+$('button.product-save').on('click', function(e) {
+  var id = $(e.target).parents('tr').data('id');
+  if ($(e.target).parents('tr').hasClass('price-changed')) {
+    submitPrice(id, $(e.target).parents('tr').find('input.product-price').val());
+  }
+  else {
+    $.post('index.php?route=catalog/product/edit&token=<?php echo $token; ?>&product_id=' + parseInt(id), $("#form-product").serialize(), function(result) {
+      var id = $(e.target).parents('tr').data('id');
+      $('tr.product-row.open input.product-price').prop('disabled', false);
+      $('tr.product-row.open').removeClass('open');
+      $('tr.form-row td > div.open').html('').slideToggle().css('min-height', 0).removeClass('open');
+    });
+  }
+});
+
+$('input.product-price').on('keyup', function(e) {
+  var el = $(e.target);
+  var id = el.parents('tr').data('id');
+  if (el.data('current-value') == el.val()) {
+    el.parents('tr').removeClass('price-changed');
+    return;
+  }
+  else if (e.which == 13) {
+    submitPrice(id, el.val());
+  }
+  el.parents('tr').addClass('price-changed');
+});
+ 
 //--></script></div>
 <?php echo $footer; ?>

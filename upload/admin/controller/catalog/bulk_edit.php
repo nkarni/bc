@@ -14,6 +14,14 @@ class ControllerCatalogBulkEdit extends Controller {
 		$this->getList();
   }
 
+  public function updatePrice() {
+		$this->load->model('catalog/product');
+
+		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+			$this->model_catalog_product->editProductPrice($this->request->post['product_id'], $this->request->post['price']);
+		}
+	}
+
   public function getList() {
 		if (isset($this->request->get['filter_name'])) {
 			$filter_name = $this->request->get['filter_name'];
@@ -68,6 +76,8 @@ class ControllerCatalogBulkEdit extends Controller {
 
 		$data['button_filter'] = $this->language->get('button_filter');
 		$data['button_edit'] = $this->language->get('button_edit');
+		$data['button_save'] = $this->language->get('button_save');
+		$data['button_cancel'] = $this->language->get('button_cancel');
 
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_category'] = $this->language->get('entry_category');

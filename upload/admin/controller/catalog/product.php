@@ -116,6 +116,20 @@ class ControllerCatalogProduct extends Controller {
 		$this->getForm();
 	}
 
+	public function editInPlace() {
+		$this->load->language('catalog/product');
+
+		$this->document->setTitle($this->language->get('heading_title'));
+
+		$this->load->model('catalog/product');
+
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+			$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+		}
+
+		$this->getForm(true);
+	}
+
 	public function delete() {
 		$this->load->language('catalog/product');
 
@@ -541,7 +555,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->response->setOutput($this->load->view('catalog/product_list', $data));
 	}
 
-	protected function getForm() {
+	protected function getForm($standalone = false) {
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['text_form'] = !isset($this->request->get['product_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
@@ -1316,9 +1330,18 @@ class ControllerCatalogProduct extends Controller {
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
 
-		$data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
+		if (!$standalone) {
+			$data['header'] = $this->load->controller('common/header');
+			$data['column_left'] = $this->load->controller('common/column_left');
+			$data['footer'] = $this->load->controller('common/footer');
+			$data['standalone'] = false;
+		}
+		else {
+			$data['header'] = '';
+			$data['column_left'] = '';
+			$data['footer'] = '';
+			$data['standalone'] = true;
+		}
 
 		$this->response->setOutput($this->load->view('catalog/product_form', $data));
 	}

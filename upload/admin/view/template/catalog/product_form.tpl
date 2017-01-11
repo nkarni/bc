@@ -1,5 +1,6 @@
 <?php echo $header; ?><?php echo $column_left; ?>
-<div id="content">
+<div id="content" <?php if ($standalone) { ?>style="padding-bottom: 0px"<?php } ?>>
+  <?php if (!$standalone) { ?>
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
@@ -13,6 +14,7 @@
       </ul>
     </div>
   </div>
+  <?php } ?>
   <div class="container-fluid">
     <?php if ($error_warning) { ?>
     <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
@@ -20,12 +22,15 @@
     </div>
     <?php } ?>
     <div class="panel panel-default">
+      <?php if (!$standalone) { ?>
       <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_form; ?></h3>
       </div>
+      <?php } ?>
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
           <ul class="nav nav-tabs">
+            <?php if (!$standalone) { ?>
             <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
             <li><a href="#tab-data" data-toggle="tab"><?php echo $tab_data; ?></a></li>
             <li><a href="#tab-links" data-toggle="tab"><?php echo $tab_links; ?></a></li>
@@ -37,9 +42,15 @@
             <li><a href="#tab-image" data-toggle="tab"><?php echo $tab_image; ?></a></li>
             <li><a href="#tab-reward" data-toggle="tab"><?php echo $tab_reward; ?></a></li>
             <li><a href="#tab-design" data-toggle="tab"><?php echo $tab_design; ?></a></li>
+            <?php } else { ?>
+            <li><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
+            <li><a href="#tab-links" data-toggle="tab"><?php echo $tab_links; ?></a></li>
+            <li class="active"><a href="#tab-option" data-toggle="tab"><?php echo $tab_option; ?></a></li>
+            <li><a href="#tab-image" data-toggle="tab"><?php echo $tab_image; ?></a></li>
+            <?php } ?>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane active" id="tab-general">
+            <div class="tab-pane<?php if (!$standalone) { ?> active<?php } ?>" id="tab-general">
               <ul class="nav nav-tabs" id="language">
                 <?php foreach ($languages as $language) { ?>
                 <li><a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
@@ -333,6 +344,7 @@
               </div>
             </div>
             <div class="tab-pane" id="tab-links">
+              <!--
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-manufacturer"><span data-toggle="tooltip" title="<?php echo $help_manufacturer; ?>"><?php echo $entry_manufacturer; ?></span></label>
                 <div class="col-sm-10">
@@ -340,6 +352,7 @@
                   <input type="hidden" name="manufacturer_id" value="<?php echo $manufacturer_id; ?>" />
                 </div>
               </div>
+              -->
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-category"><span data-toggle="tooltip" title="<?php echo $help_category; ?>"><?php echo $entry_category; ?></span></label>
                 <div class="col-sm-10">
@@ -353,6 +366,7 @@
                   </div>
                 </div>
               </div>
+              <!--
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-filter"><span data-toggle="tooltip" title="<?php echo $help_filter; ?>"><?php echo $entry_filter; ?></span></label>
                 <div class="col-sm-10">
@@ -410,6 +424,7 @@
                   </div>
                 </div>
               </div>
+              -->
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-related"><span data-toggle="tooltip" title="<?php echo $help_related; ?>"><?php echo $entry_related; ?></span></label>
                 <div class="col-sm-10">
@@ -459,7 +474,7 @@
                 </table>
               </div>
             </div>
-            <div class="tab-pane" id="tab-option">
+            <div class="tab-pane<?php if ($standalone) { ?> active<?php } ?>" id="tab-option">
               <div class="row">
                 <div class="col-sm-2">
                   <ul class="nav nav-pills nav-stacked" id="option">
@@ -1255,16 +1270,19 @@ $('input[name=\'option\']').autocomplete({
 		});
 
 		$('.date').datetimepicker({
-			pickTime: false
+			pickTime: false,
+      widgetParent: 'body'
 		});
 
 		$('.time').datetimepicker({
-			pickDate: false
+			pickDate: false,
+      widgetParent: 'body'
 		});
 
 		$('.datetime').datetimepicker({
 			pickDate: true,
-			pickTime: true
+			pickTime: true,
+      widgetParent: 'body'
 		});
 
 		option_row++;
@@ -1329,7 +1347,8 @@ function addDiscount() {
 	$('#discount tbody').append(html);
 
 	$('.date').datetimepicker({
-		pickTime: false
+		pickTime: false,
+      widgetParent: 'body'
 	});
 
 	discount_row++;
@@ -1355,7 +1374,8 @@ function addSpecial() {
 	$('#special tbody').append(html);
 
 	$('.date').datetimepicker({
-		pickTime: false
+		pickTime: false,
+      widgetParent: 'body'
 	});
 
 	special_row++;
@@ -1407,16 +1427,19 @@ function addRecurring() {
 //--></script>
   <script type="text/javascript"><!--
 $('.date').datetimepicker({
-	pickTime: false
+	pickTime: false,
+      widgetParent: 'body'
 });
 
 $('.time').datetimepicker({
-	pickDate: false
+	pickDate: false,
+      widgetParent: 'body'
 });
 
 $('.datetime').datetimepicker({
 	pickDate: true,
-	pickTime: true
+	pickTime: true,
+  widgetParent: 'body'
 });
 //--></script>
   <script type="text/javascript"><!--
