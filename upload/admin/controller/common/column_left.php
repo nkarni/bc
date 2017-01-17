@@ -150,6 +150,14 @@ class ControllerCommonColumnLeft extends Controller {
 				);					
 			}
 			
+			if ($this->user->hasPermission('access', 'catalog/files')) {		
+				$catalog[] = array(
+					'name'	   => $this->language->get('text_files'),
+					'href'     => $this->url->link('catalog/files', 'token=' . $this->session->data['token'], true),
+					'children' => array()		
+				);					
+			}
+			
 			if ($catalog) {
 				$data['menus'][] = array(
 					'id'       => 'menu-catalog',

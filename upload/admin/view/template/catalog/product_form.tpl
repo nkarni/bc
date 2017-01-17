@@ -380,6 +380,7 @@
                   </div>
                 </div>
               </div>
+              -->
               <div class="form-group">
                 <label class="col-sm-2 control-label"><?php echo $entry_store; ?></label>
                 <div class="col-sm-10">
@@ -424,7 +425,6 @@
                   </div>
                 </div>
               </div>
-              -->
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-related"><span data-toggle="tooltip" title="<?php echo $help_related; ?>"><?php echo $entry_related; ?></span></label>
                 <div class="col-sm-10">
