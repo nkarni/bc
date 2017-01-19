@@ -191,6 +191,27 @@ $(document).ready(function() {
 	$('[data-toggle=\'tooltip\']').on('remove', function() {
 		$(this).tooltip('destroy');
 	});
+
+	function slugify(text) {
+		return text.toLowerCase().trim()
+			.replace(/&/g, '-and-')   // Replace & with 'and'
+			.replace(/[^\w\s-]/g, '') // remove non-word [a-z0-9_], non-whitespace, non-hyphen characters
+			.replace(/[\s_-]+/g, '-') // swap any length of whitespace, underscore, hyphen characters with a single -
+			.replace(/\-\-+/g, '-')   // Replace multiple - with single -
+			.replace(/^-+|-+$/g, ''); // remove leading, trailing -
+	}
+
+	if ($('#input-name1').length && $('#input-keyword').length && $('#input-keyword').val() == '') {
+		$('#input-name1').on('keyup', function() {
+			if ($('#input-keyword').data('changed')) return;
+			var keyword = slugify($('#input-name1').val());
+			$('#input-keyword').val(keyword);
+		});
+
+		$('#input-keyword').on('keyup', function() {
+			$('#input-keyword').data('changed', !!$('#input-keyword').val());
+		});
+	}
 });
 
 // Autocomplete */
