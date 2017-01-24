@@ -51,14 +51,24 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane<?php if (!$standalone) { ?> active<?php } ?>" id="tab-general">
+              <?php if ($standalone) { ?>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip" title="<?php echo $help_sku; ?>"><?php echo $entry_sku; ?></span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="sku" value="<?php echo $sku; ?>" placeholder="<?php echo $entry_sku; ?>" id="input-sku" class="form-control" />
+                </div>
+              </div>
+              <?php } ?>
+              <?php if (!$standalone) { ?>
               <ul class="nav nav-tabs" id="language">
                 <?php foreach ($languages as $language) { ?>
                 <li><a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
                 <?php } ?>
               </ul>
+              <?php } ?>
               <div class="tab-content">
                 <?php foreach ($languages as $language) { ?>
-                <div class="tab-pane" id="language<?php echo $language['language_id']; ?>">
+                <div class="tab-pane active" id="language<?php echo $language['language_id']; ?>">
                   <div class="form-group required">
                     <label class="col-sm-2 control-label" for="input-name<?php echo $language['language_id']; ?>"><?php echo $entry_name; ?></label>
                     <div class="col-sm-10">
