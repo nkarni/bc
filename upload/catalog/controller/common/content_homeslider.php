@@ -1,5 +1,5 @@
 <?php
-class ControllerCommonContentTop extends Controller {
+class ControllerCommonContentHomeslider extends Controller {
 	public function index() {
 		$this->load->model('design/layout');
 
@@ -44,11 +44,10 @@ class ControllerCommonContentTop extends Controller {
 		$data['modules'] = array();
 
 		$modules = $this->model_design_layout->getLayoutModules($layout_id, 'content_top');
-
 		foreach ($modules as $module) {
 			$part = explode('.', $module['code']);
-
-			if (isset($part[0]) && $this->config->get($part[0] . '_status') && $part[0] != 'slideshow') {
+			
+			if (isset($part[0]) && $this->config->get($part[0] . '_status') && $part[0] == 'slideshow') {
 				$module_data = $this->load->controller('extension/module/' . $part[0]);
 
 				if ($module_data) {
@@ -56,7 +55,7 @@ class ControllerCommonContentTop extends Controller {
 				}
 			}
 
-			if (isset($part[1]) && $part[0] != 'slideshow') {
+			if (isset($part[1])) {
 				$setting_info = $this->model_extension_module->getModule($part[1]);
 
 				if ($setting_info && $setting_info['status']) {
@@ -69,6 +68,6 @@ class ControllerCommonContentTop extends Controller {
 			}
 		}
 
-		return $this->load->view('common/content_top', $data);
+		return $this->load->view('common/content_homeslider', $data);
 	}
 }

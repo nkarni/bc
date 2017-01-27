@@ -1,4 +1,4 @@
-<div id="carousel<?php echo $module; ?>" class="owl-carousel">
+<!--<div id="carousel<?php echo $module; ?>" class="owl-carousel">
   <?php foreach ($banners as $banner) { ?>
   <div class="item text-center">
     <?php if ($banner['link']) { ?>
@@ -8,7 +8,7 @@
     <?php } ?>
   </div>
   <?php } ?>
-</div>
+</div>-->
 <script type="text/javascript"><!--
 $('#carousel<?php echo $module; ?>').owlCarousel({
 	items: 6,

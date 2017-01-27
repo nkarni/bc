@@ -11,7 +11,17 @@
         </ul>
       </div>
       <?php } ?>
-      <div class="col-sm-3">
+	  <div class="col-sm-3">
+        <h5><?php echo $text_service; ?></h5>
+        <ul class="social_icons">
+			<li><a target="_blank" href="https://www.facebook.com/BCS.com.au"><i class="fa fa-facebook"></i></a></li>
+			<li><a target="_blank" href="https://twitter.com/Backcareseating"><i class="fa fa-twitter"></i></a></li>
+			<li><a target="_blank" href="http://backcareandseating.tumblr.com/"><i class="fa fa-tumblr"></i></a></li>
+		</ul>
+      </div>
+	  
+	  
+      <!--<div class="col-sm-3">
         <h5><?php echo $text_service; ?></h5>
         <ul class="list-unstyled">
           <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
@@ -36,7 +46,8 @@
           <li><a href="<?php echo $wishlist; ?>"><?php echo $text_wishlist; ?></a></li>
           <li><a href="<?php echo $newsletter; ?>"><?php echo $text_newsletter; ?></a></li>
         </ul>
-      </div>
+      </div>-->
+	  
     </div>
     <hr>
     <p><?php echo $powered; ?></p>
