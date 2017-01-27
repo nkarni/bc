@@ -79,7 +79,7 @@
 
 	<div class="category col-md-3 col-sm-4 col-xs-6">
 		<div class="image_wrapper">
-			<a href="#"><img src="image/catalog/home/Contact-Us-Hero-3-755x550-320x200.jpg" class="attachment-home_category size-home_category img-responsive" alt="Contact Us" sizes="(max-width: 320px) 100vw, 320px" width="320" height="200"></a>
+			<a href="index.php?route=information/contact"><img src="image/catalog/home/Contact-Us-Hero-3-755x550-320x200.jpg" class="attachment-home_category size-home_category img-responsive" alt="Contact Us" sizes="(max-width: 320px) 100vw, 320px" width="320" height="200"></a>
 		</div>
 		<div class="title">
 			<p><a href="#">CONTACT US &gt;</a></p>
