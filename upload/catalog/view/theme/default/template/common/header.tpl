@@ -163,8 +163,3 @@
     </div>
   </div>
 </header>
-<?php if ($categories) { ?>
-<div class="container">
-  
-</div>
-<?php } ?>
