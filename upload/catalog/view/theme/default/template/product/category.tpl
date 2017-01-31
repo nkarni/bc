@@ -5,15 +5,230 @@
     <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
   </ul>
-  <div class="row"><?php echo $column_left; ?>
+  <div class="row"><?php //echo $column_left; ?>
     <?php if ($column_left && $column_right) { ?>
-    <?php $class = 'col-sm-6'; ?>
+    <?php $class = 'col-sm-12'; ?>
     <?php } elseif ($column_left || $column_right) { ?>
-    <?php $class = 'col-sm-9'; ?>
+    <?php $class = 'col-sm-12'; ?>
     <?php } else { ?>
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+		
+
+	<div class="inner-category">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>WORKSPACES</h2>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-2 col-sm-4 col-xs-6 active">
+				<div class="image_wrapper">
+					<a href="http://www.backcare.com.au/product-category/workspaces/seating-workspaces-2nd/"><img src="http://www.backcare.com.au/wp-content/uploads/2016/09/Cpod-750x563-320x200.jpg" class="attachment-home_category size-home_category" alt="Seating Hero" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Cpod-750x563-320x200.jpg 320w, http://www.backcare.com.au/wp-content/uploads/2016/09/Cpod-750x563-320x200@2x.jpg 640w" sizes="(max-width: 320px) 100vw, 320px" height="200" width="320"></a>
+				</div>
+				<div class="title">
+					<p><a href="http://www.backcare.com.au/product-category/workspaces/seating-workspaces-2nd/">SEATING</a></p>
+				</div>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-6 ">
+				<div class="image_wrapper">
+					<a href="http://www.backcare.com.au/product-category/workspaces/sit2stand-workspaces-2nd/"><img src="http://www.backcare.com.au/wp-content/uploads/2015/02/Hero-image-SIT-TO-STAND-320x200.png" class="attachment-home_category size-home_category" alt="Sit2Stand" srcset="http://www.backcare.com.au/wp-content/uploads/2015/02/Hero-image-SIT-TO-STAND-320x200.png 320w, http://www.backcare.com.au/wp-content/uploads/2015/02/Hero-image-SIT-TO-STAND-320x200@2x.png 640w" sizes="(max-width: 320px) 100vw, 320px" height="200" width="320"></a>					
+				</div>
+				<div class="title">
+					<p><a href="http://www.backcare.com.au/product-category/workspaces/sit2stand-workspaces-2nd/">SIT2STAND</a></p>
+				</div>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-6 ">
+				<div class="image_wrapper">
+					<a href="http://www.backcare.com.au/product-category/workspaces/workstations-workspaces/"><img src="http://www.backcare.com.au/wp-content/uploads/2016/09/Workstations.jpg" class="attachment-home_category size-home_category" alt="Workstations Hero" height="177" width="284"></a>					</div>
+				<div class="title">
+					<p><a href="http://www.backcare.com.au/product-category/workspaces/workstations-workspaces/">WORKSTATIONS</a>						</p>
+				</div>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-6 ">
+										<div class="image_wrapper">
+						<a href="http://www.backcare.com.au/product-category/workspaces/meet-visit-workspaces-2nd/"><img src="http://www.backcare.com.au/wp-content/uploads/2013/03/Project-Seating-Hero-2A-e1363141669130-320x200.jpg" class="attachment-home_category size-home_category" alt="Meet &amp; Visit Hero" height="200" width="320"></a>					</div>
+
+					<div class="title">
+						<p>
+							<a href="http://www.backcare.com.au/product-category/workspaces/meet-visit-workspaces-2nd/">MEET &amp; VISIT</a>						</p>
+					</div>
+				</div>
+					<div class="col-md-2 col-sm-4 col-xs-6 ">
+						<div class="image_wrapper">
+						<a href="http://www.backcare.com.au/product-category/workspaces/accessories-workspaces-2nd/"><img src="http://www.backcare.com.au/wp-content/uploads/2016/09/Accessories-Hero-320x200.jpg" class="attachment-home_category size-home_category" alt="accessories-hero" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Accessories-Hero-320x200.jpg 320w, http://www.backcare.com.au/wp-content/uploads/2016/09/Accessories-Hero-320x200@2x.jpg 640w" sizes="(max-width: 320px) 100vw, 320px" height="200" width="320"></a>					</div>
+					<div class="title">
+						<p><a href="http://www.backcare.com.au/product-category/workspaces/accessories-workspaces-2nd/">ACCESSORIES</a></p>
+					</div>
+				</div>
+											<div class="col-md-2 col-sm-4 col-xs-6 ">
+										<div class="image_wrapper">
+						<a href="http://www.backcare.com.au/product-category/workspaces/factory-workspaces-accessories-2nd/"><img src="http://www.backcare.com.au/wp-content/uploads/2016/09/Industrial-Hero-320x200.jpg" class="attachment-home_category size-home_category" alt="Industrial Hero" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Industrial-Hero-320x200.jpg 320w, http://www.backcare.com.au/wp-content/uploads/2016/09/Industrial-Hero-320x200@2x.jpg 640w" sizes="(max-width: 320px) 100vw, 320px" height="200" width="320"></a>					</div>
+
+					<div class="title">
+						<p>
+							<a href="http://www.backcare.com.au/product-category/workspaces/factory-workspaces-accessories-2nd/">INDUSTRIAL</a>						</p>
+					</div>
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="owl-carousel owl-theme">
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div><div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+		<div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div><div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div><div class="item">
+		<h4>
+			<div class="slider_item">
+				<a href="http://www.backcare.com.au/product/therapod-contemporary-coccyx/">
+					<img alt="Therapod Contemporary Coccyx" title="Therapod Contemporary Coccyx" srcset="http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136.jpg, http://www.backcare.com.au/wp-content/uploads/2016/09/Tpod-Contemporary-Coccyx-Sensor-750x550-1-102x136@2x.jpg 2x">
+					<p>Therapod Contemporary Coccyx</p>
+				</a>
+			</div>
+		</h4>
+		</div>
+	</div>
+	
+	<script>
+            $(document).ready(function() {
+              var owl = $('.owl-carousel');
+              owl.owlCarousel({
+                margin: 10,
+                nav: true,
+                loop: true,
+                responsive: {
+                  0: {
+                    items: 1
+                  },
+                  600: {
+                    items: 4
+                  },
+                  1000: {
+                    items: 7
+                  }
+                }
+              })
+            })
+          </script>
+	
+    <div id="content" class="<?php echo $class; ?>">
+	<?php echo $content_top; ?>
       <h2><?php echo $heading_title; ?></h2>
       <?php if ($thumb || $description) { ?>
       <div class="row">
@@ -24,8 +239,10 @@
         <div class="col-sm-10"><?php echo $description; ?></div>
         <?php } ?>
       </div>
-      <hr>
+      
       <?php } ?>
+	  
+	  <!--
       <?php if ($categories) { ?>
       <h3><?php echo $text_refine; ?></h3>
       <?php if (count($categories) <= 5) { ?>
@@ -38,17 +255,17 @@
           </ul>
         </div>
       </div>
-      <?php } else { ?>
+      <?//php } else { ?>
       <div class="row">
-        <?php foreach (array_chunk($categories, ceil(count($categories) / 4)) as $categories) { ?>
+        <?//php foreach (array_chunk($categories, ceil(count($categories) / 4)) as $categories) { ?>
         <div class="col-sm-3">
           <ul>
-            <?php foreach ($categories as $category) { ?>
-            <li><a href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a></li>
-            <?php } ?>
+            <?//php oreach ($categories as $category) { ?>
+            <li><a href="<?//php echo $category['href']; ?>"><?//php echo $category['name']; ?></a></li>
+            <?//php } ?>
           </ul>
         </div>
-        <?php } ?>
+        <?//php } ?>
       </div>
       <?php } ?>
       <?php } ?>
@@ -148,7 +365,10 @@
         <div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
       </div>
       <?php } ?>
-      <?php echo $content_bottom; ?></div>
+      <?php echo $content_bottom; ?>
+	  -->
+	  
+	  </div>
     <?php echo $column_right; ?></div>
 </div>
 <?php echo $footer; ?>

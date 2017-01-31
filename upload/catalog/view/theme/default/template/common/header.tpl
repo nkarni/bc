@@ -36,6 +36,12 @@
 <?php foreach ($analytics as $analytic) { ?>
 <?php echo $analytic; ?>
 <?php } ?>
+
+<!-- Owl Stylesheets -->
+    <link rel="stylesheet" href="catalog/view/javascript/jquery/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="catalog/view/javascript/jquery/owl-carousel/owl.theme.default.min.css">
+<!-- javascript -->
+    <script src="catalog/view/javascript/jquery/owl-carousel/owl.carousel.js"></script>
 </head>
 <body class="<?php echo $class; ?>">
 <nav id="top">

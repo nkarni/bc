@@ -33,7 +33,7 @@ h6 {
 	font-size: 10.2px;
 }
 a {
-	color: #23a1d1;
+	color: #000000;
 }
 a:hover {
 	text-decoration: none;
@@ -313,8 +313,7 @@ div.required .control-label:before {
 #menu .second-nav li.dropdown .dropdown-menu {
     margin-top: 20px;
     position: absolute;
-    top: 28px;
-    border-radius: 0px;
+    top: 42px;
 	padding: 0;
 }
 #menu.secondary-navigation .list-unstyled a {
@@ -505,19 +504,22 @@ footer ul.social_icons {
 }
 /* breadcrumb */
 .breadcrumb {
-	margin: 0 0 20px 0;
-	padding: 8px 0;
-	border: 1px solid #ddd;
+    margin: 0 0 20px 0;
+    padding: 20px 0;
+    border: none;
+    background: none;
 }
 .breadcrumb i {
-	font-size: 15px;
+	font-size: 14px;
 }
 .breadcrumb > li {
 	text-shadow: 0 1px 0 #FFF;
-	padding: 0 20px;
+	padding: 0 10px;
 	position: relative;
 	white-space: nowrap;
 }
+.breadcrumb > li  a { color: #000;}
+
 .breadcrumb > li + li:before {
 	content: '';
 	padding: 0;
@@ -526,20 +528,55 @@ footer ul.social_icons {
 	content: '';
 	display: block;
 	position: absolute;
-	top: -3px;
+	top: 5px;
 	right: -5px;
-	width: 26px;
-	height: 26px;
-	border-right: 1px solid #DDD;
-	border-bottom: 1px solid #DDD;
+	width: 10px;
+	height: 10px;
+	border-right: 1px solid #000;
+	border-bottom: 1px solid #000;
 	-webkit-transform: rotate(-45deg);
 	-moz-transform: rotate(-45deg);
 	-o-transform: rotate(-45deg);
 	transform: rotate(-45deg);
 }
+.breadcrumb li:nth-child(1) {
+    display: none;
+}
 .pagination {
 	margin: 0;
 }
+
+.inner-category img {
+    height: auto;
+    max-width: 100%;
+}
+.inner-category .active .title {
+    background: #ff6733;	
+}
+.inner-category .active .title a {
+	color: #fff;
+	display: block;
+}
+.inner-category .title {
+    text-align: center;
+    background: #e4e4e4;
+    padding: 3px 0;
+    margin-bottom: 10px;
+	margin-top: 5px;
+}
+.inner-category .title p {
+    margin: 0;
+}
+.inner-category  h2 {
+    margin: 0;
+    padding-bottom: 20px;
+    font-size: 23px;
+    text-align: center;
+	font-weight: bold;
+}
+
+
+
 /* buttons */
 .buttons {
 	margin: 1em 0;
