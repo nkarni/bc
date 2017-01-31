@@ -83,7 +83,7 @@
 	  <div class="row">
 	  <div class="col-sm-7 prinav">
     		<nav id="menu" class="navbar topmenu">
-        <div class="navbar-header"><span id="category" class="visible-xs"><?php echo $text_category; ?></span>
+        <div class="navbar-header"><!--<span id="category" class="visible-xs"><?php //echo $text_category; ?></span>-->
           <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -128,14 +128,15 @@
 	  
 	  <div class="col-sm-12">
 	  <nav id="menu" class="navbar secondary-navigation">
-		<div class="navbar-header"><span id="category" class="visible-xs"><?php echo $text_category; ?></span>
-		  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+		<div class="navbar-header"><!--<span id="category" class="visible-xs"><?php //echo $text_category; ?></span>-->
+		  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">Main Navigation</button>
 		</div>
-		<div class="collapse navbar-collapse navbar-ex1-collapse">
+		<div class="collapse navbar-collapse navbar-ex2-collapse second-nav">
 		  <div class="pull-right"><ul class="nav navbar-nav">
 			<?php foreach ($categories as $category) { ?>
 			<?php if ($category['children']) { ?>
 			<li class="dropdown"><a href="<?php echo $category['href']; ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category['name']; ?></a>
+			  <div class="menudrop">
 			  <div class="dropdown-menu">
 				<div class="dropdown-inner">
 				  <?php foreach (array_chunk($category['children'], ceil(count($category['children']) / $category['column'])) as $children) { ?>
@@ -147,6 +148,7 @@
 				  <?php } ?>
 				</div>
 				<a href="<?php echo $category['href']; ?>" class="see-all"><?php echo $text_all; ?> <?php echo $category['name']; ?></a> </div>
+				</div>				
 			</li>
 			
 			<?php } ?>

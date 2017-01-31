@@ -245,6 +245,7 @@ div.required .control-label:before {
     border-color: transparent;
     min-height: auto;
 	background: none;
+	margin-bottom: 0;
 }
 #menu.secondary-navigation .nav > li > a {
 	background-color: transparent;
@@ -254,6 +255,8 @@ div.required .control-label:before {
     text-shadow: none;
 	font-weight: bold;
 	font-size: 16px;
+	padding: 0 0 6px;
+	border-bottom: 2px solid #fff;
 }
 #menu {
 	background-color: #229ac8;
@@ -270,11 +273,14 @@ div.required .control-label:before {
 	background-color: transparent;
 }
 #menu .nav > li > a:hover, #menu .nav > li.open > a {
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: #fff;
 }
 #menu .dropdown-menu {
 	padding-bottom: 0;
-	 margin: 0 !important;
+	margin: 0 !important;
+	box-shadow: none;
+	border-top: medium none;
+	min-width: 130px;
 }
 #menu .dropdown-inner {
 	display: table;
@@ -283,25 +289,49 @@ div.required .control-label:before {
 	display: block;
 }
 #menu .dropdown-inner a {
-	min-width: 160px;
+	min-width: 130px;
 	display: block;
-	padding: 3px 20px;
+	padding: 3px 10px;
 	clear: both;
-	line-height: 20px;
-	color: #333333;
-	font-size: 12px;
+	line-height: 18px;
+	color: #959494;
+	font-size: 14px;
 }
 #menu .dropdown-inner li a:hover {
-	color: #FFFFFF;
+	color: #959494;
+	background: none;
+}
+#menu .nav li:nth-child(2) .dropdown-menu {
+    min-width: 175px;
+}
+#menu .second-nav li.dropdown:hover a.dropdown-toggle {
+    border-bottom: 2px solid #ff6733;
+}
+#menu.secondary-navigation li.dropdown {
+    margin: 0 0 0 25px;
+}
+#menu .second-nav li.dropdown .dropdown-menu {
+    margin-top: 20px;
+    position: absolute;
+    top: 28px;
+    border-radius: 0px;
+	padding: 0;
+}
+#menu.secondary-navigation .list-unstyled a {
+    border-bottom: 1px solid #ccc;
+    color: #000;
+}
+#menu.secondary-navigation .nav.navbar-nav {
+    margin: 0 0 0.5em 0;
 }
 #menu .see-all {
-	display: block;
+	display: none;
 	margin-top: 0.5em;
-	border-top: 1px solid #DDD;
+	border-top: none;
 	padding: 3px 20px;
-	-webkit-border-radius: 0 0 4px 4px;
-	-moz-border-radius: 0 0 4px 4px;
-	border-radius: 0 0 3px 3px;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
 	font-size: 12px;
 }
 #menu .see-all:hover, #menu .see-all:focus {
@@ -321,19 +351,20 @@ div.required .control-label:before {
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 #menu .btn-navbar {
-	font-size: 15px;
+	font-size: 14px;
 	font-stretch: expanded;
 	color: #FFF;
 	padding: 2px 18px;
-	float: right;
-	background-color: #229ac8;
-	background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
-	background-repeat: repeat-x;
-	border-color: #1f90bb #1f90bb #145e7a;
+	float: none;
+	background-color: #b5b38c;
+	/*background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+	background-repeat: repeat-x;*/
+	border-color: #b5b38c #b5b38c #b5b38c;
+	margin: 8px auto;
 }
 #menu .btn-navbar:hover, #menu .btn-navbar:focus, #menu .btn-navbar:active, #menu .btn-navbar.disabled, #menu .btn-navbar[disabled] {
 	color: #ffffff;
-	background-color: #229ac8;
+	background-color: #c9c8ab;
 }
 #menu.topmenu .nav.navbar-nav {
     float: right;
@@ -379,6 +410,17 @@ header {
 		border-radius: 0;
 		color: #fff;
 	}
+	.cart { padding: 0px 15px; }
+	#search { width: 100%; }
+	#menu.topmenu .nav.navbar-nav { float: left; padding-top: 0; padding-left: 10px; width: 100%; }
+	#menu .btn-navbar { display: block; }
+	.prinav .nav li { border-bottom: 1px solid #CCC; }
+	#menu.topmenu .nav > li > a { padding: 5px 10px 5px 13px; }
+	.second-nav .pull-right { width: 100%; }
+	#menu.secondary-navigation li.dropdown { margin: 0; border-bottom: 1px solid #CCC; }
+	#menu.secondary-navigation .nav > li > a { border-bottom: none; font-weight: normal; font-size: 14px; }
+	#menu .second-nav li.dropdown:hover a.dropdown-toggle { border-bottom: none; }
+	.owl-item h1 { font-size: 20px !important; top: 16% !important; }
 }
 /* content */
 #content {
@@ -611,6 +653,7 @@ footer ul.social_icons {
 	color: #ffffff;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	background-color: #b5b38c;
+	border: 1px solid #b5b38c;
 	/*background-image: linear-gradient(to bottom, #444444, #222222);*/
 	background-repeat: repeat-x;
 	/*border-color: #222222 #222222 #000000;*/
