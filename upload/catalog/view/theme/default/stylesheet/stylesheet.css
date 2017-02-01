@@ -313,8 +313,9 @@ div.required .control-label:before {
 #menu .second-nav li.dropdown .dropdown-menu {
     margin-top: 20px;
     position: absolute;
-    top: 42px;
+    top: 28px;
 	padding: 0;
+	border-radius: 0;
 }
 #menu.secondary-navigation .list-unstyled a {
     border-bottom: 1px solid #ccc;
@@ -947,4 +948,11 @@ h2.price {
 .btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] {
     background-image: none;
     background-color: #df5c39;
+}
+.sub-category .active{
+    background: #ff6733;
+}
+
+.sub-category .active a{
+    color: #ffffff;
 }

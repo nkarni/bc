@@ -42,6 +42,9 @@
     <link rel="stylesheet" href="catalog/view/javascript/jquery/owl-carousel/owl.theme.default.min.css">
 <!-- javascript -->
     <script src="catalog/view/javascript/jquery/owl-carousel/owl.carousel.js"></script>
+    <script src="catalog/view/javascript/slick/slick.min.js" type="text/javascript"></script>
+    <link href="catalog/view/javascript/slick/slick.css" rel="stylesheet">
+    <link href="catalog/view/javascript/slick/slick-theme.css" rel="stylesheet">
 </head>
 <body class="<?php echo $class; ?>">
 <nav id="top">
