@@ -476,7 +476,6 @@ class ControllerProductCategory extends Controller {
 			
                         // Column left needs to empty for this project
                         $data['column_left'] = '';
-//                        echo '<pre>'; print_r($data); die;
 			$this->response->setOutput($this->load->view('product/category', $data));
 		} else {
 			$url = '';
