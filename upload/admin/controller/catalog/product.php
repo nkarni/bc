@@ -574,6 +574,7 @@ class ControllerCatalogProduct extends Controller {
 		$data['text_amount'] = $this->language->get('text_amount');
 
 		$data['entry_name'] = $this->language->get('entry_name');
+		$data['entry_short_description'] = $this->language->get('entry_short_description');
 		$data['entry_description'] = $this->language->get('entry_description');
 		$data['entry_meta_title'] = $this->language->get('entry_meta_title');
 		$data['entry_meta_description'] = $this->language->get('entry_meta_description');

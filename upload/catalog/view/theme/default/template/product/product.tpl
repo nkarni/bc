@@ -49,7 +49,10 @@
             <?php } ?>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane active" id="tab-description"><?php echo $description; ?></div>
+            <div class="tab-pane active" id="tab-description">
+            <?php echo $short_description; ?><br><br>
+            <?php echo $description; ?>
+            </div>
             <?php if ($attribute_groups) { ?>
             <div class="tab-pane" id="tab-specification">
               <table class="table table-bordered">
