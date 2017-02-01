@@ -17,20 +17,15 @@ class ModelUpgrade1009 extends Model {
       $rows = $query->rows;
       $products = array();
       foreach($query->rows as $product) {
-        if (!isset($products[$product['post_name']])) {
-          $products[$product['post_name']] = array();
+        if (!isset($products[$product['post_title']])) {
+          $products[$product['post_title']] = array();
         }
-        $products[$product['post_name']][$product['meta_key']] = str_replace('\r\n', "\n", $product['meta_value']);
+        $products[$product['post_title']][$product['meta_key']] = str_replace('\\r\\n', "\n", $product['meta_value']);
+        $products[$product['post_title']][$product['meta_key']] = str_replace('\r\n', "\n", $product['meta_value']);
       }
 
-      foreach($products as $slug => $product) {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "url_alias` WHERE keyword = '$slug' AND `query` LIKE 'product_id%'");
-        if ($query->row) {
-          $product_id = $query->row['query'];
-          $product_id = substr($product_id, strpos($product_id, "=") + 1);
-
-          $query = $this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET specifications = '" . $this->db->escape($product['specifications']) . "', features = '" . $this->db->escape($product['features']) . "' WHERE product_id = " . (int)$product_id);
-        }
+      foreach($products as $name => $product) {
+        $query = $this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET specifications = '" . $this->db->escape($product['specifications']) . "', features = '" . $this->db->escape($product['features']) . "' WHERE name = '" . $this->db->escape($name) . "'");
       }
 		}
 	}
