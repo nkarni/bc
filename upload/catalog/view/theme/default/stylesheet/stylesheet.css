@@ -64,7 +64,7 @@ span.hidden-xs, span.hidden-sm, span.hidden-md, span.hidden-lg {
 .nav-tabs {
 	margin-bottom: 15px;
 }
-div.required .control-label:before {
+div.required .control-label:after {
 	content: '* ';
 	color: #F00;
 	font-weight: bold;
@@ -955,4 +955,40 @@ h2.price {
 
 .sub-category .active a{
     color: #ffffff;
+}
+.product-quote-showquote .breadcrumb {
+    display: none;
+}
+.product-quote-showquote h1 {
+    margin: 0.67em 0;
+    font-size: 2em;
+    font-weight: bold;
+}
+.form-horizontal.quotereq label {
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #404040;
+}
+.quotereq input, .quotereq textarea, .quotereq select {
+    border: 1px solid #CCC;
+    box-shadow: none;
+    border-radius: 0;
+}
+.quotereq .form-group.required {
+    margin-bottom: 5px;
+}
+.btn.submit {
+    background: #b5b38c;
+    padding: 4px 12px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    border: 1px solid #bbb;
+}
+.btn.submit:hover, .btn.submit:focus, .btn.submit:active {
+    background: #c9c8ab;
+}
+.address1 {
+    margin-bottom: 10px;
 }
