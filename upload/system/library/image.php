@@ -125,6 +125,157 @@ class Image {
 		$this->width = $width;
 		$this->height = $height;
 	}
+        
+        ###################################################
+    #
+    # - Jerome Bohg - 05 juli 2011
+    #
+    # custom functie gemaakt om uitsnedes te maken 
+    # voor images ipv de hele foto weer te geven met
+    # witrumte eromheen
+    #
+    
+	    public function cropsize($width = 0, $height = 0) {
+	    
+	    	if (!$this->width || !$this->height) {
+			return;
+		}
+        
+	        //afmetingen bepalen
+	        $photo_width = $this->width; 
+	        $photo_height = $this->height;
+	        
+	        $new_width = $width;
+	        $new_height = $height;
+	        
+	        //als foto te hoog is
+	        if (($photo_width/$new_width) < ($photo_height/$new_height)) {
+	        
+	        	$from_y = ceil(($photo_height - ($new_height * $photo_width / $new_width))/2);
+	        	$from_x = '0';
+	        	$photo_y = ceil(($new_height * $photo_width / $new_width)); 
+	        	$photo_x = $photo_width;
+	        
+	        }
+	        
+	        //als foto te breed is
+	        if (($photo_height/$new_height) < ($photo_width/$new_width)) {
+
+	        	$from_x = ceil(($photo_width - ($new_width * $photo_height / $new_height))/2);
+	        	$from_y = '0';
+	        	$photo_x = ceil(($new_width * $photo_height / $new_height)); 
+	        	$photo_y = $photo_height;
+
+        	}
+	        
+	        //als verhoudingen gelijk zijn	
+	        if (($photo_width/$new_width) == ($photo_height/$new_height)) {
+	        
+	        	$from_x = ceil(($photo_width - ($new_width * $photo_height / $new_height))/2);
+	        	$from_y = '0';
+	        	$photo_x = ceil(($new_width * $photo_height / $new_height)); 
+	        	$photo_y = $photo_height;
+	        
+	        }
+	        
+	        	        
+	       	$image_old = $this->image;
+	        $this->image = imagecreatetruecolor($width, $height);
+			
+			if (isset($this->mime) && $this->mime == 'image/png') {		
+				imagealphablending($this->image, false);
+				imagesavealpha($this->image, true);
+				$background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
+				imagecolortransparent($this->image, $background);
+			} else {
+				$background = imagecolorallocate($this->image, 255, 255, 255);
+			}
+			
+			imagefilledrectangle($this->image, 0, 0, $width, $height, $background);
+		
+		
+	        imagecopyresampled($this->image, $image_old, 0, 0, $from_x, $from_y, $new_width, $new_height, $photo_x, $photo_y);
+	        imagedestroy($image_old);
+	           
+	        $this->width  = $width;
+	        $this->height = $height;
+
+	    
+	    }
+    
+
+    ###################################################
+    #
+    # - Jerome Bohg - 12 juli 2011
+    #
+    # custom functie gemaakt om foto's te verschalen 
+    # zonder witruimte er omheen.
+    #
+    
+	    public function onesize($maxsize = 0) {
+	    
+	    	if (!$this->width || !$this->height) {
+			return;
+		}
+        
+	        //afmetingen bepalen
+	        $photo_width = $this->width; 
+	        $photo_height = $this->height;
+ 	        
+	        
+	        // calculate dimensions
+        	if ($photo_width > $maxsize OR $photo_height > $maxsize) {
+        	
+        		if ($photo_width == $photo_height) {
+        		
+        			$width = $maxsize;
+        			$height = $maxsize;
+        	 	
+        	 	}elseif($photo_width > $photo_height) {
+        	 	
+        		    	$scale = $photo_width / $maxsize;
+        		  		$width = $maxsize;
+        				$height = round ($photo_height / $scale);
+        		
+        		}else{
+        		
+        			$scale = $photo_height / $maxsize;
+        			$height = $maxsize;
+        			$width = round ($photo_width / $scale);
+        		
+        		}
+        	
+        	}else{
+        	
+        		$width = $photo_width;
+        		$height = $photo_height;
+        	
+        	}
+	        	
+	        // and bring it all to live	        
+	       	$image_old = $this->image;
+	        $this->image = imagecreatetruecolor($width, $height);
+			
+			if (isset($this->mime) && $this->mime == 'image/png') {		
+				imagealphablending($this->image, false);
+				imagesavealpha($this->image, true);
+				$background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
+				imagecolortransparent($this->image, $background);
+			} else {
+				$background = imagecolorallocate($this->image, 255, 255, 255);
+			}
+			
+			imagefilledrectangle($this->image, 0, 0, $width, $height, $background);
+		
+		
+	        imagecopyresampled($this->image, $image_old, 0, 0, 0, 0, $width, $height, $photo_width, $photo_height);
+	        imagedestroy($image_old);
+	           
+	        $this->width  = $width;
+	        $this->height = $height;
+
+	    
+	    }
 
 	public function watermark($watermark, $position = 'bottomright') {
 		switch($position) {

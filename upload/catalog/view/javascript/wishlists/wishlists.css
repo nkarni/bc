@@ -1,0 +1,85 @@
+/* Popover style starts here */
+div.popover{
+    min-width:150px !important;
+    max-width:200px !important;
+    //position:none !important;
+   // float:right !important;
+  //  top : 200px;
+ //   overflow-x: visible;
+ //   overflow-y:scroll;
+ //   position:relative;
+}
+
+.wishlist-container-box{
+    width:100% !important;
+//   max-width:250px !important;
+}
+
+.mywishlist-group button{
+    width : 100% !important;
+    padding: 5px 5px !important;
+    color: #888 !important;
+    background-color: #fff !important;
+    border: 1px solid #ddd !important;
+    font-weight: normal !important;
+    line-height: normal !important;
+    text-transform: none !important;
+}
+
+.mywishlist-group button:hover{
+    color: #FFFFFF !important;
+}
+
+
+.popover .input-group-btn button.addlist {
+    width : 100% !important;
+    color: #444 !important;
+    font-weight: normal !important;
+    line-height: normal !important;
+}
+
+.list-group-item{
+    width : 100% !important;
+    padding: 5px 10px !important;
+}
+.label-icon-right{
+    float: right;
+}
+/* Popover style ends here */
+
+/* Wishlist Table Style starts here */
+
+.my-wishlist-table td {
+	vertical-align: middle !important;
+}
+
+.my-wishlist-table .count-text {
+	font-weight: bold !important;
+	text-align: center !important;
+}
+
+.my-wishlist-table td {
+     vertical-align: middle !important;
+}
+
+.my-wishlist-table .bt-text {
+    font-size: 9px !important;
+    font-weight: bold !important;
+    padding: 3.5px 9px !important;
+}
+
+.my-wishlist-table p.price {
+    margin: 0px !important;
+}
+.goodshare-color img {
+        height : 20px !important;
+}
+
+
+.my-wishlist-table .bootstrap-switch-container span{
+font-size: 10px !important;
+font-weight:bold;
+line-height: 14px !important;
+
+}
+/* Wishlist Table Style ends here */

@@ -1,0 +1,1525 @@
+<modification>
+    <id>Multiple Wishlists</id>
+    <version>2.0</version>
+    <vqmver>2.4.1</vqmver>
+    <authour>IRS SOFT</authour>
+    
+    
+	<!-- HEADER TOPBAR MENU STARTS HERE  -->
+    <!-- CONTROLLER -->
+    <file path="catalog/controller/common/header.php">       
+ 	<operation>
+            <search position="replace" ><![CDATA[$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist());]]></search>
+            <add><![CDATA[
+				if($this->config->get('wishlists_status') == 1){
+				
+				$this->load->model("account/wishlists");
+				
+				$wishlistcount = $this->model_account_wishlists->getWishlistscount(); 
+				
+					$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), $wishlistcount);
+				}
+				else
+				{
+					$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
+				}
+				]]>            
+            </add>
+    </operation>
+        
+ 	<operation>
+            <search position="replace" ><![CDATA[$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));]]></search>
+            <add><![CDATA[ 				
+				if($this->config->get('wishlists_status') == 1){
+				
+					$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'),  0);
+				}
+				else
+				{
+					$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
+				}
+				]]>            
+            </add>
+    </operation>
+    
+    <operation>
+            <search position="replace" ><![CDATA[$data['wishlist'] = $this->url->link('account/wishlist', '', true);]]></search>
+            <add><![CDATA[ 
+				if($this->config->get('wishlists_status') == 1){
+					$data['wishlist'] = $this->url->link('account/wishlists', '', 'SSL');
+				}
+				else
+				{
+					$data['wishlist'] = $this->url->link('account/wishlist', '', 'SSL');
+				}				
+				]]>            
+            </add>
+    </operation>
+    </file>
+    <!-- HEADER TOPBAR MENU ENDS HERE  -->
+    
+	<!-- INCLUDE JS LIBRARIES AND STYLES STARTS HERE   -->
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/common/header.tpl">       
+ 	<operation>
+            <search position="after" ><![CDATA[<link href="catalog/view/theme/default/stylesheet/stylesheet.css" rel="stylesheet">]]></search>
+            <add><![CDATA[ 
+				<link href="catalog/view/javascript/wishlists/wishlists.css" rel="stylesheet">
+				]]>            
+            </add>
+        </operation>
+    </file>
+    <!-- INCLUDE JS LIBRARIES AND STYLES ENDS HERE  -->	
+    
+	<!-- ACCOUNT SIDEBAR MENU STARTS HERE  -->
+    <!-- CONTROLLER -->    
+    <file path="catalog/controller/account/header.php">
+    <operation>
+            <search position="replace" ><![CDATA[$data['wishlist'] = $this->url->link('account/wishlist', '', 'SSL');]]></search>
+            <add><![CDATA[ 
+				if($this->config->get('wishlists_status') == 1){
+					$data['wishlist'] = $this->url->link('account/wishlists', '', 'SSL');
+				}
+				else
+				{
+					$data['wishlist'] = $this->url->link('account/wishlist', '', 'SSL');
+				}					
+				]]>            
+            </add>
+    </operation>
+    </file>
+    <!-- ACCOUNT SIDEBAR MENU ENDS HERE  -->
+   
+	<!-- PRODUCT DETAIL PAGE STARTS HERE  -->
+    <!-- CONTROLLER -->
+    <file path="catalog/controller/module/account.php">       
+
+ 	<operation>
+            <search position="replace" ><![CDATA[$data['wishlist'] = $this->url->link('account/wishlist');]]></search>
+            <add><![CDATA[ 
+				if($this->config->get('wishlists_status') == 1){
+					$data['wishlist'] = $this->url->link('account/wishlists', '', 'SSL');
+				}
+				else
+				{
+					$data['wishlist'] = $this->url->link('account/wishlist');
+				}
+				]]>            
+            </add>
+        </operation>
+    </file>
+        
+	<!-- PRODUCT DETAIL PAGE STARTS HERE  -->
+    <!-- CONTROLLER -->
+    <file path="catalog/controller/account/account.php">   
+ 	<operation>
+            <search position="replace" ><![CDATA[$data['wishlist'] = $this->url->link('account/wishlist');]]></search>
+            <add><![CDATA[ 
+				if($this->config->get('wishlists_status') == 1){
+					$data['wishlist'] = $this->url->link('account/wishlists', '', 'SSL');
+				}
+				else
+				{
+					$data['wishlist'] = $this->url->link('account/wishlist');
+				}
+				]]>            
+            </add>
+        </operation>
+    </file>
+    
+	<!-- PRODUCT DETAIL PAGE STARTS HERE  -->
+    <!-- CONTROLLER -->
+    <file path="catalog/controller/product/product.php">   
+ 	<operation>
+            <search position="before" ><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
+            <add><![CDATA[
+				// Wishlists starts here
+				$this->load->model('account/wishlists');
+				$data['wishlists'] = array();				
+				$data['multiplewishlist'] = $this->config->get('wishlists_status');
+				$wishparams = array();
+				// Wishlist enable
+				if ($this->customer->isLogged()) {
+					$data['show_wishlist'] = 1;
+
+				}else{
+					$data['show_wishlist'] = 0;
+				}
+				$data['text_login_must'] = $this->language->get('You must be login');
+				// Wishlists ends here
+            ]]>
+            </add>
+        </operation>
+    </file>
+
+   
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/product/product.tpl">
+        <operation>
+            <search position="before" ><![CDATA[<?php echo $footer; ?>]]></search>
+            <add><![CDATA[<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+				// For mouseover style the wishlist items
+					$(document).on("mouseover",'.mywishlist-group button',function() {
+						$(this).addClass('btn-success');
+					});
+				// For mouseout style the wishlist items
+					$(document).on("mouseout",'.mywishlist-group button',function() {
+						$(this).removeClass('btn-success');
+					});
+				// For add new wishlist with product
+					$(document).on("click",'.addlist',function(){
+					  //  $product = $(this).attr('product');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information  <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								 $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover window
+								$('.popover').popover('hide');
+							}
+						});
+					});
+
+					// For closing popover
+					$(document).click(function (e) {
+						if ( $(e.target).is('.close')) {
+							$('.popover').popover('hide');
+						}
+					});
+
+					// For add product to existing wishlist
+					$(document).on("click", ".dowishlist", function() {
+						$wishlist = $(this).attr('wishlist');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover widget
+								$('.popover').popover('hide');
+							}
+						});
+					});
+
+				// For wishlist form
+					$('.wishlist-add-form').click(function () {
+						$currentproduct = $(this).attr('product');
+						$addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
+
+						$(this).popover({
+							html: true,
+							trigger: 'manual',
+							placement: 'right',
+
+							content: function () {
+								$buttons = getwishlists();
+								$activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+								return $activeproductrow+$buttons+$addbuttonhtml;
+							}
+						}).popover('toggle');
+					});
+					--></script>
+					]]>
+            </add>
+        </operation>
+
+	<operation>
+            <search position="replace"><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[
+					<?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+					<button class="wishlist-add-form" rel="popover" product="<?php echo $product['product_id']; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+					<?php } else { ?>
+					<button class="" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+					<?php } ?>
+                ]]>
+            </add>
+        </operation>
+
+<operation>
+            <search position="replace" ><![CDATA[<button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[
+				  <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+				  <button class="btn btn-default wishlist-add-form" rel="popover" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+				  <?php } else { ?>
+				  <button class="btn btn-default" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+				  <?php } ?>
+				]]>
+            </add>
+        </operation>
+
+<operation>
+            <search position="after" ><![CDATA[<div class="row">]]></search>
+            <add><![CDATA[				
+				  <div class="hidden wishlist-container-box" id="a1" style="position:absolute;">
+					  <div class="popover-heading">
+						 Add to Wishlist
+						  <span class="close">close &times;</span>
+					  </div>
+					  <div class="popover-body">
+
+					  </div>
+					  <div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="<?php echo $product_id; ?>" class="addlist btn btn-default" >ADD</button></span></div>
+				  </div>
+          ]]>
+            </add>
+        </operation>
+        </file>
+	<!-- PRODUCT DETAIL PAGE ENDS HERE  -->
+	
+	<!--- SEARCH PAGE STARTS HERE  -->
+    <!-- CONTROLLER -->
+    <file path="catalog/controller/product/search.php">    
+ 	<operation>
+            <search position="after"><![CDATA[$data['compare'] = $this->url->link('product/compare');]]></search>
+            <add><![CDATA[
+				// Wishlists starts here
+				$this->load->model('account/wishlists');
+				$data['wishlists'] = array();
+				$data['multiplewishlist'] = $this->config->get('wishlists_status');
+				$wishparams = array();
+				if ($this->customer->isLogged()) {
+					$data['show_wishlist'] = 1;
+
+
+				}else{
+					$data['show_wishlist'] = 0;
+				}
+
+				$data['text_login_must'] = $this->language->get('You must be login');
+				// Wishlists ends here
+        ]]>
+            </add>
+        </operation>  
+    </file>
+   
+   
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/product/search.tpl">
+        
+
+<operation>
+            <search position="after" ><![CDATA[<div class="row">]]></search>
+            <add><![CDATA[ 
+				  <!-- Popover container starts here -->
+				  <!-- Content for Popover #1 -->
+				  <div class="hidden wishlist-container-box" id="a1" style="position:absolute;">
+					  <div class="popover-heading">
+						  Add to Wishlist
+						  <span class="close">close &times;</span>
+					  </div>
+					  <div class="popover-body">
+
+					  </div>
+					  <div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="" class="addlist btn btn-default" >ADD</button></span></div>
+				  </div>
+				  <!-- Popover container ends here -->
+				]]>
+            </add>
+        </operation>
+
+	<operation>
+            <search position="replace" ><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[
+				<?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+                <button class="wishlist-add-form" rel="popover" product="<?php echo $product['product_id']; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+                <?php } else { ?>
+                <button class="" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+                <?php } ?>
+                ]]>
+            </add>
+        </operation>
+
+<operation>
+            <search position="before" ><![CDATA[<?php echo $footer; ?>]]></search>
+            <add><![CDATA[				
+				<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+				// For mouseover style the wishlist items
+				$(document).on("mouseover",'.mywishlist-group button',function() {
+					$(this).addClass('btn-success');
+				});
+				// For mouseout style the wishlist items
+				$(document).on("mouseout",'.mywishlist-group button',function() {
+					$(this).removeClass('btn-success');
+				});
+				// For add new wishlist with product
+				$(document).on("click",'.addlist',function(){
+					//  $product = $(this).attr('product');
+					$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+					$wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+
+					$.ajax({
+						url: 'index.php?route=account/wishlists/add',
+						dataType: 'json',
+						type: 'post',
+						data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+						success: function(json) {
+							$return = '';
+							if(json.success) {
+								$return = json.success;
+								$title = "Success  <span class='close'>&times;</span>";
+							}
+							else if(json.info) {
+								$return = json.info;
+								$title = "Information  <span class='close'>&times;</span>";
+							}
+							//Show alert message
+							$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+							//close popover window
+							$('.popover').popover('hide');
+						}
+					});
+				});
+				// For closing popover
+				$(document).click(function (e) {
+					if ( $(e.target).is('.close')) {
+						$('.popover').popover('hide');
+					}
+				});
+				// For add product to existing wishlist
+				$(document).on("click", ".dowishlist", function() {
+					$wishlist = $(this).attr('wishlist');
+					$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+					$.ajax({
+						url: 'index.php?route=account/wishlists/add',
+						dataType: 'json',
+						type: 'post',
+						data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+						success: function(json) {
+							$return = '';
+							if(json.success) {
+								$return = json.success;
+								$title = "Success  <span class='close'>&times;</span>";
+							}
+							else if(json.info) {
+								$return = json.info;
+								$title = "Information <span class='close'>&times;</span>";
+							}
+							//Show alert message
+							$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+							//close popover widget
+							$('.popover').popover('hide');
+						}
+					});
+				});
+				// For wishlist form
+				$('.wishlist-add-form').click(function () {
+					$currentproduct = $(this).attr('product');
+					$addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
+					$(this).popover({
+						html: true,
+						trigger: 'manual',
+						placement: 'right',
+						content: function () {
+							$buttons = getwishlists();
+							$activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+							return $activeproductrow+$buttons+$addbuttonhtml;
+						}
+					}).popover('toggle');
+				});
+				--></script>
+				]]>
+            </add>
+        </operation>
+    </file>
+	<!-- SEARCH PAGE ENDS HERE  -->
+		
+	<!-- CATEGORY PAGE STARTS HERE  -->
+	<!-- CONTROLLER -->
+    <file path="catalog/controller/product/category.php">
+		<operation>
+            <search position="before" ><![CDATA[$this->response->setOutput($this->load->view('product/category', $data));]]></search>
+            <add><![CDATA[
+				// Wishlists starts here
+				$this->load->model('account/wishlists');
+				$data['wishlists'] = array();
+				$data['multiplewishlist'] = $this->config->get('wishlists_status');
+				$wishparams = array();
+				if ($this->customer->isLogged()) {
+					$data['show_wishlist'] = 1;
+
+
+				}else{
+					$data['show_wishlist'] = 0;
+				}
+				$data['text_login_must'] = $this->language->get('You must be login');
+				// Wishlists ends here
+				]]>
+            </add>
+        </operation>
+    </file>
+
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/product/category.tpl">
+		<operation>
+            <search position="after" ><![CDATA[<div class="row"><?php echo $column_left; ?>]]></search>
+            <add><![CDATA[		
+				  <div class="hidden wishlist-container-box" id="a1" style="position:absolute;">
+					  <div class="popover-heading">
+						  Add to Wishlist
+						  <span class="close">close &times;</span>
+					  </div>
+					  <div class="popover-body">						  
+					  </div>
+					  <div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="" class="addlist btn btn-default" >ADD</button></span></div>
+				  </div>
+				]]>
+            </add>
+        </operation>
+
+	<operation>
+            <search position="replace"><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[
+				<?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+                  <button class="wishlist-add-form" rel="popover" product="<?php echo $product['product_id']; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+                  <?php } else { ?>
+                  <button class="" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+                  <?php } ?>
+				]]>
+            </add>
+        </operation>
+
+<operation>
+            <search position="before" ><![CDATA[<?php echo $footer; ?>]]></search>
+            <add><![CDATA[
+<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+    // For mouseover style the wishlist items
+    $(document).on("mouseover",'.mywishlist-group button',function() {
+        $(this).addClass('btn-success');
+    });
+    // For mouseout style the wishlist items
+    $(document).on("mouseout",'.mywishlist-group button',function() {
+        $(this).removeClass('btn-success');
+    });
+    // For add new wishlist with product
+    $(document).on("click",'.addlist',function(){
+        //  $product = $(this).attr('product');
+        $product = $(this).parents('.popover-content').find("input.active_product_id").val();
+        $wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+
+        $.ajax({
+            url: 'index.php?route=account/wishlists/add',
+            dataType: 'json',
+            type: 'post',
+            data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+
+            success: function(json) {
+
+                $return = '';
+
+                if(json.success) {
+                    $return = json.success;
+                    $title = "Success  <span class='close'>&times;</span>";
+                }
+                else if(json.info) {
+                    $return = json.info;
+                    $title = "Information  <span class='close'>&times;</span>";
+                }
+                //Show alert message
+                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                //close popover window
+                $('.popover').popover('hide');
+
+            }
+        });
+    });
+
+
+    // For closing popover
+    $(document).click(function (e) {
+        if ( $(e.target).is('.close')) {
+            $('.popover').popover('hide');
+        }
+
+    });
+
+    // For add product to existing wishlist
+    $(document).on("click", ".dowishlist", function() {
+        $wishlist = $(this).attr('wishlist');
+        $product = $(this).parents('.popover-content').find("input.active_product_id").val();
+        $.ajax({
+            url: 'index.php?route=account/wishlists/add',
+            dataType: 'json',
+            type: 'post',
+            data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+
+            success: function(json) {
+
+                $return = '';
+
+                if(json.success) {
+                    $return = json.success;
+                    $title = "Success  <span class='close'>&times;</span>";
+                }
+                else if(json.info) {
+                    $return = json.info;
+                    $title = "Information <span class='close'>&times;</span>";
+                }
+                //Show alert message
+                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                //close popover widget
+                $('.popover').popover('hide');
+            }
+        });
+
+    });
+
+    // For wishlist form
+    $('.wishlist-add-form').click(function () {
+        $currentproduct = $(this).attr('product');
+        $addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
+
+        $(this).popover({
+            html: true,
+            trigger: 'manual',
+            placement: 'top',
+
+            offset: 5,
+
+            content: function () {
+                $buttons = getwishlists();
+                $activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+                return $activeproductrow+$buttons+$addbuttonhtml;
+            }
+        }).popover('toggle');
+
+    });
+
+    --></script>
+                ]]>
+            </add>
+        </operation>
+    </file>
+	<!-- CATEGORY PAGE ENDS HERE  -->
+	
+	
+	<!-- FEATURED PAGE STARTS HERE  -->
+	<!-- CONTROLLER -->
+    <file path="catalog/controller/extension/module/featured.php">   
+ 	<operation>
+            <search position="after" ><![CDATA[$data['button_compare'] = $this->language->get('button_compare');]]></search>
+            <add><![CDATA[
+				// Wishlists starts here
+				$this->load->model('account/wishlists');
+				$data['wishlists'] = array();				
+				$data['multiplewishlist'] = $this->config->get('wishlists_status');
+				$wishparams = array();
+				if ($this->customer->isLogged()) {
+					$data['show_wishlist'] = 1;
+
+				}else{
+					$data['show_wishlist'] = 0;
+				}
+				$data['text_login_must'] = $this->language->get('You must be login');
+				// Wishlists ends here
+				]]>
+            </add>
+        </operation>
+   </file>
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/extension/module/featured.tpl">
+		<operation>
+            <search position="replace" ><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[ 
+					<?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+					<button class="wishlist-add-form" rel="popover" product="<?php echo $product['product_id']; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+					<?php } else { ?>
+					<button class="" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+					<?php } ?>
+				  ]]>
+            </add>
+        </operation>
+
+	<operation>
+            <search position="after" offset="10"><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>]]></search>
+            <add><![CDATA[	
+				<!-- For popup container -->
+				<div class="hidden wishlist-container-box" id="a1" style="position:absolute;">
+					<div class="popover-heading">
+						Add to Wishlist
+						<span class="close">close &times;</span>
+					</div>
+
+					<div class="popover-body">						
+					</div>
+					<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="" class="addlist btn btn-default" >ADD</button></span></div>
+				</div>
+				
+				<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+				$(document).ready(function(){ 
+					// For mouseover style the wishlist items
+					$(document).on("mouseover",'.mywishlist-group button',function() {
+						$(this).addClass('btn-success');
+					});
+					// For mouseout style the wishlist items
+					$(document).on("mouseout",'.mywishlist-group button',function() {
+						$(this).removeClass('btn-success');
+					});
+					// For add new wishlist with product
+					$(document).on("click",'.addlist',function(){
+						//  $product = $(this).attr('product');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information  <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover window
+								$('.popover').popover('hide');
+							}
+						});
+					});
+					// For closing popover
+					$(document).click(function (e) {
+						if ( $(e.target).is('.close')) {
+							$('.popover').popover('hide');
+						}
+					});
+					// For add product to existing wishlist
+					$(document).on("click", ".dowishlist", function() {
+						$wishlist = $(this).attr('wishlist');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover widget
+								$('.popover').popover('hide');
+							}
+						});
+					});
+					// For wishlist form
+					$('.wishlist-add-form').click(function () {
+						$currentproduct = $(this).attr('product');
+						$addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
+						$(this).popover({
+							html: true,
+							trigger: 'manual',
+							placement: 'right',
+							content: function () {
+								$buttons = getwishlists();
+								$activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+								return $activeproductrow+$buttons+$addbuttonhtml;
+							}
+						}).popover('toggle');
+					});							
+					});							
+					--></script>
+				]]>
+            </add>
+        </operation>
+   </file>
+	<!-- FEATURED PAGE ENDS HERE  -->
+	
+			
+	<!-- MANUFATURER PAGE STARTS HERE  -->
+	<!-- CONTROLLER -->
+    <file path="catalog/controller/product/manufacturer.php">
+		<operation>
+            <search position="before" ><![CDATA[$this->response->setOutput($this->load->view('product/manufacturer_info', $data));]]></search>
+            <add><![CDATA[
+				// Wishlists starts here
+				$this->load->model('account/wishlists');
+				$data['wishlists'] = array();
+				$data['multiplewishlist'] = $this->config->get('wishlists_status');
+				$wishparams = array();
+				if ($this->customer->isLogged()) {
+					$data['show_wishlist'] = 1;
+
+
+				}else{
+					$data['show_wishlist'] = 0;
+				}
+				$data['text_login_must'] = $this->language->get('You must be login');
+				// Wishlists ends here
+				]]>
+            </add>
+        </operation>
+    </file>
+
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/product/manufacturer_info.tpl">
+		<operation>
+            <search position="after" ><![CDATA[<div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>]]></search>
+            <add><![CDATA[		
+				  <div class="hidden wishlist-container-box" id="a1" style="position:absolute;">
+					  <div class="popover-heading">
+						  Add to Wishlist
+						  <span class="close">close &times;</span>
+					  </div>
+					  <div class="popover-body">						  
+					  </div>
+					  <div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="" class="addlist btn btn-default" >ADD</button></span></div>
+				  </div>
+				]]>
+            </add>
+        </operation>
+
+	<operation>
+            <search position="replace"><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[
+				<?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+                  <button class="wishlist-add-form" rel="popover" product="<?php echo $product['product_id']; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+                  <?php } else { ?>
+                  <button class="" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+                  <?php } ?>
+				]]>
+            </add>
+        </operation>
+
+<operation>
+            <search position="before" ><![CDATA[<?php echo $footer; ?>]]></search>
+            <add><![CDATA[
+<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+    // For mouseover style the wishlist items
+    $(document).on("mouseover",'.mywishlist-group button',function() {
+        $(this).addClass('btn-success');
+    });
+    // For mouseout style the wishlist items
+    $(document).on("mouseout",'.mywishlist-group button',function() {
+        $(this).removeClass('btn-success');
+    });
+    // For add new wishlist with product
+    $(document).on("click",'.addlist',function(){
+        //  $product = $(this).attr('product');
+        $product = $(this).parents('.popover-content').find("input.active_product_id").val();
+        $wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+
+        $.ajax({
+            url: 'index.php?route=account/wishlists/add',
+            dataType: 'json',
+            type: 'post',
+            data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+
+            success: function(json) {
+
+                $return = '';
+
+                if(json.success) {
+                    $return = json.success;
+                    $title = "Success  <span class='close'>&times;</span>";
+                }
+                else if(json.info) {
+                    $return = json.info;
+                    $title = "Information  <span class='close'>&times;</span>";
+                }
+                //Show alert message
+                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                //close popover window
+                $('.popover').popover('hide');
+
+            }
+        });
+    });
+
+
+    // For closing popover
+    $(document).click(function (e) {
+        if ( $(e.target).is('.close')) {
+            $('.popover').popover('hide');
+        }
+
+    });
+
+    // For add product to existing wishlist
+    $(document).on("click", ".dowishlist", function() {
+        $wishlist = $(this).attr('wishlist');
+        $product = $(this).parents('.popover-content').find("input.active_product_id").val();
+        $.ajax({
+            url: 'index.php?route=account/wishlists/add',
+            dataType: 'json',
+            type: 'post',
+            data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+
+            success: function(json) {
+
+                $return = '';
+
+                if(json.success) {
+                    $return = json.success;
+                    $title = "Success  <span class='close'>&times;</span>";
+                }
+                else if(json.info) {
+                    $return = json.info;
+                    $title = "Information <span class='close'>&times;</span>";
+                }
+                //Show alert message
+                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                //close popover widget
+                $('.popover').popover('hide');
+            }
+        });
+
+    });
+
+    // For wishlist form
+    $('.wishlist-add-form').click(function () {
+        $currentproduct = $(this).attr('product');
+        $addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
+
+        $(this).popover({
+            html: true,
+            trigger: 'manual',
+            placement: 'top',
+
+            offset: 5,
+
+            content: function () {
+                $buttons = getwishlists();
+                $activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+                return $activeproductrow+$buttons+$addbuttonhtml;
+            }
+        }).popover('toggle');
+
+    });
+
+    --></script>
+                ]]>
+            </add>
+        </operation>
+    </file>
+	<!-- MANUFATURER PAGE ENDS HERE  -->
+	
+	<!-- SPECIAL PAGE STARTS HERE  -->
+	<!-- CONTROLLER -->
+    <file path="catalog/controller/product/special.php">
+		<operation>
+            <search position="before" ><![CDATA[$this->response->setOutput($this->load->view('product/special', $data));]]></search>
+            <add><![CDATA[
+				// Wishlists starts here
+				$this->load->model('account/wishlists');
+				$data['wishlists'] = array();
+				$data['multiplewishlist'] = $this->config->get('wishlists_status');
+				$wishparams = array();
+				if ($this->customer->isLogged()) {
+					$data['show_wishlist'] = 1;
+
+
+				}else{
+					$data['show_wishlist'] = 0;
+				}
+				$data['text_login_must'] = $this->language->get('You must be login');
+				// Wishlists ends here
+				]]>
+            </add>
+        </operation>
+    </file>
+
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/product/special.tpl">
+		<operation>
+            <search position="after" ><![CDATA[<div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>]]></search>
+            <add><![CDATA[		
+				  <div class="hidden wishlist-container-box" id="a1" style="position:absolute;">
+					  <div class="popover-heading">
+						  Add to Wishlist
+						  <span class="close">close &times;</span>
+					  </div>
+					  <div class="popover-body">						  
+					  </div>
+					  <div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="" class="addlist btn btn-default" >ADD</button></span></div>
+				  </div>
+				]]>
+            </add>
+        </operation>
+
+	<operation>
+            <search position="replace"><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[
+				<?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+                  <button class="wishlist-add-form" rel="popover" product="<?php echo $product['product_id']; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+                  <?php } else { ?>
+                  <button class="" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+                  <?php } ?>
+				]]>
+            </add>
+        </operation>
+
+<operation>
+            <search position="before" ><![CDATA[<?php echo $footer; ?>]]></search>
+            <add><![CDATA[
+<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+    // For mouseover style the wishlist items
+    $(document).on("mouseover",'.mywishlist-group button',function() {
+        $(this).addClass('btn-success');
+    });
+    // For mouseout style the wishlist items
+    $(document).on("mouseout",'.mywishlist-group button',function() {
+        $(this).removeClass('btn-success');
+    });
+    // For add new wishlist with product
+    $(document).on("click",'.addlist',function(){
+        //  $product = $(this).attr('product');
+        $product = $(this).parents('.popover-content').find("input.active_product_id").val();
+        $wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+
+        $.ajax({
+            url: 'index.php?route=account/wishlists/add',
+            dataType: 'json',
+            type: 'post',
+            data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+
+            success: function(json) {
+
+                $return = '';
+
+                if(json.success) {
+                    $return = json.success;
+                    $title = "Success  <span class='close'>&times;</span>";
+                }
+                else if(json.info) {
+                    $return = json.info;
+                    $title = "Information  <span class='close'>&times;</span>";
+                }
+                //Show alert message
+                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                //close popover window
+                $('.popover').popover('hide');
+
+            }
+        });
+    });
+
+
+    // For closing popover
+    $(document).click(function (e) {
+        if ( $(e.target).is('.close')) {
+            $('.popover').popover('hide');
+        }
+
+    });
+
+    // For add product to existing wishlist
+    $(document).on("click", ".dowishlist", function() {
+        $wishlist = $(this).attr('wishlist');
+        $product = $(this).parents('.popover-content').find("input.active_product_id").val();
+        $.ajax({
+            url: 'index.php?route=account/wishlists/add',
+            dataType: 'json',
+            type: 'post',
+            data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+
+            success: function(json) {
+
+                $return = '';
+
+                if(json.success) {
+                    $return = json.success;
+                    $title = "Success  <span class='close'>&times;</span>";
+                }
+                else if(json.info) {
+                    $return = json.info;
+                    $title = "Information <span class='close'>&times;</span>";
+                }
+                //Show alert message
+                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                //close popover widget
+                $('.popover').popover('hide');
+            }
+        });
+
+    });
+
+    // For wishlist form
+    $('.wishlist-add-form').click(function () {
+        $currentproduct = $(this).attr('product');
+        $addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
+
+        $(this).popover({
+            html: true,
+            trigger: 'manual',
+            placement: 'top',
+
+            offset: 5,
+
+            content: function () {
+                $buttons = getwishlists();
+                $activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+                return $activeproductrow+$buttons+$addbuttonhtml;
+            }
+        }).popover('toggle');
+
+    });
+
+    --></script>
+                ]]>
+            </add>
+        </operation>
+    </file>
+	<!-- SPECIAL PAGE ENDS HERE  -->
+		
+	<!-- SPECIAL WIDGET STARTS HERE  -->
+	<!-- CONTROLLER -->
+    <file path="catalog/controller/module/special.php">   
+ 	<operation>
+            <search position="after" ><![CDATA[$data['button_compare'] = $this->language->get('button_compare');]]></search>
+            <add><![CDATA[
+				// Wishlists starts here
+				$this->load->model('account/wishlists');
+				$data['wishlists'] = array();				
+				$data['multiplewishlist'] = $this->config->get('wishlists_status');
+				$wishparams = array();
+				if ($this->customer->isLogged()) {
+					$data['show_wishlist'] = 1;
+
+				}else{
+					$data['show_wishlist'] = 0;
+				}
+				$data['text_login_must'] = $this->language->get('You must be login');
+				// Wishlists ends here
+				]]>
+            </add>
+        </operation>
+   </file>
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/module/special.tpl">
+		<operation>
+            <search position="replace" ><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[ 
+					<?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+					<button class="wishlist-add-form-special" rel="popover" product="<?php echo $product['product_id']; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+					<?php } else { ?>
+					<button class="" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+					<?php } ?>
+				  ]]>
+            </add>
+        </operation>
+
+	<operation>
+            <search position="after" offset="5"><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>]]></search>
+            <add><![CDATA[	
+				<!-- For popup container -->
+				<div class="hidden wishlist-container-box" id="a1" style="position:absolute;">
+					<div class="popover-heading">
+						Add to Wishlist
+						<span class="close">close &times;</span>
+					</div>
+
+					<div class="popover-body">						
+					</div>
+					<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="" class="addlist-special btn btn-default" >ADD</button></span></div>
+				</div>
+				
+				<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist-special" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+				$(document).ready(function(){ 
+					// For mouseover style the wishlist items
+					$(document).on("mouseover",'.mywishlist-group button',function() {
+						$(this).addClass('btn-success');
+					});
+					// For mouseout style the wishlist items
+					$(document).on("mouseout",'.mywishlist-group button',function() {
+						$(this).removeClass('btn-success');
+					});
+					// For add new wishlist with product
+					$(document).on("click",'.addlist-special',function(){
+						//  $product = $(this).attr('product');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information  <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover window
+								$('.popover').popover('hide');
+							}
+						});
+					});
+					// For closing popover
+					$(document).click(function (e) {
+						if ( $(e.target).is('.close')) {
+							$('.popover').popover('hide');
+						}
+					});
+					// For add product to existing wishlist
+					$(document).on("click", ".dowishlist-special", function() {
+						$wishlist = $(this).attr('wishlist');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover widget
+								$('.popover').popover('hide');
+							}
+						});
+					});
+					// For wishlist form
+					$('.wishlist-add-form-special').click(function () {
+						$currentproduct = $(this).attr('product');
+						$addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist-special btn btn-default" >ADD</button></span></div>';
+						$(this).popover({
+							html: true,
+							trigger: 'manual',
+							placement: 'right',
+							content: function () {
+								$buttons = getwishlists();
+								$activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+								return $activeproductrow+$buttons+$addbuttonhtml;
+							}
+						}).popover('toggle');
+					});							
+					});							
+					--></script>
+				]]>
+            </add>
+        </operation>
+   </file>
+	<!-- SPECIAL WIDGET ENDS HERE  -->
+	
+	<!-- LATEST WIDGET STARTS HERE  -->
+	<!-- CONTROLLER -->
+    <file path="catalog/controller/module/latest.php">   
+ 	<operation>
+            <search position="after" ><![CDATA[$data['button_compare'] = $this->language->get('button_compare');]]></search>
+            <add><![CDATA[
+				// Wishlists starts here
+				$this->load->model('account/wishlists');
+				$data['wishlists'] = array();				
+				$data['multiplewishlist'] = $this->config->get('wishlists_status');
+				$wishparams = array();
+				if ($this->customer->isLogged()) {
+					$data['show_wishlist'] = 1;
+
+				}else{
+					$data['show_wishlist'] = 0;
+				}
+				$data['text_login_must'] = $this->language->get('You must be login');
+				// Wishlists ends here
+				]]>
+            </add>
+        </operation>
+   </file>
+    <!-- VIEW -->
+    <file path="catalog/view/theme/*/template/module/latest.tpl">
+		<operation>
+            <search position="replace" ><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>]]></search>
+            <add><![CDATA[ 
+					<?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+					<button class="wishlist-add-form-latest" rel="popover" product="<?php echo $product['product_id']; ?>" title="<?php echo $button_wishlist; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+					<?php } else { ?>
+					<button class="" data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>"   tabindex="0"><i class="fa fa-heart"></i></button>
+					<?php } ?>
+				  ]]>
+            </add>
+        </operation>
+
+	<operation>
+            <search position="after" offset="5"><![CDATA[<button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>]]></search>
+            <add><![CDATA[	
+				<!-- For popup container -->
+				<div class="hidden wishlist-container-box" id="a1" style="position:absolute;">
+					<div class="popover-heading">
+						Add to Wishlist
+						<span class="close">close &times;</span>
+					</div>
+
+					<div class="popover-body">						
+					</div>
+					<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="" class="addlist-latest btn btn-default" >ADD</button></span></div>
+				</div>
+				
+				<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist-latest" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+				$(document).ready(function(){ 
+					// For mouseover style the wishlist items
+					$(document).on("mouseover",'.mywishlist-group button',function() {
+						$(this).addClass('btn-success');
+					});
+					// For mouseout style the wishlist items
+					$(document).on("mouseout",'.mywishlist-group button',function() {
+						$(this).removeClass('btn-success');
+					});
+					// For add new wishlist with product
+					$(document).on("click",'.addlist-latest',function(){						
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information  <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover window
+								$('.popover').popover('hide');
+							}
+						});
+					});
+					// For closing popover
+					$(document).click(function (e) {
+						if ( $(e.target).is('.close')) {
+							$('.popover').popover('hide');
+						}
+					});
+					// For add product to existing wishlist
+					$(document).on("click", ".dowishlist-latest", function() {
+						$wishlist = $(this).attr('wishlist');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover widget
+								$('.popover').popover('hide');
+							}
+						});
+					});
+					// For wishlist form
+					$('.wishlist-add-form-latest').click(function () {
+						$currentproduct = $(this).attr('product');
+						$addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist-latest btn btn-default" >ADD</button></span></div>';
+						$(this).popover({
+							html: true,
+							trigger: 'manual',
+							placement: 'right',
+							content: function () {
+								$buttons = getwishlists();
+								$activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+								return $activeproductrow+$buttons+$addbuttonhtml;
+							}
+						}).popover('toggle');
+					});							
+					});							
+					--></script>
+				]]>
+            </add>
+        </operation>
+   </file>
+	<!-- LATEST WIDGET ENDS HERE  -->
+</modification>

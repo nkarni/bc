@@ -28,7 +28,7 @@
                     <div class="col-md-2 col-sm-4 col-xs-6 sub-category">
                         <div class="image_wrapper">
                             <a href="<?php echo $category['href'] ?>">
-                                <img src="image/<?php echo $category['image'] ?>" class="attachment-home_category size-home_category" alt="<?php $category['name'] ?>" height="200" width="320">
+                                <img src="<?php echo $category['image'] ?>" class="attachment-home_category size-home_category" alt="<?php $category['name'] ?>" height="200" width="320">
                             </a>			
                         </div>
 
@@ -69,14 +69,11 @@
 	
     <div id="content" class="<?php echo $class; ?>">
 	<?php echo $content_top; ?>
-      <h2><?php echo $heading_title; ?></h2>
+      <h1 style="font-weight: bold; font-size: 30px;"><?php echo $heading_title; ?></h1>
       <?php if ($thumb || $description) { ?>
       <div class="row">
-        <?php if ($thumb) { ?>
-        <div class="col-sm-2"><img src="<?php echo $thumb; ?>" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" class="img-thumbnail" /></div>
-        <?php } ?>
         <?php if ($description) { ?>
-        <div class="col-sm-10"><?php echo $description; ?></div>
+        <div class="col-sm-12" style="color: #404040 !important;"><?php echo $description; ?></div>
         <?php } ?>
       </div>
       
