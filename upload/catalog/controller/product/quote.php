@@ -44,7 +44,7 @@ class ControllerProductQuote extends Controller {
                                 if(is_array($product_option['product_option_value']) && !empty($option[$product_option['product_option_id']])){
                                     foreach ($product_option['product_option_value'] as $optionData){
                                         if($optionData['product_option_value_id'] == $option[$product_option['product_option_id']]){
-                                            $optionHtml .= "- " . $product_option['name'] . ": ". $optionData['name'] ."<br>";
+                                            $optionHtml .= "- " . $product_option['name'] . ": ". $optionData['name'] ."!!";
                                         }
                                     }
                                 }                               
@@ -71,8 +71,8 @@ class ControllerProductQuote extends Controller {
 			}                       
 
 			if (!$json) {
-                            $html = 'I am looking for a quote on the following products.<br>';
-                            $html .= $product_info['name'] . " ( ". $quantity. " )<br>";
+                            $html = 'I am looking for a quote on the following products.!!';
+                            $html .= $product_info['name'] . " ( ". $quantity. " )!!";
                             $html .= $optionHtml;
                             $userLogged = $this->customer->isLogged();
                             $data = array();
@@ -82,7 +82,7 @@ class ControllerProductQuote extends Controller {
                             $data['action'] = $this->url->link('product/quote', '', true);
                             $htmlform = '<input name="name" value="" type="text">';
                             $htmlform .= '<input name="email" value="" type="text">';
-                            $htmlform .= '<input name="quote" value="'.$html.'" type="text">';
+                            $htmlform .= '<textarea name="quote" value="" type="text">'.$html.'</textarea>';
                             $htmlform .= '<input name="phone" value="" type="text">';
                             $htmlform .= '<input name="type" value="show" type="text">';
                             $json['success'] = $htmlform;

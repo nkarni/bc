@@ -249,11 +249,7 @@
           <div class="form-group required">
             <label class="col-sm-12 control-label" for="input-quote"><?php echo $entry_quote; ?></label>
             <div class="col-sm-12">
-              <textarea name="quote" rows="10" id="input-quote" class="form-control">
-                <?php
-                    echo str_replace('<br>', "\n", $quote);
-                ?>
-              </textarea>
+              <textarea name="quote" rows="10" id="input-quote" class="form-control"><?php if (strpos((string)$quote, '!!') !== false) { $quote= str_replace(" ","",$quote);echo trim(str_replace("!!","\r\n",$quote));}else{ echo trim($quote);}?></textarea>
               <?php if ($error_quote) { ?>
               <div class="text-danger"><?php echo $error_quote; ?></div>
               <?php } ?>
