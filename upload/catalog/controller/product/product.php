@@ -13,6 +13,32 @@ class ControllerProductProduct extends Controller {
 		);
 
 		$this->load->model('catalog/category');
+                
+                if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+                    $toEmail = $this->config->get('config_email');
+                    $mail = new Mail();
+                    $mail->protocol = $this->config->get('config_mail_protocol');
+                    $mail->parameter = $this->config->get('config_mail_parameter');
+                    $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+                    $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+                    $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+                    $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                    $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+                    $mail->setTo($toEmail);
+                    $mail->setFrom($this->config->get('config_email'));
+                    $mail->setReplyTo($this->request->post['email']);
+                    $mail->setSender(html_entity_decode($this->request->post['first_name'], ENT_QUOTES, 'UTF-8'));
+                    $mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['first_name']), ENT_QUOTES, 'UTF-8'));
+                    $mail->setText($this->request->post['other_information']);
+                    $mail->send();
+                    $this->response->redirect($this->url->link(''));
+                }else if(($this->request->server['REQUEST_METHOD'] == 'POST') && !$this->validate()){
+                    $data['default_open_moreinfo'] = 'show';
+                }else{
+                    $data['default_open_moreinfo'] = 'hide';
+                }
+                
 
 		if (isset($this->request->get['path'])) {
 			$path = '';
@@ -250,12 +276,28 @@ class ControllerProductProduct extends Controller {
 			$data['entry_rating'] = $this->language->get('entry_rating');
 			$data['entry_good'] = $this->language->get('entry_good');
 			$data['entry_bad'] = $this->language->get('entry_bad');
+                        
+			$data['entry_first_name'] = $this->language->get('entry_first_name');
+			$data['entry_last_name'] = $this->language->get('entry_last_name');
+			$data['entry_email'] = $this->language->get('entry_email');
+			$data['entry_company'] = $this->language->get('entry_company');
+			$data['entry_phone'] = $this->language->get('entry_phone');
+			$data['entry_country'] = $this->language->get('entry_country');
+			$data['entry_postcode'] = $this->language->get('entry_postcode');
+			$data['entry_project_size'] = $this->language->get('entry_project_size');
+			$data['entry_industry_sector'] = $this->language->get('entry_industry_sector');
+			$data['entry_other_information'] = $this->language->get('entry_other_information');
+                        
+                        $data['action'] = $_SERVER["REQUEST_URI"];
 
 			$data['button_cart'] = $this->language->get('button_cart');
+			$data['button_quote'] = $this->language->get('button_quote');
+			$data['button_more_info'] = $this->language->get('button_more_info');
 			$data['button_wishlist'] = $this->language->get('button_wishlist');
 			$data['button_compare'] = $this->language->get('button_compare');
 			$data['button_upload'] = $this->language->get('button_upload');
 			$data['button_continue'] = $this->language->get('button_continue');
+			$data['button_submit'] = $this->language->get('button_submit');
 
 			$this->load->model('catalog/review');
 
@@ -455,6 +497,125 @@ class ControllerProductProduct extends Controller {
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
 				);
 			}
+                        
+                        
+                        if (isset($this->error['first_name'])) {
+                                $data['error_first_name'] = $this->error['first_name'];
+                        } else {
+                                $data['error_first_name'] = '';
+                        }
+
+                        if (isset($this->error['last_name'])) {
+                                $data['error_last_name'] = $this->error['last_name'];
+                        } else {
+                                $data['error_last_name'] = '';
+                        }
+                        if (isset($this->error['email'])) {
+                                $data['error_email'] = $this->error['email'];
+                        } else {
+                                $data['error_email'] = '';
+                        }
+
+                        if (isset($this->error['company'])) {
+                                $data['error_company'] = $this->error['company'];
+                        } else {
+                                $data['error_company'] = '';
+                        }
+
+                        if (isset($this->error['phone'])) {
+                                $data['error_phone'] = $this->error['phone'];
+                        } else {
+                                $data['error_phone'] = '';
+                        }
+                       
+                        if (isset($this->error['postcode'])) {
+                                $data['error_postcode'] = $this->error['postcode'];
+                        } else {
+                                $data['error_postcode'] = '';
+                        }
+                        
+                        if (isset($this->error['country'])) {
+                                $data['error_country'] = $this->error['country'];
+                        } else {
+                                $data['error_country'] = '';
+                        }
+                        
+                        if (isset($this->error['project_size'])) {
+                                $data['error_project_size'] = $this->error['project_size'];
+                        } else {
+                                $data['error_project_size'] = '';
+                        }
+                        
+                        if (isset($this->error['industry_sector'])) {
+                                $data['error_industry_sector'] = $this->error['industry_sector'];
+                        } else {
+                                $data['error_industry_sector'] = '';
+                        }
+                        
+                        if (isset($this->error['other_information'])) {
+                                $data['error_other_information'] = $this->error['other_information'];
+                        } else {
+                                $data['error_other_information'] = '';
+                        }
+
+
+                        if (isset($this->request->post['first_name'])) {
+                                $data['first_name'] = $this->request->post['first_name'];
+                        } else {
+                                $data['first_name'] = $this->customer->getFirstName();
+                        }
+                        
+                        if (isset($this->request->post['last_name'])) {
+                                $data['last_name'] = $this->request->post['last_name'];
+                        } else {
+                                $data['last_name'] = $this->customer->getLastName();
+                        }
+
+                        if (isset($this->request->post['email'])) {
+                                $data['email'] = $this->request->post['email'];
+                        } else {
+                                $data['email'] = $this->customer->getEmail();
+                        }
+
+                        if (isset($this->request->post['phone'])) {
+                                $data['phone'] = $this->request->post['phone'];
+                        } else {
+                                $data['phone'] = $this->customer->getTelephone();
+                        }
+                        $this->load->model('account/address');
+                        $addresses = $this->model_account_address->getAddress($this->customer->getAddressId());
+
+                        if (isset($this->request->post['postcode'])) {
+                                $data['postcode'] = $this->request->post['postcode'];
+                        } else {
+                                $data['postcode'] = (!empty($addresses)?$addresses['postcode'] :'');
+                        }
+                        if (isset($this->request->post['country'])) {
+                                $data['country'] = $this->request->post['country'];
+                        } else {
+                                $data['country'] = (!empty($addresses)?$addresses['country'] :'');
+                        }
+                        if (isset($this->request->post['company'])) {
+                                $data['company'] = $this->request->post['company'];
+                        } else {
+                                $data['company'] = '';
+                        }
+                        if (isset($this->request->post['project_size'])) {
+                                $data['project_size'] = $this->request->post['project_size'];
+                        } else {
+                                $data['project_size'] = '';
+                        }
+                        if (isset($this->request->post['industry_sector'])) {
+                                $data['industry_sector'] = $this->request->post['industry_sector'];
+                        } else {
+                                $data['industry_sector'] = '';
+                        }
+                        if (isset($this->request->post['other_information'])) {
+                                $data['other_information'] = $this->request->post['other_information'];
+                        } else {
+                                $data['other_information'] = '';
+                        }
+
 
 			$data['tags'] = array();
 
@@ -558,6 +719,46 @@ class ControllerProductProduct extends Controller {
 
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}
+	}
+        
+        protected function validate() {
+            if ((utf8_strlen($this->request->post['first_name']) < 3) || (utf8_strlen($this->request->post['first_name']) > 32)) {
+                    $this->error['first_name'] = $this->language->get('error_first_name');
+            }
+            if ((utf8_strlen($this->request->post['last_name']) < 3) || (utf8_strlen($this->request->post['last_name']) > 32)) {
+                    $this->error['last_name'] = $this->language->get('error_last_name');
+            }
+
+            if (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+                    $this->error['email'] = $this->language->get('error_email');
+            }
+            if ((utf8_strlen($this->request->post['phone']) < 10)) {
+                    $this->error['phone'] = $this->language->get('error_phone');
+            }
+            
+//            if ((empty($this->request->post['company']))) {
+//                    $this->error['company'] = $this->language->get('company');
+//            }
+            
+            if ((empty($this->request->post['country']))) {
+                    $this->error['country'] = $this->language->get('error_country');
+            }
+            
+            if ((empty($this->request->post['postcode']))) {
+                    $this->error['postcode'] = $this->language->get('error_postcode');
+            }
+            
+            if ((empty($this->request->post['project_size']))) {
+                    $this->error['project_size'] = $this->language->get('error_project_size');
+            }
+            if ((empty($this->request->post['industry_sector']))) {
+                    $this->error['industry_sector'] = $this->language->get('error_industry_sector');
+            }
+
+            if ((utf8_strlen($this->request->post['other_information']) < 10) || (utf8_strlen($this->request->post['other_information']) > 10000)) {
+                    $this->error['other_information'] = $this->language->get('error_other_information');
+            }
+            return !$this->error;
 	}
 
 	public function review() {

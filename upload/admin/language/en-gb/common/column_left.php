@@ -91,7 +91,7 @@ $_['text_openbay_items']             = 'Manage items';
 $_['text_openbay_ebay']              = 'eBay';
 $_['text_openbay_amazon']            = 'Amazon (EU)';
 $_['text_openbay_amazonus']          = 'Amazon (US)';
-$_['text_openbay_etsy']            	 = 'Etsy';
+$_['text_openbay_etsy']              = 'Etsy';
 $_['text_openbay_settings']          = 'Settings';
 $_['text_openbay_links']             = 'Item links';
 $_['text_openbay_report_price']      = 'Pricing report';
@@ -103,4 +103,3 @@ $_['text_processing_status']         = 'Orders Processing';
 $_['text_other_status']              = 'Other Statuses'; 
 $_['text_bulk_edit']                 = 'Bulk Edit Products'; 
 $_['text_files']                     = 'Files'; 
-
