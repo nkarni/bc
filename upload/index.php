@@ -1,6 +1,6 @@
 <?php
 // Version
-define('VERSION', '2.3.0.2');
+define('VERSION', '2.3.0.3_rc');
 
 // Configuration
 if (is_file('config.php')) {
@@ -13,7 +13,11 @@ if (!defined('DIR_APPLICATION')) {
 	exit;
 }
 
-// Startup
-require_once(DIR_SYSTEM . 'startup.php');
+// VirtualQMOD
+require_once('./vqmod/vqmod.php');
+VQMod::bootup();
+
+// VQMODDED Startup
+require_once(VQMod::modCheck(DIR_SYSTEM . 'startup.php'));
 
 start('catalog');

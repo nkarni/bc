@@ -30,6 +30,7 @@ $_['text_week']                = 'week';
 $_['text_semi_month']          = 'half-month';
 $_['text_month']               = 'month';
 $_['text_year']                = 'year';
+$_['email_subject']            = 'More information required';
 
 // Entry
 $_['entry_qty']                = 'Qty';
@@ -38,6 +39,17 @@ $_['entry_review']             = 'Your Review';
 $_['entry_rating']             = 'Rating';
 $_['entry_good']               = 'Good';
 $_['entry_bad']                = 'Bad';
+
+$_['entry_first_name']         = 'First Name';
+$_['entry_last_name']          = 'Last Name';
+$_['entry_email']              = 'Email';
+$_['entry_company']            = 'Company';
+$_['entry_phone']              = 'Phone';
+$_['entry_country']            = 'Country';
+$_['entry_postcode']           = 'Postcode';
+$_['entry_project_size']       = 'Project Size';
+$_['entry_other_information']  = 'Other Information';
+$_['entry_industry_sector']    = 'Industry Sector';
 
 // Tabs
 $_['tab_description']          = 'Description';
@@ -50,3 +62,12 @@ $_['tab_review']               = 'Reviews (%s)';
 $_['error_name']               = 'Warning: Review Name must be between 3 and 25 characters!';
 $_['error_text']               = 'Warning: Review Text must be between 25 and 1000 characters!';
 $_['error_rating']             = 'Warning: Please select a review rating!';
+
+$_['error_first_name']         = 'Warning: Review First Name must be between 3 and 25 characters!';
+$_['error_last_name']          = 'Warning: Review Last Name must be between 3 and 25 characters!';
+$_['error_email']              = 'Warning: Review Email must  be correct!';
+$_['error_postcode']           = 'Warning: Postcode must be entered!';
+$_['error_phone']              = 'Warning: Phone must be greater than 10 numbers!';
+$_['error_project_size']       = 'Warning: Please select Project Size!';
+$_['error_industry_sector']    = 'Warning: Please select Industry Sector!';
+$_['error_other_information']  = 'Warning: Please enter other information!';

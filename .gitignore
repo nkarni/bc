@@ -64,3 +64,8 @@
 /upload/image/catalog/product
 /upload/image/catalog/category
 nbproject
+=======
+
+# Netbeans
+/nbproject/private/
+/nbproject
