@@ -66,18 +66,19 @@
                 });
             });
         </script>
-	
+	<div class="row">
     <div id="content" class="<?php echo $class; ?>">
 	<?php echo $content_top; ?>
       <h1 style="font-weight: bold; font-size: 30px;"><?php echo $heading_title; ?></h1>
       <?php if ($thumb || $description) { ?>
       <div class="row">
         <?php if ($description) { ?>
-        <div class="col-sm-12" style="color: #404040 !important;"><?php echo $description; ?></div>
+        <div class="col-sm-12 term-description" style="color: #404040 !important;"><?php echo $description; ?></div>
         <?php } ?>
       </div>
       
       <?php } ?>	  
+	  </div>
 	  </div>
     <?php echo $column_right; ?></div>
 </div>

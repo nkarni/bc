@@ -23,7 +23,7 @@
     line-height: 0;
 
     position: absolute;
-    top: 50%;
+    top: 52%;
 
     display: block;
 
@@ -80,11 +80,11 @@
 
 .slick-prev
 {
-    left: -5px;
+    left: 18px;
 }
 [dir='rtl'] .slick-prev
 {
-    right: -5px;
+    right: 14px;
     left: auto;
 }
 .slick-prev:before
@@ -98,12 +98,12 @@
 
 .slick-next
 {
-    right: -5px;
+    right: 14px;
 }
 [dir='rtl'] .slick-next
 {
     right: auto;
-    left: -5px;
+    left: 18px;
 }
 .slick-next:before
 {

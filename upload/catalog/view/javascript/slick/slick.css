@@ -5,7 +5,7 @@
 
     display: block;
     box-sizing: border-box;
-	margin-top: 50px;	
+	margin-top: 53px;	
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
@@ -78,6 +78,7 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
+	line-height: 1.5;
 }
 .slick-slide
 {
@@ -125,4 +126,5 @@
 }
 .slick-carousel{
     border-bottom: 2px solid #c0c0c0;
+	padding-bottom: 15px;
 }
