@@ -15,9 +15,6 @@ class ModelCatalogProduct extends Model {
 				'meta_title'       => $query->row['meta_title'],
 				'meta_description' => $query->row['meta_description'],
 				'meta_keyword'     => $query->row['meta_keyword'],
-				'short_description'=> $query->row['short_description'],
-				'specifications'   => $query->row['specifications'],
-				'features'         => $query->row['features'],
 				'tag'              => $query->row['tag'],
 				'model'            => $query->row['model'],
 				'sku'              => $query->row['sku'],
@@ -200,7 +197,7 @@ class ModelCatalogProduct extends Model {
 
 		$product_data = array();
 
-		$query = $this->db->query($sql);
+                $query = $this->db->query($sql);
 
 		foreach ($query->rows as $result) {
 			$product_data[$result['product_id']] = $this->getProduct($result['product_id']);

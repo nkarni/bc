@@ -66,6 +66,8 @@ class ControllerProductCategory extends Controller {
                     $parts = explode('_', (string)$this->request->get['path']);
 
                     $category_id = (int)array_pop($parts);
+                    
+                    
 
                     foreach ($parts as $path_id) {
                         if (!$path) {
@@ -75,8 +77,10 @@ class ControllerProductCategory extends Controller {
                         }
 
                         $category_info = $this->model_catalog_category->getCategory($path_id);
+                        
+                        $level = $this->model_catalog_category->getCategoryPath($path_id);
 
-                        if ($category_info) {
+                        if ($category_info && $level['level'] < '2') {
                             $data['breadcrumbs'][] = array(
                                 'text' => $category_info['name'],
                                 'href' => $this->url->link('product/category', 'path=' . $path . $url)
@@ -198,7 +202,7 @@ class ControllerProductCategory extends Controller {
                                 );
                                 
                                 $results = $this->model_catalog_product->getProducts($filter_data);
-
+                                
                                 foreach ($results as $result) {
                                     if ($result['image']) {
                                             $image = $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
@@ -299,7 +303,7 @@ class ControllerProductCategory extends Controller {
                             $filter_data = array(
                                 'filter_category_id' => $category_id,
                             );
-
+                            
                             $results = $this->model_catalog_product->getProducts($filter_data);
                             foreach ($results as $result) {
                                 if ($result['image']) {

@@ -303,8 +303,6 @@ class ControllerProductProduct extends Controller {
 
 			$data['tab_description'] = $this->language->get('tab_description');
 			$data['tab_attribute'] = $this->language->get('tab_attribute');
-			$data['tab_specifications'] = $this->language->get('tab_specifications');
-			$data['tab_features'] = $this->language->get('tab_features');
 			$data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
 
 			$data['product_id'] = (int)$this->request->get['product_id'];
@@ -314,9 +312,6 @@ class ControllerProductProduct extends Controller {
 			$data['reward'] = $product_info['reward'];
 			$data['points'] = $product_info['points'];
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
-			$data['short_description'] = html_entity_decode($product_info['short_description'], ENT_QUOTES, 'UTF-8');
-			$data['specifications'] = html_entity_decode($product_info['specifications'], ENT_QUOTES, 'UTF-8');
-			$data['features'] = html_entity_decode($product_info['features'], ENT_QUOTES, 'UTF-8');
 
 			if ($product_info['quantity'] <= 0) {
 				$data['stock'] = $product_info['stock_status'];
@@ -333,6 +328,9 @@ class ControllerProductProduct extends Controller {
 			} else {
 				$data['popup'] = '';
 			}
+                        
+                        $data['main_image_height'] = $this->config->get($this->config->get('config_theme') . '_image_thumb_height');
+                        $data['main_image_width'] = $this->config->get($this->config->get('config_theme') . '_image_thumb_width');
 
 			if ($product_info['image']) {
 				$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
@@ -347,9 +345,12 @@ class ControllerProductProduct extends Controller {
 			foreach ($results as $result) {
 				$data['images'][] = array(
 					'popup' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
-					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'))
+					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'))
 				);
 			}
+                        
+                        $data['thumb_height'] = $this->config->get($this->config->get('config_theme') . '_image_additional_height');
+                        $data['thumb_width'] = $this->config->get($this->config->get('config_theme') . '_image_additional_width');
 
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 				$data['price'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
@@ -483,6 +484,14 @@ class ControllerProductProduct extends Controller {
 				} else {
 					$rating = false;
 				}
+                                
+                                $category = $this->model_catalog_product->getCategories($product_id);
+                                if ($category){
+                                    $category_array = $this->model_catalog_category->getCategory($category[0]['category_id']);
+                                    $category_name  = $category_array['name'];
+                                } else {
+                                    $category_name = '';
+                                }
 
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
@@ -494,6 +503,7 @@ class ControllerProductProduct extends Controller {
 					'tax'         => $tax,
 					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
 					'rating'      => $rating,
+                                        'category_name' => $category_name,
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
 				);
 			}

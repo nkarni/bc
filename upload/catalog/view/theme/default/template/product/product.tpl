@@ -24,11 +24,11 @@
           <?php if ($thumb || $images) { ?>
           <ul class="thumbnails">
             <?php if ($thumb) { ?>
-            <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+            <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" height="<?php echo $main_image_height; ?>" width="<?php echo $main_image_width; ?>" /></a></li>
             <?php } ?>
             <?php if ($images) { ?>
             <?php foreach ($images as $image) { ?>
-            <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+            <li class="image-additional"><a class="thumbnail-small" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" height="<?php echo $thumb_height; ?>" width="<?php echo $thumb_width; ?>" /></a></li>
             <?php } ?>
             <?php } ?>
           </ul>
@@ -38,21 +38,12 @@
             <?php if ($attribute_groups) { ?>
             <li><a href="#tab-specification" data-toggle="tab"><?php echo $tab_attribute; ?></a></li>
             <?php } ?>
-            <?php if ($specifications) { ?>
-            <li><a href="#tab-specifications" data-toggle="tab"><?php echo $tab_specifications; ?></a></li>
-            <?php } ?>
-            <?php if ($features) { ?>
-            <li><a href="#tab-features" data-toggle="tab"><?php echo $tab_features; ?></a></li>
-            <?php } ?>
             <?php if ($review_status) { ?>
             <li><a href="#tab-review" data-toggle="tab"><?php echo $tab_review; ?></a></li>
             <?php } ?>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane active" id="tab-description">
-            <?php echo $short_description; ?><br><br>
-            <?php echo $description; ?>
-            </div>
+            <div class="tab-pane active" id="tab-description"><?php echo $description; ?></div>
             <?php if ($attribute_groups) { ?>
             <div class="tab-pane" id="tab-specification">
               <table class="table table-bordered">
@@ -73,12 +64,6 @@
                 <?php } ?>
               </table>
             </div>
-            <?php } ?>
-            <?php if ($specifications) { ?>
-            <div class="tab-pane" id="tab-specifications"><?php echo $specifications; ?></div>
-            <?php } ?>
-            <?php if ($features) { ?>
-            <div class="tab-pane" id="tab-features"><?php echo $features; ?></div>
             <?php } ?>
             <?php if ($review_status) { ?>
             <div class="tab-pane" id="tab-review">
@@ -135,8 +120,8 @@
         <?php } ?>
         <div class="<?php echo $class; ?>">
           <div class="btn-group">
-            <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>
-            <button type="button" data-toggle="tooltip" class="btn btn-default" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
+            <button type="button" data-toggle="tooltip" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>
+            <button type="button" data-toggle="tooltip" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
           </div>
           <h1><?php echo $heading_title; ?></h1>
           <ul class="list-unstyled">
@@ -611,46 +596,22 @@
         <?php $i = 0; ?>
         <?php foreach ($products as $product) { ?>
         <?php if ($column_left && $column_right) { ?>
-        <?php $class = 'col-xs-8 col-sm-6'; ?>
+        <?php $class = 'col-xs-8 col-sm-6 col-lg-2'; ?>
         <?php } elseif ($column_left || $column_right) { ?>
-        <?php $class = 'col-xs-6 col-md-4'; ?>
+        <?php $class = 'col-xs-6 col-md-4 col-lg-2'; ?>
         <?php } else { ?>
-        <?php $class = 'col-xs-6 col-sm-3'; ?>
+        <?php $class = 'col-xs-6 col-sm-3 col-lg-2'; ?>
         <?php } ?>
         <div class="<?php echo $class; ?>">
-          <div class="product-thumb transition">
+          <div class="product-thumb transition" style="border: none !important;">
             <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a></div>
-            <div class="caption">
-              <h4><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h4>
-              <p><?php echo $product['description']; ?></p>
-              <?php if ($product['rating']) { ?>
-              <div class="rating">
-                <?php for ($j = 1; $j <= 5; $j++) { ?>
-                <?php if ($product['rating'] < $j) { ?>
-                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                <?php } else { ?>
-                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                <?php } ?>
-                <?php } ?>
-              </div>
-              <?php } ?>
-              <?php if ($product['price']) { ?>
-              <p class="price">
-                <?php if (!$product['special']) { ?>
-                <?php echo $product['price']; ?>
-                <?php } else { ?>
-                <span class="price-new"><?php echo $product['special']; ?></span> <span class="price-old"><?php echo $product['price']; ?></span>
-                <?php } ?>
-                <?php if ($product['tax']) { ?>
-                <span class="price-tax"><?php echo $text_tax; ?> <?php echo $product['tax']; ?></span>
-                <?php } ?>
-              </p>
-              <?php } ?>
-            </div>
-            <div class="button-group">
-              <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span> <i class="fa fa-shopping-cart"></i></button>
-              <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
-              <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
+            <div class="caption" style="padding: 0px;">
+              <h4>
+                  <a href="<?php echo $product['href']; ?>">
+                        <p style="color: #afac7e;"><?php echo $product['category_name']; ?></p>
+                        <p style="font-weight: 500; color: #404040;"><?php echo $product['name']; ?></p>
+                  </a>
+              </h4>
             </div>
           </div>
         </div>
@@ -917,18 +878,29 @@ $('#button-review').on('click', function() {
 	});
 });
 
+$('.thumbnail-small').on('click', function(e) {
+    e.preventDefault();
+    var obj = $(this);
+    var imageSrc = obj.attr('href');
+    
+    var large = $('.thumbnail');
+    var largeImageSrc = large.attr('href');
+    
+    large.attr('href', imageSrc);
+    obj.attr('href', largeImageSrc);
+    
+    large.find('img').attr('src', imageSrc);
+    obj.find('img').attr('src', largeImageSrc);
+});
+
 $(document).ready(function() {
     var checkMoreInfo = $("#default_open_moreinfo").val();
     if(checkMoreInfo == 'show'){
         $('#product').hide();
         $('#more_info_div').show();
     }
-	$('.thumbnails').magnificPopup({
+	$('.thumbnail').magnificPopup({
 		type:'image',
-		delegate: 'a',
-		gallery: {
-			enabled:true
-		}
 	});
 });
 //--></script>
