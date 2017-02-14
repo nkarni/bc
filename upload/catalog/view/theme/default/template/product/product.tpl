@@ -120,7 +120,11 @@
         <?php } ?>
         <div class="<?php echo $class; ?>">
           <div class="btn-group">
-            <button type="button" data-toggle="tooltip" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="fa fa-heart"></i></button>
+            <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+            <button class="wishlist-add-form btn btn-default btn-primary" rel="popover" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>" style="border: 1px #404040 solid !important;" tabindex="0" type="button"><i class="fa fa-heart"></i></button>
+            <?php } else { ?>
+            <button data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" tabindex="0"><i class="fa fa-heart"></i></button>
+            <?php } ?>
             <button type="button" data-toggle="tooltip" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
           </div>
           <h1><?php echo $heading_title; ?></h1>
@@ -904,4 +908,110 @@ $(document).ready(function() {
 	});
 });
 //--></script>
+<script type="text/javascript"><!--
+					function getwishlists(){
+						$listitems =	'<div class="list-group mywishlist-group">';			
+						$.ajax({
+							url: 'index.php?route=account/wishlists/getwishlists',
+							dataType: 'json',
+							type: 'post',
+							async: false,
+							success: function(json) {
+								$.each(json, function (key, data) {
+									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
+								});	
+							}
+						});			
+					$listitems +=  '</div>';		
+					return $listitems;			
+					}
+					
+				// For mouseover style the wishlist items
+					$(document).on("mouseover",'.mywishlist-group button',function() {
+						$(this).addClass('btn-success');
+					});
+				// For mouseout style the wishlist items
+					$(document).on("mouseout",'.mywishlist-group button',function() {
+						$(this).removeClass('btn-success');
+					});
+				// For add new wishlist with product
+					$(document).on("click",'.addlist',function(){
+					  //  $product = $(this).attr('product');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_name=' +  encodeURIComponent($wishlist) + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information  <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								 $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover window
+								$('.popover').popover('hide');
+							}
+						});
+					});
+
+					// For closing popover
+					$(document).click(function (e) {
+						if ( $(e.target).is('.close')) {
+							$('.popover').popover('hide');
+						}
+					});
+
+					// For add product to existing wishlist
+					$(document).on("click", ".dowishlist", function() {
+						$wishlist = $(this).attr('wishlist');
+						$product = $(this).parents('.popover-content').find("input.active_product_id").val();
+						$.ajax({
+							url: 'index.php?route=account/wishlists/add',
+							dataType: 'json',
+							type: 'post',
+							data: 'wishlist_id=' +  $wishlist + '&product_id=' + $product,
+							success: function(json) {
+								$return = '';
+								if(json.success) {
+									$return = json.success;
+									$title = "Success  <span class='close'>&times;</span>";
+								}
+								else if(json.info) {
+									$return = json.info;
+									$title = "Information <span class='close'>&times;</span>";
+								}
+								//Show alert message
+								$('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+								//close popover widget
+								$('.popover').popover('hide');
+							}
+						});
+					});
+
+				// For wishlist form
+					$('.wishlist-add-form').click(function () {
+						$currentproduct = $(this).attr('product');
+						$addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
+
+						$(this).popover({
+							html: true,
+							trigger: 'manual',
+							placement: 'right',
+
+							content: function () {
+								$buttons = getwishlists();
+								$activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
+								return $activeproductrow+$buttons+$addbuttonhtml;
+							}
+						}).popover('toggle');
+					});
+					--></script>
 <?php echo $footer; ?>
