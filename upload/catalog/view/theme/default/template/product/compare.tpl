@@ -42,7 +42,7 @@
               <?php } ?></td>
             <?php } ?>
           </tr>
-          <tr>
+          <tr style="display: none">
             <td><?php echo $text_price; ?></td>
             <?php foreach ($products as $product) { ?>
             <td><?php if ($product['price']) { ?>
@@ -60,13 +60,13 @@
             <td><?php echo $product['model']; ?></td>
             <?php } ?>
           </tr>
-          <tr>
+          <tr style="display: none">
             <td><?php echo $text_manufacturer; ?></td>
             <?php foreach ($products as $product) { ?>
             <td><?php echo $product['manufacturer']; ?></td>
             <?php } ?>
           </tr>
-          <tr>
+          <tr style="display: none">
             <td><?php echo $text_availability; ?></td>
             <?php foreach ($products as $product) { ?>
             <td><?php echo $product['availability']; ?></td>
@@ -94,13 +94,13 @@
             <td class="description"><?php echo $product['description']; ?></td>
             <?php } ?>
           </tr>
-          <tr>
+          <tr style="display: none">
             <td><?php echo $text_weight; ?></td>
             <?php foreach ($products as $product) { ?>
             <td><?php echo $product['weight']; ?></td>
             <?php } ?>
           </tr>
-          <tr>
+          <tr style="display: none">
             <td><?php echo $text_dimension; ?></td>
             <?php foreach ($products as $product) { ?>
             <td><?php echo $product['length']; ?> x <?php echo $product['width']; ?> x <?php echo $product['height']; ?></td>
