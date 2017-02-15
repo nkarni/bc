@@ -1047,3 +1047,13 @@ h2.price {
     background-image: linear-gradient(to bottom, #b5b38c, #b5b38c);
     border-radius: 0px;
 }
+.img-thumbnail{
+    border: none !important;
+}
+.btn-danger{
+    background-color: #9b9b9b !important;
+    background-repeat: repeat-x;
+    border: 1px solid #9b9b9b !important;
+    background-image: linear-gradient(to bottom, #9b9b9b, #9b9b9b);
+    border-radius: 0px;
+}
