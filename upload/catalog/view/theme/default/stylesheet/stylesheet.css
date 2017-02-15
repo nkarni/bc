@@ -513,6 +513,14 @@ footer ul.social_icons {
 /* alert */
 .alert {
 	padding: 8px 14px 8px 14px;
+    color: white;
+    background-color: rgb(181, 179, 140);
+	border-color: rgb(140, 139, 109);
+}
+.alert a {
+    color: #7b643b;
+    text-decoration: underline;
+    font-weight: bold;
 }
 /* breadcrumb */
 .breadcrumb {
