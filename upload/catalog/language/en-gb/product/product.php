@@ -18,7 +18,7 @@ $_['text_login']               = 'Please <a href="%s">login</a> or <a href="%s">
 $_['text_no_reviews']          = 'There are no reviews for this product.';
 $_['text_note']                = '<span class="text-danger">Note:</span> HTML is not translated!';
 $_['text_success']             = 'Thank you for your review. It has been submitted to the webmaster for approval.';
-$_['text_related']             = 'Related Products';
+$_['text_related']             = 'You may also like...';
 $_['text_tags']                = 'Tags:';
 $_['text_error']               = 'Product not found!';
 $_['text_payment_recurring']   = 'Payment Profile';
@@ -57,15 +57,15 @@ $_['tab_attribute']            = 'Specification';
 $_['tab_review']               = 'Reviews (%s)';
 
 // Error
-$_['error_name']               = 'Warning: Review Name must be between 3 and 25 characters!';
-$_['error_text']               = 'Warning: Review Text must be between 25 and 1000 characters!';
-$_['error_rating']             = 'Warning: Please select a review rating!';
+$_['error_name']               = 'Name must be between 3 and 25 characters!';
+$_['error_text']               = 'Text must be between 25 and 1000 characters!';
+$_['error_rating']             = 'Please select a review rating!';
 
-$_['error_first_name']         = 'Warning: Review First Name must be between 3 and 25 characters!';
-$_['error_last_name']          = 'Warning: Review Last Name must be between 3 and 25 characters!';
-$_['error_email']              = 'Warning: Review Email must  be correct!';
-$_['error_postcode']           = 'Warning: Postcode must be entered!';
-$_['error_phone']              = 'Warning: Phone must be greater than 10 numbers!';
-$_['error_project_size']       = 'Warning: Please select Project Size!';
-$_['error_industry_sector']    = 'Warning: Please select Industry Sector!';
-$_['error_other_information']  = 'Warning: Please enter other information!';
+$_['error_first_name']         = 'First Name must be between 3 and 25 characters!';
+$_['error_last_name']          = 'Last Name must be between 3 and 25 characters!';
+$_['error_email']              = 'Email must  be correct!';
+$_['error_postcode']           = 'Postcode must be entered!';
+$_['error_phone']              = 'Phone must be greater than 10 numbers!';
+$_['error_project_size']       = 'Please select Project Size!';
+$_['error_industry_sector']    = 'Please select Industry Sector!';
+$_['error_other_information']  = 'Please enter other information!';

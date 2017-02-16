@@ -71,7 +71,7 @@ class ControllerProductQuote extends Controller {
 			}                       
 
 			if (!$json) {
-                            $html = 'I am looking for a quote on the following products.!!';
+                            $html = 'Please provide a quote for the following product!!';
                             $html .= $product_info['name'] . " ( ". $quantity. " )!!";
                             $html .= $optionHtml;
                             $userLogged = $this->customer->isLogged();

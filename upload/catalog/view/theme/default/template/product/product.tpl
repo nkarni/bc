@@ -132,11 +132,12 @@
             <?php if ($manufacturer) { ?>
             <li><?php echo $text_manufacturer; ?> <a href="<?php echo $manufacturers; ?>"><?php echo $manufacturer; ?></a></li>
             <?php } ?>
-            <li><?php echo $text_model; ?> <?php echo $model; ?></li>
+            <?php if($model){ ?>
+                <li><?php echo $text_model; ?> <?php echo $model; ?></li>
+            <?php } ?>
             <?php if ($reward) { ?>
             <li><?php echo $text_reward; ?> <?php echo $reward; ?></li>
             <?php } ?>
-            <li><?php echo $text_stock; ?> <?php echo $stock; ?></li>
           </ul>
           <?php if ($price) { ?>
           <ul class="list-unstyled">
@@ -149,9 +150,6 @@
             <li>
               <h2><?php echo $special; ?></h2>
             </li>
-            <?php } ?>
-            <?php if ($tax) { ?>
-            <li><?php echo $text_tax; ?> <?php echo $tax; ?></li>
             <?php } ?>
             <?php if ($points) { ?>
             <li><?php echo $text_points; ?> <?php echo $points; ?></li>
@@ -300,7 +298,9 @@
             </div>
             <div>
                  <br />
-              <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_cart; ?></button>
+            <?php if($price_amount > 0){ ?>
+                <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_cart; ?></button>
+            <?php } ?>
               <button type="button" id="button-quote" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_quote; ?></button>
               <button type="button" id="more_info" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_more_info; ?></button>
             </div>

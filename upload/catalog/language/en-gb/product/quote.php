@@ -26,13 +26,13 @@ $_['button_submit']            = 'Submit';
 
 
 // Error
-$_['error_name']               = 'Warning: Name must be between 3 and 25 characters!';
-$_['error_email']              = 'Warning: Email must be valid';
-$_['error_text']               = 'Warning: Review Text must be between 25 and 1000 characters!';
-$_['error_quote']              = 'Warning: Please enter quote!';
-$_['error_phone']              = 'Warning: Please enter phone!';
-$_['error_address1']           = 'Warning: Please enter address1!';
-$_['error_address2']           = 'Warning: Please enter address2!';
-$_['error_city']               = 'Warning: Please enter city!';
-$_['error_postcode']           = 'Warning: Please enter postcode!';
-$_['error_country']            = 'Warning: Please enter country!';
+$_['error_name']               = 'Name must be between 3 and 25 characters!';
+$_['error_email']              = 'Email must be valid';
+$_['error_text']               = 'Review Text must be between 25 and 1000 characters!';
+$_['error_quote']              = 'Please enter quote!';
+$_['error_phone']              = 'Please enter phone!';
+$_['error_address1']           = 'Please enter address1!';
+$_['error_address2']           = 'Please enter address2!';
+$_['error_city']               = 'Please enter city!';
+$_['error_postcode']           = 'Please enter postcode!';
+$_['error_country']            = 'Please enter country!';

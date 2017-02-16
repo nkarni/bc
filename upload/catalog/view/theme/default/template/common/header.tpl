@@ -132,8 +132,8 @@
         </div>
       </nav>
     </div>
-	  <div class="col-sm-3"><?php echo $search; ?></div>
-    <div class="col-sm-2 cart"><?php echo $cart; ?></div>
+    <div class="col-sm-5"><?php echo $search; ?></div>
+    <!-- <div class="col-sm-2 cart"><?php echo $cart; ?></div> -->
 	  
 	  <div class="col-sm-12">
 	  <nav id="menu" class="navbar secondary-navigation">

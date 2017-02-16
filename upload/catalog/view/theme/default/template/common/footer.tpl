@@ -1,24 +1,31 @@
+<style type="text/css">
+    footer ul.list-unstyled a{
+        color : #FFFFFF !important;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+</style>
 <footer>
   <div class="container">
     <div class="row">
-      <?php if ($informations) { ?>
-      <div class="col-sm-3">
-        <h5><?php echo $text_information; ?></h5>
+    <div class="col-sm-3">
+        <h5>Our Products</h5>
         <ul class="list-unstyled">
-          <?php foreach ($informations as $information) { ?>
-          <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
-          <?php } ?>
+            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">WORKSPACES</a></li>
+            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">HEALTH</a></li>
+            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">SLEEP</a></li>
+            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">SUPPORT</a></li>
+            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">@HOME</a></li>
         </ul>
-      </div>
-      <?php } ?>
-	  <div class="col-sm-3">
-        <h5><?php echo $text_service; ?></h5>
+    </div>
+    <div class="col-sm-3">
+        <h5>Connect</h5>
         <ul class="social_icons">
-			<li><a target="_blank" href="https://www.facebook.com/BCS.com.au"><i class="fa fa-facebook"></i></a></li>
-			<li><a target="_blank" href="https://twitter.com/Backcareseating"><i class="fa fa-twitter"></i></a></li>
-			<li><a target="_blank" href="http://backcareandseating.tumblr.com/"><i class="fa fa-tumblr"></i></a></li>
-		</ul>
-      </div>
+            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au"><i class="fa fa-facebook"></i></a></li>
+            <li><a target="_blank" href="https://twitter.com/Backcareseating"><i class="fa fa-twitter"></i></a></li>
+            <li><a target="_blank" href="http://backcareandseating.tumblr.com/"><i class="fa fa-tumblr"></i></a></li>
+        </ul>
+    </div>
 	  
 	  
       <!--<div class="col-sm-3">

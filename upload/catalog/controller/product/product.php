@@ -329,11 +329,11 @@ class ControllerProductProduct extends Controller {
 				$data['popup'] = '';
 			}
                         
-                        $data['main_image_height'] = $this->config->get($this->config->get('config_theme') . '_image_thumb_height');
-                        $data['main_image_width'] = $this->config->get($this->config->get('config_theme') . '_image_thumb_width');
+                        $data['main_image_height'] = $this->config->get($this->config->get('config_theme') . '_image_popup_height');
+                        $data['main_image_width'] = $this->config->get($this->config->get('config_theme') . '_image_popup_width');
 
-			if ($product_info['image']) {
-				$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+                        if ($product_info['image']) {
+				$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
 			} else {
 				$data['thumb'] = '';
 			}
@@ -351,11 +351,13 @@ class ControllerProductProduct extends Controller {
                         
                         $data['thumb_height'] = $this->config->get($this->config->get('config_theme') . '_image_additional_height');
                         $data['thumb_width'] = $this->config->get($this->config->get('config_theme') . '_image_additional_width');
-
+                        
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 				$data['price'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                                $data['price_amount'] = $product_info['price'];
 			} else {
 				$data['price'] = false;
+                                $data['price_amount'] = false;
 			}
 
 			if ((float)$product_info['special']) {
@@ -765,9 +767,6 @@ class ControllerProductProduct extends Controller {
                     $this->error['industry_sector'] = $this->language->get('error_industry_sector');
             }
 
-            if ((utf8_strlen($this->request->post['other_information']) < 10) || (utf8_strlen($this->request->post['other_information']) > 10000)) {
-                    $this->error['other_information'] = $this->language->get('error_other_information');
-            }
             return !$this->error;
 	}
 
