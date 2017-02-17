@@ -78,7 +78,7 @@
 <header>
   <div class="container">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-12 col-md-3">
         <div id="logo">
           <?php if ($logo) { ?>
           <a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" /></a>
@@ -87,10 +87,10 @@
           <?php } ?>
         </div>
       </div>
-      <div class="col-sm-9">
+      <div class="col-sm-12 col-md-9">
 	  
 	  <div class="row">
-	  <div class="col-sm-7 prinav">
+	  <div class="col-sm-8 col-md-9 prinav">
     		<nav id="menu" class="navbar topmenu">
         <div class="navbar-header"><!--<span id="category" class="visible-xs"><?php //echo $text_category; ?></span>-->
           <button type="button" class="btn btn-navbar navbar-toggle topnav" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
@@ -132,7 +132,8 @@
         </div>
       </nav>
     </div>
-    <div class="col-sm-5"><?php echo $search; ?></div>
+		</nav>
+	<div class="col-sm-4 col-md-3"><?php echo $search; ?></div>
     <!-- <div class="col-sm-2 cart"><?php echo $cart; ?></div> -->
 	  
 	  <div class="col-sm-12">

@@ -133,6 +133,11 @@ $(document).ready(function() {
 	$(document).ajaxStop(function() {
 		$('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
 	});
+        
+        $('.secondary-navigation').find('ul.list-unstyled').find('li').on('click', function(){
+            $('.secondary-navigation').find('li.dropdown').removeClass('active');
+            $(this).parents('li.dropdown').addClass('active');
+        });
 });
 
 // Cart add remove functions
