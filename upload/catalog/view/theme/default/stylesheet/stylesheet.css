@@ -1093,3 +1093,30 @@ h2.price {
     background-image: linear-gradient(to bottom, #9b9b9b, #9b9b9b);
     border-radius: 0px;
 }
+
+.information #content h1 {
+	font-size: 2em;
+	margin: 0.67em 0 38px 0;
+	color: #404040;
+	font-family: "Open Sans", sans-serif;
+	line-height: 1.5;
+	font-weight: bold;
+}
+
+.information #content h2 {
+	font-size: 1.5em;
+	margin: 0.83em 0;
+	font-weight: bold;
+	color: #404040;
+	font-family: "Open Sans", sans-serif;
+	line-height: 1.5;
+}
+
+.information #content p {
+	margin-bottom: 1.5em;
+	color: #404040;
+	line-height: 1.5;
+}
+.information #content img {
+	vertical-align: baseline;
+}

@@ -131,13 +131,13 @@ class ControllerCommonHeader extends Controller {
 		// For page specific css
 		if (isset($this->request->get['route'])) {
 			if (isset($this->request->get['product_id'])) {
-				$class = '-' . $this->request->get['product_id'];
+				$class = '-' . $this->request->get['product_id'] . ' product';
 			} elseif (isset($this->request->get['path'])) {
 				$class = '-' . $this->request->get['path'];
 			} elseif (isset($this->request->get['manufacturer_id'])) {
-				$class = '-' . $this->request->get['manufacturer_id'];
+				$class = '-' . $this->request->get['manufacturer_id'] . ' manufacturer';
 			} elseif (isset($this->request->get['information_id'])) {
-				$class = '-' . $this->request->get['information_id'];
+				$class = '-' . $this->request->get['information_id'] . ' information';
 			} else {
 				$class = '';
 			}
