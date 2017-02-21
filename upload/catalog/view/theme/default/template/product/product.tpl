@@ -24,26 +24,35 @@
           <?php if ($thumb || $images) { ?>
           <ul class="thumbnails">
             <?php if ($thumb) { ?>
-            <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" height="<?php echo $main_image_height; ?>" width="<?php echo $main_image_width; ?>" /></a></li>
+            <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
             <?php } ?>
             <?php if ($images) { ?>
             <?php foreach ($images as $image) { ?>
-            <li class="image-additional"><a class="thumbnail-small" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" height="<?php echo $thumb_height; ?>" width="<?php echo $thumb_width; ?>" /></a></li>
+            <li class="image-additional"><a class="thumbnail" href="<?php echo $image['popup']; ?>" title="<?php echo $heading_title; ?>"> <img src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
             <?php } ?>
             <?php } ?>
           </ul>
           <?php } ?>
+          <p><?php echo $short_description; ?></p><br>
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-description" data-toggle="tab"><?php echo $tab_description; ?></a></li>
             <?php if ($attribute_groups) { ?>
             <li><a href="#tab-specification" data-toggle="tab"><?php echo $tab_attribute; ?></a></li>
+            <?php } ?>
+            <?php if ($specifications) { ?>
+            <li><a href="#tab-specifications" data-toggle="tab"><?php echo $tab_specifications; ?></a></li>
+            <?php } ?>
+            <?php if ($features) { ?>
+            <li><a href="#tab-features" data-toggle="tab"><?php echo $tab_features; ?></a></li>
             <?php } ?>
             <?php if ($review_status) { ?>
             <li><a href="#tab-review" data-toggle="tab"><?php echo $tab_review; ?></a></li>
             <?php } ?>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane active" id="tab-description"><?php echo $description; ?></div>
+            <div class="tab-pane active" id="tab-description">
+            <?php echo $description; ?>
+            </div>
             <?php if ($attribute_groups) { ?>
             <div class="tab-pane" id="tab-specification">
               <table class="table table-bordered">
@@ -64,6 +73,12 @@
                 <?php } ?>
               </table>
             </div>
+            <?php } ?>
+            <?php if ($specifications) { ?>
+            <div class="tab-pane" id="tab-specifications"><?php echo $specifications; ?></div>
+            <?php } ?>
+            <?php if ($features) { ?>
+            <div class="tab-pane" id="tab-features"><?php echo $features; ?></div>
             <?php } ?>
             <?php if ($review_status) { ?>
             <div class="tab-pane" id="tab-review">

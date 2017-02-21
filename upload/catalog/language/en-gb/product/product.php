@@ -53,7 +53,9 @@ $_['entry_industry_sector']    = 'Industry Sector';
 
 // Tabs
 $_['tab_description']          = 'Description';
-$_['tab_attribute']            = 'Specification';
+$_['tab_attribute']            = 'Attributes';
+$_['tab_specifications']       = 'Specifications';
+$_['tab_features']             = 'Features';
 $_['tab_review']               = 'Reviews (%s)';
 
 // Error
