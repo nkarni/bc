@@ -610,7 +610,7 @@
         </div>
       </div>
       <?php if ($products) { ?>
-      <h3><?php echo $text_related; ?></h3>
+      <h3 class="related"><?php echo $text_related; ?></h3>
       <div class="row">
         <?php $i = 0; ?>
         <?php foreach ($products as $product) { ?>
@@ -625,10 +625,10 @@
           <div class="product-thumb transition" style="border: none !important;">
             <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a></div>
             <div class="caption" style="padding: 0px;">
-              <h4>
+              <h4 style="font-size: 14px">
                   <a href="<?php echo $product['href']; ?>">
-                        <p style="color: #afac7e;"><?php echo $product['category_name']; ?></p>
-                        <p style="font-weight: 500; color: #404040;"><?php echo $product['name']; ?></p>
+                      <p style="" class="related-category"><?php echo $product['category_name']; ?></p>
+                      <p class="related-name"><?php echo $product['name']; ?></p>
                   </a>
               </h4>
             </div>
@@ -753,7 +753,6 @@ $('#button-quote').on('click', function() {
 			$('.form-group').removeClass('has-error');
 
 			if (json['error']) {
-                            alert('err');
 				if (json['error']['option']) {
 					for (i in json['error']['option']) {
 						var element = $('#input-option' + i.replace('_', '-'));
@@ -782,9 +781,9 @@ $('#button-quote').on('click', function() {
                             $('#quoteform').submit();
 			}
 		},
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
+    error: function(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
 	});
 });
 //--></script>

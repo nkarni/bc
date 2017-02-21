@@ -36,3 +36,4 @@ $_['error_address2']           = 'Please enter address2!';
 $_['error_city']               = 'Please enter city!';
 $_['error_postcode']           = 'Please enter postcode!';
 $_['error_country']            = 'Please enter country!';
+$_['error_required']           = '%s is required!';

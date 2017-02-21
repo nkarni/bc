@@ -3,7 +3,7 @@ body {
 	font-weight: 400;
 	color: #404040;
 	font-size: 14px;
-	line-height: 20px;
+	line-height: 1.5;
 	width: 100%;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -1113,7 +1113,6 @@ h2.price {
 	font-size: 2em;
 	margin: 0.67em 0 38px 0;
 	font-family: "Open Sans", sans-serif;
-	line-height: 1.5;
 	font-weight: bold;
 }
 
@@ -1122,14 +1121,30 @@ h2.price {
 	margin: 0.83em 0;
 	font-weight: bold;
 	font-family: "Open Sans", sans-serif;
-	line-height: 1.5;
 }
 
 .information #content p {
 	margin-bottom: 1.5em;
 	color: #404040;
-	line-height: 1.5;
 }
 .information #content img {
 	vertical-align: baseline;
+}
+
+h3.related {
+    font-family: "Open Sans", sans-serif;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.related-category {
+    font-size: 12px;
+    color: #b5b38c;
+    text-transform: uppercase;
+    padding: 8px 0 0 0;
+	margin-bottom: 4px;
+}
+
+.related-name {
+	font-weight: 500;
 }
