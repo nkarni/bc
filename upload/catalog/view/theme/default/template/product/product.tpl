@@ -924,19 +924,21 @@ $(document).ready(function() {
 //--></script>
 <script type="text/javascript"><!--
 					function getwishlists(){
-						$listitems =	'<div class="list-group mywishlist-group">';			
+            $listitems = '';
 						$.ajax({
 							url: 'index.php?route=account/wishlists/getwishlists',
 							dataType: 'json',
 							type: 'post',
 							async: false,
 							success: function(json) {
-								$.each(json, function (key, data) {
-									$listitems +=  '<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>';		
-								});	
+                  var items = [];
+                  $.each(json, function (key, data) {
+                    items.push('<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist='+key+'>'+data+'<i class="fa fa-check-square-o label-icon-right"></i></button>');	
+                  });	
+                  if (items.length > 0)
+                    $listitems =  '<div class="list-group mywishlist-group">' + items.join('') + '</div>';		
 							}
 						});			
-					$listitems +=  '</div>';		
 					return $listitems;			
 					}
 					
@@ -1013,7 +1015,7 @@ $(document).ready(function() {
 				// For wishlist form
 					$('.wishlist-add-form').click(function () {
 						$currentproduct = $(this).attr('product');
-						$addbuttonhtml = '<div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
+						$addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="'+$currentproduct+'" class="addlist btn btn-default" >ADD</button></span></div>';
 
 						$(this).popover({
 							html: true,
@@ -1022,6 +1024,7 @@ $(document).ready(function() {
 
 							content: function () {
 								$buttons = getwishlists();
+                if ($buttons) $buttons += "<p>Or add a new Wish List:</p>";
 								$activeproductrow = '<input type="hidden" class="active_product_id" value="'+$currentproduct+'" />';
 								return $activeproductrow+$buttons+$addbuttonhtml;
 							}
