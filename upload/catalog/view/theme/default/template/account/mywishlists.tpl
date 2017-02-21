@@ -59,8 +59,9 @@
                 <?php } ?>
 
                 <?php if($wishlists_copy_url_status) { ?>
-                    <span class="show-copy-link btn btn-info btn-small"  onclick="js:CopyToClipboard('<?php echo $mysharelink; ?>');" style="border-radius:40px;padding:none !important;line-height:0.5 !important;">Copy URL</span>
+                    <span class="show-copy-link btn btn-primary btn-small"  onclick="js:CopyToClipboard('<?php echo $mysharelink; ?>');" style="padding:none !important;line-height:0.5 !important;">Copy URL</span>
                 <?php } ?>
+                    <a class="show-copy-link btn btn-primary btn-small" href="mailto:?body=<?php echo str_replace("&amp;","%26", $mysharelink); ?>" style="padding:none !important;line-height:0.5 !important;">Email URL</a>
             </div>
 
         </div>
@@ -107,6 +108,7 @@
               </td>
 
               <td class="text-right">
+                  <?php if($wishlistitem['price_num'] > 0) { ?>
                   <?php if(!$islogged) { ?>
                   <a class="btn btn-primary bt-text" href="js:void();" onclick="cart.add('<?php echo $wishlistitem['product_id']; ?>', '<?php echo $wishlistitem['minimum']; ?>');"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Cart</a>
                   <?php } else { ?>
@@ -121,6 +123,7 @@
                             <button class="wishlist-add-form btn btn-primary bt-text" href="#a1" rel="popover" title="" product="<?php echo $wishlistitem['product_id']; ?>" minimum="<?php echo $wishlistitem['minimum']; ?>"  tabindex="0"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Cart&nbsp;&nbsp;&nbsp;</button>
                           <?php } ?>
                       <?php } ?>
+                  <?php } ?>
                   <?php } ?>
               </td>
             <?php if($islogged) { ?>
