@@ -40,6 +40,7 @@
 
 # Log Files
 /upload/system/storage/logs/*
+/upload/vqmod/logs/*
 !/upload/system/storage/logs/index.html
 
 # If you want to ignore install file use following lines [on development mode]
@@ -59,6 +60,7 @@
 
 # VQMod cache
 /upload/vqmod/*.cache
+/upload/vqmod/vqcache/*
 
 # Product and Category images
 /upload/image/catalog/product

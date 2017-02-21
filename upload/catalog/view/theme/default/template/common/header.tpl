@@ -128,12 +128,12 @@
             <li class="dropdown"><a href="index.php?route=account/login" class="dropdown-toggle">Login</a></li>
             <li class="dropdown"><a href="#" class="dropdown-toggle">Contact Us</a></li>
             <li class="dropdown"><a href="#" class="dropdown-toggle">Wishlist</a></li>
+            <li><?php echo $search; ?></li>
           </ul>
         </div>
       </nav>
     </div>
 		</nav>
-	<div class="col-sm-4 col-md-3"><?php echo $search; ?></div>
     <!-- <div class="col-sm-2 cart"><?php echo $cart; ?></div> -->
 	  
 	  <div class="col-sm-12">
