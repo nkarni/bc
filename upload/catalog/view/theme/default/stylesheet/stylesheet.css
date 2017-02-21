@@ -1148,3 +1148,18 @@ h3.related {
 .related-name {
 	font-weight: 500;
 }
+
+.category-description {
+	margin: 0 30px;
+	border-top: 2px solid #c0c0c0;
+}
+
+.category-description h1 {
+	margin-top: 23px !important;
+}
+
+.slider_item p {
+	font-size: 9px;
+    color: #afac7e;
+    text-transform: uppercase;
+}
