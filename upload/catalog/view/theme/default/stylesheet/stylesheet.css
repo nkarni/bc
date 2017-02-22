@@ -625,13 +625,19 @@ footer ul.social_icons {
     padding: 0;
 }
 .term-description {
-    padding-bottom: 142px;
 	color: #404040;
 	font-family: "Open Sans", sans-serif;
 	font-size: 14px;
 	line-height: 1.5;
 }
 
+.product-top-buttons{
+	margin: 1px 0 24px -24px;
+	padding: 20px 0;
+}
+.product .tab-content{
+	text-align: justify;
+}
 /* buttons */
 .buttons {
 	margin: 1em 0;

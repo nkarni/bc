@@ -1,10 +1,18 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <ul class="breadcrumb pull-left">
     <?php foreach ($breadcrumbs as $breadcrumb) { ?>
     <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
   </ul>
+    <div class="btn-group pull-right product-top-buttons">
+        <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+        <button class="wishlist-add-form btn btn-default btn-primary" rel="popover" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>" style="border: 1px #404040 solid !important;" tabindex="0" type="button"><i class="fa fa-heart"></i></button>
+        <?php } else { ?>
+        <button data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" tabindex="0"><i class="fa fa-heart"></i></button>
+        <?php } ?>
+        <button type="button" data-toggle="tooltip" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
+    </div>
   <div class="row"><?php echo $column_left; ?>
     <?php if ($column_left && $column_right) { ?>
     <?php $class = 'col-sm-6'; ?>
@@ -18,7 +26,7 @@
         <?php if ($column_left || $column_right) { ?>
         <?php $class = 'col-sm-6'; ?>
         <?php } else { ?>
-        <?php $class = 'col-sm-8'; ?>
+        <?php $class = 'col-sm-6'; ?>
         <?php } ?>
         <div class="<?php echo $class; ?>">
           <?php if ($thumb || $images) { ?>
@@ -33,7 +41,7 @@
             <?php } ?>
           </ul>
           <?php } ?>
-          <p><?php echo $short_description; ?></p><br>
+         <br>
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-description" data-toggle="tab"><?php echo $tab_description; ?></a></li>
             <?php if ($attribute_groups) { ?>
@@ -131,18 +139,11 @@
         <?php if ($column_left || $column_right) { ?>
         <?php $class = 'col-sm-6'; ?>
         <?php } else { ?>
-        <?php $class = 'col-sm-4'; ?>
+        <?php $class = 'col-sm-6'; ?>
         <?php } ?>
         <div class="<?php echo $class; ?>">
-          <div class="btn-group">
-            <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
-            <button class="wishlist-add-form btn btn-default btn-primary" rel="popover" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>" style="border: 1px #404040 solid !important;" tabindex="0" type="button"><i class="fa fa-heart"></i></button>
-            <?php } else { ?>
-            <button data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" tabindex="0"><i class="fa fa-heart"></i></button>
-            <?php } ?>
-            <button type="button" data-toggle="tooltip" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
-          </div>
           <h1><?php echo $heading_title; ?></h1>
+            <p class="text-justify"><?php echo $short_description; ?></p>
           <ul class="list-unstyled">
             <?php if ($manufacturer) { ?>
             <li><?php echo $text_manufacturer; ?> <a href="<?php echo $manufacturers; ?>"><?php echo $manufacturer; ?></a></li>
@@ -154,34 +155,8 @@
             <li><?php echo $text_reward; ?> <?php echo $reward; ?></li>
             <?php } ?>
           </ul>
-          <?php if ($price) { ?>
-          <ul class="list-unstyled">
-            <?php if (!$special) { ?>
-            <li>
-              <h2><?php echo $price; ?></h2>
-            </li>
-            <?php } else { ?>
-            <li><span style="text-decoration: line-through;"><?php echo $price; ?></span></li>
-            <li>
-              <h2><?php echo $special; ?></h2>
-            </li>
-            <?php } ?>
-            <?php if ($points) { ?>
-            <li><?php echo $text_points; ?> <?php echo $points; ?></li>
-            <?php } ?>
-            <?php if ($discounts) { ?>
-            <li>
-              <hr>
-            </li>
-            <?php foreach ($discounts as $discount) { ?>
-            <li><?php echo $discount['quantity']; ?><?php echo $text_discount; ?><?php echo $discount['price']; ?></li>
-            <?php } ?>
-            <?php } ?>
-          </ul>
-          <?php } ?>
           <div id="product">
             <?php if ($options) { ?>
-            <hr>
             <h3><?php echo $text_option; ?></h3>
             <?php foreach ($options as $option) { ?>
             <?php if ($option['type'] == 'select') { ?>
@@ -311,9 +286,32 @@
               <input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />              
               <input type="hidden" name="default_open_moreinfo" id="default_open_moreinfo" value="<?php echo $default_open_moreinfo; ?>" />              
             </div>
-            <div>
+            <div class="text-center">
                  <br />
             <?php if($price_amount > 0){ ?>
+                <ul class="list-unstyled">
+                    <?php if (!$special) { ?>
+                    <li>
+                        <h2><?php echo $price; ?></h2>
+                    </li>
+                    <?php } else { ?>
+                    <li><span style="text-decoration: line-through;"><?php echo $price; ?></span></li>
+                    <li>
+                        <h2><?php echo $special; ?></h2>
+                    </li>
+                    <?php } ?>
+                    <?php if ($points) { ?>
+                    <li><?php echo $text_points; ?> <?php echo $points; ?></li>
+                    <?php } ?>
+                    <?php if ($discounts) { ?>
+                    <li>
+                        <hr>
+                    </li>
+                    <?php foreach ($discounts as $discount) { ?>
+                    <li><?php echo $discount['quantity']; ?><?php echo $text_discount; ?><?php echo $discount['price']; ?></li>
+                    <?php } ?>
+                    <?php } ?>
+                </ul>
                 <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_cart; ?></button>
             <?php } ?>
               <button type="button" id="button-quote" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block"><?php echo $button_quote; ?></button>
