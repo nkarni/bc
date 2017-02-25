@@ -11,11 +11,9 @@
     <div class="col-sm-3">
         <h5>Our Products</h5>
         <ul class="list-unstyled">
-            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">WORKSPACES</a></li>
-            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">HEALTH</a></li>
-            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">SLEEP</a></li>
-            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">SUPPORT</a></li>
-            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au">@HOME</a></li>
+            <ul class="nav navbar-nav">
+                <?php   echo $footer_menu ; ?>
+            </ul>
         </ul>
     </div>
     <div class="col-sm-3">

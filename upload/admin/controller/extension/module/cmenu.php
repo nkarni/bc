@@ -3,9 +3,10 @@ class ControllerExtensionModuleCmenu extends Controller {
 	private $error = array();
 
 	public function index() {
+
 		//$this->load->language('module/cmenu');
 
-		$this->document->setTitle('Custom menu');
+		$this->document->setTitle('Menus Manager');
 
 		$this->load->model('setting/setting');
 		
@@ -19,7 +20,7 @@ class ControllerExtensionModuleCmenu extends Controller {
 		}
 		
 		//check table to create
-		$cmenu = "CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cmenu` (`cmenu_id` int(11) NOT NULL auto_increment, `type` varchar(64) collate utf8_bin NOT NULL default '', `parent_id` int(11) NOT NULL default '0', `sort_order` int(11) NOT NULL default '0', `value` int(11) NOT NULL default '0', `url` varchar(255) collate utf8_bin NOT NULL, PRIMARY KEY  (`cmenu_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
+		$cmenu = "CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cmenu` (`cmenu_id` int(11) NOT NULL auto_increment, `type` varchar(64) collate utf8_bin NOT NULL default '', `parent_id` int(11) NOT NULL default '0', `sort_order` int(11) NOT NULL default '0', `value` int(11) NOT NULL default '0', `url` varchar(255) collate utf8_bin NOT NULL, `menu_name` varchar(255) collate utf8_bin NOT NULL, PRIMARY KEY  (`cmenu_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
 		$this->db->query($cmenu);
 		$cmenu_descriptions = "CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cmenu_title` (`cmenu_id` int(11) NOT NULL default '0', `language_id` int(11) NOT NULL default '0', `title` varchar(64) collate utf8_bin NOT NULL default '', PRIMARY KEY  (`cmenu_id`,`language_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
 		$this->db->query($cmenu_descriptions);
@@ -76,6 +77,9 @@ class ControllerExtensionModuleCmenu extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
+		// add multi menu adjustment
+        $data['menus'] = array('Very Top' => 'very_top', 'Footer' => 'footer');
+
 		$this->response->setOutput($this->load->view('extension/module/cmenu.tpl', $data));
 	}
 	
@@ -96,8 +100,7 @@ class ControllerExtensionModuleCmenu extends Controller {
 		$query = $this->db->query("SELECT MAX(sort_order) AS position FROM " . DB_PREFIX . "cmenu");
 		$sort_order = (int)$query->row['position'] + 1;
 		
-		$this->db->query("INSERT INTO " . DB_PREFIX . "cmenu SET url = '" . $data['url'] . "', sort_order = '" . (int)$sort_order . "', type = '" . $data['type'] . "', value = '" . $data['value'] . "' , parent_id = '0'");
-
+		$this->db->query("INSERT INTO " . DB_PREFIX . "cmenu SET url = '" . $data['url'] . "', sort_order = '" . (int)$sort_order . "', type = '" . $data['type'] . "', value = '" . $data['value'] . "' , menu_name = '" . $data['menu_name'] . "', parent_id = '0'");
 		$cmenu_id = $this->db->getLastId();
 		
 		foreach ($data['title'] as $language_id => $value) {
@@ -181,7 +184,7 @@ class ControllerExtensionModuleCmenu extends Controller {
 	
 	public function menuHtml(){
 		$json = array();
-		$sql = "SELECT * FROM " . DB_PREFIX . "cmenu i LEFT JOIN " . DB_PREFIX . "cmenu_title id ON (i.cmenu_id = id.cmenu_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY sort_order ASC";
+		$sql = "SELECT * FROM " . DB_PREFIX . "cmenu i LEFT JOIN " . DB_PREFIX . "cmenu_title id ON (i.cmenu_id = id.cmenu_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' AND menu_name = '" .  htmlspecialchars($_REQUEST['menu_name']) . "' ORDER BY sort_order ASC";
 		$query = $this->db->query($sql);
 		$results = $query->rows;
 		
@@ -204,7 +207,7 @@ class ControllerExtensionModuleCmenu extends Controller {
 				'menu_title_data' => $cmenu_title_data
 			);
 		}
-		
+
 		$json['menu'] = $this->buildMenu($menu,0);
 		
 		echo $json['menu'];

@@ -4,6 +4,8 @@ class ControllerCommonHeader extends Controller {
 		// Analytics
 		$this->load->model('extension/extension');
 
+
+
 		$data['analytics'] = array();
 
 		$analytics = $this->model_extension_extension->getExtensions('analytics');
@@ -147,6 +149,7 @@ class ControllerCommonHeader extends Controller {
 			$data['class'] = 'common-home';
 		}
 
+		$data['very_top_menu'] = $this->load->controller('common/cmenu/getVeryTopMenu');
 		return $this->load->view('common/header', $data);
 	}
 }

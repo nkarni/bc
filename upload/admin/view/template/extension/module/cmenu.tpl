@@ -25,8 +25,19 @@
     <?php } ?>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?>  The Menu:</h3>
+
+		  <div class="group-control" style="padding: 12px 24px;">
+			  <select id="select_menu_change" class="form-control pull-left" style="max-width: 200px; margin-right:20px">
+				  <?php foreach($menus as $key => $value){ ?>
+				  		<option <?php if(isset($_REQUEST['menu_name']) && $_REQUEST['menu_name'] == $value){ echo ' selected ' ;}?> value="<?php echo $value ;?>"><?php echo $key ;?></option>
+				  <?php } ?>
+			  </select>
+			  <button id="btn-menu_change" class="btn btn-primary">Load Menu</button>
+		  </div>
+
       </div>
+		<?php if(isset($_REQUEST['menu_name'])){ ?>
       <div class="panel-body">
 		<div class="row">
 			<!-- left -->
@@ -50,18 +61,19 @@
 				
 				<?php foreach ($languages as $language) { ?>
 				 <div>
-                 <label>Title</label>[<?php echo $language['name']; ?>]<br />
+					 <label style="margin-top: 12px;">Title</label>[<?php echo $language['name']; ?>]<br />
 				 <input name="title[<?php echo $language['language_id']; ?>]" class="form-control" />
                  </div>
 				<?php } ?>
 				
 				<div class="group-control" id="url">
-					<label>url</label><br />
+					<label style="margin-top: 12px;">url</label><br />
 					<input type="text" name="url" class="form-control" />
 				</div>
 				
 				
 				<div class="col-sm-4 right" style="margin-top:10px;"><a class="form-control btn-primary" id="btn-addItem">Add Item</a></div>
+				<input type="hidden" name="menu_name" value="<?php echo $_REQUEST['menu_name'] ; ?>"/>
 				
 			</div>
 			</form>
@@ -76,6 +88,7 @@
 		</div>
 		
       </div>
+		<?php } // end if(isset($_REQUEST['menu_name']) ?>
     </div>
   </div>
 </div>
@@ -143,11 +156,11 @@ $('input[name=\'vname\']').autocomplete({
 
 <script type="text/javascript"><!--
 //addItem
-$('#cmenu').load('index.php?route=extension/module/cmenu/menuHtml&token=<?php echo $token; ?>');
+$('#cmenu').load('index.php?route=extension/module/cmenu/menuHtml&menu_name=<?php echo $_REQUEST['menu_name'] ; ?>&token=<?php echo $token; ?>');
 $('#btn-addItem').on('click', function(){
 	//alert('ada');
 	$.ajax({
-		url: 'index.php?route=extension/module/cmenu/addItem&token=<?php echo $token; ?>',
+		url: 'index.php?route=extension/module/cmenu/addItem&menu_name=<?php echo $_REQUEST['menu_name'] ; ?>&token=<?php echo $token; ?>',
 		type: 'post',
 		dataType: 'json',
 		data: $('#form-item').serialize(),
@@ -155,7 +168,7 @@ $('#btn-addItem').on('click', function(){
 			$('#btn-addItem').button('loading');
 		},
 		success: function(json) {
-			$('#cmenu').load('index.php?route=extension/module/cmenu/menuHtml&token=<?php echo $token; ?>');
+			$('#cmenu').load('index.php?route=extension/module/cmenu/menuHtml&menu_name=<?php echo $_REQUEST['menu_name'] ; ?>&token=<?php echo $token; ?>');
 		},
 		error: function(json){
 			alert(json['error']);
@@ -170,7 +183,7 @@ $('#btn-addItem').on('click', function(){
 $('#btn-save').on('click', function(){
 	
 	$.ajax({
-		url: 'index.php?route=extension/module/cmenu/updateMenu&token=<?php echo $token; ?>',
+		url: 'index.php?route=extension/module/cmenu/updateMenu&menu_name=<?php echo $_REQUEST['menu_name'] ; ?>&token=<?php echo $token; ?>',
 		type: 'post',
 		dataType: 'json',
 		data: {menu : $('.dd').nestable('serialize')},
@@ -191,6 +204,39 @@ $('#btn-save').on('click', function(){
 	});
 	
 });
+
+
+    //chaneg menu
+    $('#btn-menu_change').on('click', function(){
+
+        /*
+
+        $.ajax({
+            url: 'index.php?route=extension/module/cmenu/updateMenu&token=<?php echo $token; ?>',
+            type: 'post',
+            dataType: 'json',
+            data: {menu : $('.dd').nestable('serialize')},
+            beforeSend: function(){
+                $('#btn-save').button('loading');
+                $('#alert').html('');
+            },
+            success: function(json) {
+                //alert(json['success']);
+                $('#alert').html('<div class="alert alert-success">Success</div>');
+            },
+            error: function(json){
+                alert(json['error']);
+            },
+            complete: function(){
+                $('#btn-save').button('reset');
+            }
+        });
+        */
+
+		var url = 'index.php?route=extension/module/cmenu&menu_name=' + $('#select_menu_change').val() + '&token=<?php echo $token; ?>';
+        window.location = url;
+
+    });
 //--></script>
 <script type="text/javascript"><!--
 function deleteItem(id)
@@ -199,12 +245,12 @@ function deleteItem(id)
   if (r==true)
   {
 	$.ajax({
-		url: 'index.php?route=extension/module/cmenu/deleteItem&token=<?php echo $token; ?>&id=' + id,
+		url: 'index.php?route=extension/module/cmenu/deleteItem&menu_name=<?php echo $_REQUEST['menu_name'] ; ?>&token=<?php echo $token; ?>&id=' + id,
 		type: 'post',
 		dataType: 'json',
 		success: function(json) {
 			//alert(json['success']);
-			$('#cmenu').load('index.php?route=extension/module/cmenu/menuHtml&token=<?php echo $token; ?>');
+			$('#cmenu').load('index.php?route=extension/module/cmenu/menuHtml&menu_name=<?php echo $_REQUEST['menu_name'] ; ?>&token=<?php echo $token; ?>');
 		},
 		error: function(json){
 			alert(json['error']);
@@ -224,7 +270,7 @@ function updateItem(id){
 		data: $('#form_' + id).serialize(),
 		success: function(json) {
 			//alert(json['message']);
-			$('#cmenu').load('index.php?route=extension/module/cmenu/menuHtml&token=<?php echo $token; ?>');
+			$('#cmenu').load('index.php?route=extension/module/cmenu/menuHtml&menu_name=<?php echo $_REQUEST['menu_name'] ; ?>&token=<?php echo $token; ?>');
 		},
 		error: function(json){
 			alert(json['message']);
