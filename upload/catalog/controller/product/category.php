@@ -158,7 +158,7 @@ class ControllerProductCategory extends Controller {
 
                         $firstCategory = 0;
                         $data['category_id'] = $category_id;
-                        
+
                         if(!empty($results)){
                             foreach ($results as $key => $result) {
                                 if($key === 0){
@@ -169,9 +169,14 @@ class ControllerProductCategory extends Controller {
                                     'filter_sub_category' => true
                                 );
 
+                                $path = $this->request->get['path'];
+                                if ($result['parent_id'] == $category_info['parent_id']) {
+                                    $path = substr($path, 0, strrpos($path, "_"));
+                                }
+
                                 $data['categories'][] = array(
                                     'name' => $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-                                    'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url),
+                                    'href' => $this->url->link('product/category', 'path=' . $path . '_' . $result['category_id'] . $url),
                                     'image' => $this->model_tool_image->cropsize($result['image'], 320, 200),
                                     'parent_id' => $result['parent_id'],
                                     'category_id' => $result['category_id']
@@ -181,9 +186,14 @@ class ControllerProductCategory extends Controller {
                             $parentId = $category_info['parent_id'];
                             $results = $this->model_catalog_category->getCategories($parentId);
                             foreach ($results as $key => $result) {
+                                $path = $this->request->get['path'];
+                                if ($result['parent_id'] == $category_info['parent_id']) {
+                                    $path = substr($path, 0, strrpos($path, "_"));
+                                }
+
                                 $data['categories'][] = array(
                                     'name' => $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-                                    'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url),
+                                    'href' => $this->url->link('product/category', 'path=' . $path . '_' . $result['category_id'] . $url),
                                     'image' => $this->model_tool_image->cropsize($result['image'], 320, 200),
                                     'parent_id' => $result['parent_id'],
                                     'category_id' => $result['category_id']
