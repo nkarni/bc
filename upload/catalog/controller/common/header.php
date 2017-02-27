@@ -96,6 +96,17 @@ class ControllerCommonHeader extends Controller {
 
 		$categories = $this->model_catalog_category->getCategories(0);
 
+		// Get top-level category from URL
+		$top_level_category = null;
+		if (isset($this->request->get['path'])) {
+			$parts = explode('_', (string)$this->request->get['path']);
+			$category_id = (int)$parts[0];
+			$category_info = $this->model_catalog_category->getCategory($category_id);
+			if ($category_info && isset($category_info['category_id'])) {
+				$top_level_category = $category_info['category_id'];
+			}
+		}
+
 		foreach ($categories as $category) {
 			if ($category['top']) {
 				// Level 2
@@ -120,7 +131,8 @@ class ControllerCommonHeader extends Controller {
 					'name'     => $category['name'],
 					'children' => $children_data,
 					'column'   => $category['column'] ? $category['column'] : 1,
-					'href'     => $this->url->link('product/category', 'path=' . $category['category_id'])
+					'href'     => $this->url->link('product/category', 'path=' . $category['category_id']),
+					'active'   => $top_level_category == $category['category_id']
 				);
 			}
 		}
@@ -150,6 +162,7 @@ class ControllerCommonHeader extends Controller {
 		}
 
 		$data['very_top_menu'] = $this->load->controller('common/cmenu/getVeryTopMenu');
+
 		return $this->load->view('common/header', $data);
 	}
 }

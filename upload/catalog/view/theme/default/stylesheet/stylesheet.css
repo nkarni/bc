@@ -325,6 +325,7 @@ div.required .control-label:after {
     min-width: 132px;
 }
 
+#menu .second-nav li.dropdown.active a.dropdown-toggle,
 #menu .second-nav li.dropdown:hover a.dropdown-toggle {
     border-bottom: 2px solid #ff6733;
 }
