@@ -233,15 +233,13 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => array()		
 				);	
 			}
-			/*
-			if ($this->user->hasPermission('access', 'design/menu')) {
+			if ($this->user->hasPermission('access', 'extension/module/cmenu')) {
 				$design[] = array(
 					'name'	   => $this->language->get('text_menu'),
-					'href'     => $this->url->link('design/menu', 'token=' . $this->session->data['token'], true),
+					'href'     => $this->url->link('extension/module/cmenu', 'token=' . $this->session->data['token'], true),
 					'children' => array()		
 				);	
 			}
-			*/	
 			/*	
 			if ($this->user->hasPermission('access', 'design/theme')) {	
 				$design[] = array(
