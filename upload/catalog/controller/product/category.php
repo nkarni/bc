@@ -215,9 +215,9 @@ class ControllerProductCategory extends Controller {
                                 
                                 foreach ($results as $result) {
                                     if ($result['image']) {
-                                            $image = $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                                            $image = $this->model_tool_image->cropsize($result['image'], 204, 272);
                                     } else {
-                                            $image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                                            $image = $this->model_tool_image->cropsize('placeholder.png', 204, 272);
                                     }
 
                                     if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -266,9 +266,9 @@ class ControllerProductCategory extends Controller {
                                 $results = $this->model_catalog_product->getProducts($filter_data);
                                 foreach ($results as $result) {
                                     if ($result['image']) {
-                                            $image = $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                                            $image = $this->model_tool_image->cropsize($result['image'], 204, 272);
                                     } else {
-                                            $image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                                            $image = $this->model_tool_image->cropsize('placeholder.png', 204, 272);
                                     }
 
                                     if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
@@ -317,9 +317,9 @@ class ControllerProductCategory extends Controller {
                             $results = $this->model_catalog_product->getProducts($filter_data);
                             foreach ($results as $result) {
                                 if ($result['image']) {
-                                        $image = $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                                        $image = $this->model_tool_image->cropsize($result['image'], 204, 272);
                                 } else {
-                                        $image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height'));
+                                        $image = $this->model_tool_image->cropsize('placeholder.png', 204, 272);
                                 }
 
                                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {

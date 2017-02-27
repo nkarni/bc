@@ -533,6 +533,7 @@ footer ul.social_icons {
 /* alert */
 .alert {
 	padding: 8px 14px 8px 14px;
+	clear: both;
 }
 /* breadcrumb */
 .breadcrumb {
@@ -607,7 +608,7 @@ footer ul.social_icons {
 }
 .inner-category  h2 {
     margin: 0;
-    padding-bottom: 26px;
+    padding-bottom: 24px;
     font-size: 23px;
     text-align: center;
 	font-weight: bold;

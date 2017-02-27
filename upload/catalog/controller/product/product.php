@@ -360,7 +360,7 @@ class ControllerProductProduct extends Controller {
                         
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 				$data['price'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                                $data['price_amount'] = $product_info['price'];
+                                $data['price_amount'] = (float) $product_info['price'];
 			} else {
 				$data['price'] = false;
                                 $data['price_amount'] = false;
@@ -397,8 +397,10 @@ class ControllerProductProduct extends Controller {
 				foreach ($option['product_option_value'] as $option_value) {
 					if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
 						if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
-							$price = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax') ? 'P' : false), $this->session->data['currency']);
+							$price_value = $this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax') ? 'P' : false);
+							$price = $this->currency->format($price_value, $this->session->data['currency']);
 						} else {
+							$price_value = false;
 							$price = false;
 						}
 
@@ -408,6 +410,7 @@ class ControllerProductProduct extends Controller {
 							'name'                    => $option_value['name'],
 							'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
 							'price'                   => $price,
+							'price_value'             => (float) $price_value,
 							'price_prefix'            => $option_value['price_prefix']
 						);
 					}
