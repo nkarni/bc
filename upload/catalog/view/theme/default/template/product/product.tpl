@@ -293,7 +293,7 @@
                 <ul class="list-unstyled">
                     <?php if (!$special) { ?>
                     <li>
-                        <h2 data-base-price="<?php echo $price_amount; ?>"><?php echo $price; ?></h2>
+                        <h2 id="product-price" data-base-price="<?php echo $price_amount; ?>"><?php echo $price; ?></h2>
                     </li>
                     <?php } else { ?>
                     <li><span style="text-decoration: line-through;"><?php echo $price; ?></span></li>
@@ -933,9 +933,29 @@ $(document).ready(function() {
 	});
 });
 
-$(document).ready(function() {
-  $('.')
+function recalculateTotal() {
+  var quantity = parseInt($('#input-quantity').val());
+  if (!quantity) 
+    return;
+
+  var basePrice = parseFloat($('#product-price').data('base-price'));
+  if (!basePrice)
+    return;
+
+  $('#product select').each(function(idx, select) {
+    var optionPrice = $(select.selectedOptions[0]).data('price');
+    if (optionPrice) basePrice += optionPrice;
+  });
+
+  var total = Math.round(quantity * basePrice * 100) / 100;
+  $('#product-price').text('$' + total.toLocaleString('en-AU', {minimumFractionDigits: 2}));
 }
+
+$(document).ready(function() {
+  $('#product select').on('change', recalculateTotal);
+  $('#input-quantity').on('keyup', recalculateTotal);
+});
+
 //--></script>
 <script type="text/javascript"><!--
 					function getwishlists(){
