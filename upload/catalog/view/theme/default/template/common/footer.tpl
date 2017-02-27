@@ -11,9 +11,7 @@
     <div class="col-sm-3">
         <h5>Our Products</h5>
         <ul class="list-unstyled">
-            <ul class="nav navbar-nav">
-                <?php   echo $footer_menu ; ?>
-            </ul>
+            <?php echo $footer_menu ; ?>
         </ul>
     </div>
     <div class="col-sm-3">

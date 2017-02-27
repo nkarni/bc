@@ -111,18 +111,28 @@ class ControllerCommonCmenu extends Controller {
 		  //$result .= '<ol class="dd-list">';
 		$result = null;
 		$level = $parentid;
-		foreach ($menu as $item){
-			if ($item['parent_id'] == $parentid) { 
-				$result .= '<li>';
-				$result .= '<a href="'. $item['href'] .'">'. $item['title'] . $item['caret'] . '</a>';
-				$result .= $this->buildMenu($menu, $item['cmenu_id']); 
-				$result .= "</li>";
+
+		if ($level == 0) {
+			foreach ($menu as $item){
+				if ($item['parent_id'] == $parentid) { 
+					$result .= '<li class="dropdown">';
+					$result .= '<a class="dropdown-toggle" href="'. $item['href'] .'">'. $item['title'] . $item['caret'] . '</a>';
+					$result .= $this->buildMenu($menu, $item['cmenu_id']); 
+					$result .= "</li>";
+				} 
 			} 
-			  
-		} 
-		if($level == 0){
 			return $result;
 		}
-		return $result ?  "\n<ul>\n$result</ul>\n" : null; 
+		else {
+			foreach ($menu as $item){
+				if ($item['parent_id'] == $parentid) { 
+					$result .= '<li>';
+					$result .= '<a href="'. $item['href'] .'">'. $item['title'] . $item['caret'] . '</a>';
+					$result .= $this->buildMenu($menu, $item['cmenu_id']); 
+					$result .= "</li>";
+				} 
+			} 
+			return $result ?  "\n<div class='dropdown-menu'><div class='dropdown-inner'><ul class='list-unstyled'>\n$result</ul></div></div>\n" : null; 
+		}
 	} 
 }

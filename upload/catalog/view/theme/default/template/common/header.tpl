@@ -134,6 +134,7 @@
             ?>
             <ul class="nav navbar-nav">
             <?php   echo $very_top_menu ; ?>
+            <li><?php echo $search; ?></li>
             </ul>
         </div>
       </nav>
