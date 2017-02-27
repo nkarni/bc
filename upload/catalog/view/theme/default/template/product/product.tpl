@@ -32,7 +32,8 @@
           <?php if ($thumb || $images) { ?>
           <ul class="thumbnails">
             <?php if ($thumb) { ?>
-            <li><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+            <li class="image-main"><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
+            <li class="image-additional"><a class="thumbnail" href="<?php echo $popup; ?>" title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" /></a></li>
             <?php } ?>
             <?php if ($images) { ?>
             <?php foreach ($images as $image) { ?>
@@ -892,6 +893,18 @@ $('#button-review').on('click', function() {
 			}
 		}
 	});
+});
+
+$('.image-additional img').on('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  var obj = $(this);
+  var image = obj.attr('src');
+  var thumbnail = obj.parents('a').attr('href');
+
+  $('.image-main a.thumbnail').attr('href', image);
+  $('.image-main a.thumbnail img').attr('src', thumbnail);
 });
 
 $('.thumbnail-small').on('click', function(e) {
