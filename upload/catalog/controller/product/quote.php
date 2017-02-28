@@ -117,7 +117,8 @@ class ControllerProductQuote extends Controller {
                 $mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8'));
                 $mail->setText($this->request->post['quote']);
                 $mail->send();
-                $this->response->redirect($this->url->link(''));
+                $_SESSION['alert_success'] = "Thank you, your request for quote has been sent!";
+                $this->response->redirect($_SESSION['last_viewed_product_url'] ?: '/');
             }
             
             

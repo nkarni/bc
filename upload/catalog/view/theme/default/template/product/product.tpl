@@ -13,6 +13,11 @@
         <?php } ?>
         <button type="button" data-toggle="tooltip" class="btn btn-default btn-primary" style="border: 1px #404040 solid !important;" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');"><i class="fa fa-exchange"></i></button>
     </div>
+  <?php if (isset($alert_success) && $alert_success) { ?>
+  <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $alert_success; ?>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+  <?php } ?>
   <div class="row"><?php echo $column_left; ?>
     <?php if ($column_left && $column_right) { ?>
     <?php $class = 'col-sm-6'; ?>

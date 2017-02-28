@@ -239,6 +239,8 @@ class ControllerProductProduct extends Controller {
 				'text' => $product_info['name'],
 				'href' => $this->url->link('product/product', $url . '&product_id=' . $this->request->get['product_id'])
 			);
+			
+			$_SESSION['last_viewed_product_url'] = $this->url->link('product/product', $url . '&product_id=' . $this->request->get['product_id']);
 
 			$this->document->setTitle($product_info['meta_title']);
 			$this->document->setDescription($product_info['meta_description']);
@@ -661,6 +663,11 @@ class ControllerProductProduct extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
+
+			if (isset($_SESSION['alert_success'])) {
+			    $data['alert_success'] = $_SESSION['alert_success'];
+                unset($_SESSION['alert_success']);
+            }
 
 			$this->response->setOutput($this->load->view('product/product', $data));
 		} else {
