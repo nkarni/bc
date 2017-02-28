@@ -1240,7 +1240,33 @@ h3.related {
 	font-size: 12px;
 	padding: 6px 4px;
 	width: 100%;
+	color: #404040;
+}
+
+.contact-us form select {
+	background: transparent;
+	padding: 6px;
+	font-size: 13px;
+	line-height: 1;
 	border: 1px solid #CCC;
+	border-radius: 0;
+	-webkit-appearance: none;
+	padding-right: 20px;
+	background: #FFFFFF;
+	height: 32px;
+	background: url(/image/catalog/dd-arrow.png) no-repeat 100% center;
+}
+
+.contact-us ::-webkit-input-placeholder {
+	color:    #404040;
+}
+
+.contact-us ::-moz-placeholder {
+	color:    #404040;
+	opacity:  1;
+}
+
+.contact-us :-ms-input-placeholder {
 	color: #404040;
 }
 

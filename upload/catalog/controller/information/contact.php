@@ -20,9 +20,19 @@ class ControllerInformationContact extends Controller {
 			$mail->setTo($this->config->get('config_email'));
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setReplyTo($this->request->post['email']);
-			$mail->setSender(html_entity_decode($this->request->post['name'], ENT_QUOTES, 'UTF-8'));
-			$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8'));
-			$mail->setText($this->request->post['enquiry']);
+			$mail->setSender(html_entity_decode($this->request->post['first_name'] . " " . $this->request->post['last_name'], ENT_QUOTES, 'UTF-8'));
+			$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['first_name']), ENT_QUOTES, 'UTF-8'));
+			$text = "Contact form was submitted on BackCare website:
+
+Enquiry Type: " . $this->request->post['enquiry_type'] . "\n
+First Name: " . $this->request->post['first_name'] . "\n 
+Last Name: " . $this->request->post['last_name'] . "\n
+Email: " . $this->request->post['email'] . "\n
+Postcode: " . $this->request->post['postcode'] . "\n
+Country: " . $this->request->post['country'] . "\n
+Company: " . $this->request->post['company'] . "\n
+Enquiry:\n" . $this->request->post['enquiry'];
+			$mail->setText($text);
 			$mail->send();
 
 			$this->response->redirect($this->url->link('information/contact/success'));
@@ -57,16 +67,40 @@ class ControllerInformationContact extends Controller {
 
 		$data['button_map'] = $this->language->get('button_map');
 
-		if (isset($this->error['name'])) {
-			$data['error_name'] = $this->error['name'];
+		if (isset($this->error['enquiry_type'])) {
+			$data['error_enquiry_type'] = $this->error['enquiry_type'];
 		} else {
-			$data['error_name'] = '';
+			$data['error_enquiry_type'] = '';
+		}
+
+		if (isset($this->error['first_name'])) {
+			$data['error_first_name'] = $this->error['first_name'];
+		} else {
+			$data['error_first_name'] = '';
+		}
+
+		if (isset($this->error['last_name'])) {
+			$data['error_last_name'] = $this->error['last_name'];
+		} else {
+			$data['error_last_name'] = '';
 		}
 
 		if (isset($this->error['email'])) {
 			$data['error_email'] = $this->error['email'];
 		} else {
 			$data['error_email'] = '';
+		}
+
+		if (isset($this->error['postcode'])) {
+			$data['error_postcode'] = $this->error['postcode'];
+		} else {
+			$data['error_postcode'] = '';
+		}
+
+		if (isset($this->error['country'])) {
+			$data['error_country'] = $this->error['country'];
+		} else {
+			$data['error_country'] = '';
 		}
 
 		if (isset($this->error['enquiry'])) {
@@ -124,16 +158,46 @@ class ControllerInformationContact extends Controller {
 			}
 		}
 
-		if (isset($this->request->post['name'])) {
-			$data['name'] = $this->request->post['name'];
+		if (isset($this->request->post['enquiry_type'])) {
+			$data['enquiry_type'] = $this->request->post['enquiry_type'];
 		} else {
-			$data['name'] = $this->customer->getFirstName();
+			$data['enquiry_type'] = '';
+		}
+
+		if (isset($this->request->post['first_name'])) {
+			$data['first_name'] = $this->request->post['first_name'];
+		} else {
+			$data['first_name'] = $this->customer->getFirstName();
+		}
+
+		if (isset($this->request->post['last_name'])) {
+			$data['last_name'] = $this->request->post['last_name'];
+		} else {
+			$data['last_name'] = $this->customer->getLastName();
 		}
 
 		if (isset($this->request->post['email'])) {
 			$data['email'] = $this->request->post['email'];
 		} else {
 			$data['email'] = $this->customer->getEmail();
+		}
+
+		if (isset($this->request->post['postcode'])) {
+			$data['postcode'] = $this->request->post['postcode'];
+		} else {
+			$data['postcode'] = '';
+		}
+
+		if (isset($this->request->post['country'])) {
+			$data['country'] = $this->request->post['country'];
+		} else {
+			$data['country'] = 'Australia';
+		}
+
+		if (isset($this->request->post['company'])) {
+			$data['company'] = $this->request->post['company'];
+		} else {
+			$data['company'] = '';
 		}
 
 		if (isset($this->request->post['enquiry'])) {
@@ -164,8 +228,12 @@ class ControllerInformationContact extends Controller {
 	}
 
 	protected function validate() {
-		if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 32)) {
-			$this->error['name'] = $this->language->get('error_name');
+		if ((utf8_strlen($this->request->post['first_name']) < 2) || (utf8_strlen($this->request->post['first_name']) > 32)) {
+			$this->error['first_name'] = $this->language->get('error_first_name');
+		}
+
+		if ((utf8_strlen($this->request->post['last_name']) < 2) || (utf8_strlen($this->request->post['last_name']) > 32)) {
+			$this->error['last_name'] = $this->language->get('error_last_name');
 		}
 
 		if (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {

@@ -22,6 +22,7 @@ $_['entry_enquiry']  = 'Enquiry';
 $_['email_subject']  = 'Enquiry %s';
 
 // Errors
-$_['error_name']     = 'Name must be between 3 and 32 characters!';
+$_['error_first_name']     = 'First Name must be between 2 and 32 characters!';
+$_['error_last_name']     = 'Last Name must be between 2 and 32 characters!';
 $_['error_email']    = 'E-Mail Address does not appear to be valid!';
 $_['error_enquiry']  = 'Enquiry must be between 10 and 3000 characters!';
