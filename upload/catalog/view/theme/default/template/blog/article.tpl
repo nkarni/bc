@@ -19,39 +19,6 @@
                         <div class="article-title">
                             <h2><?php echo $heading_title; ?></h2>
                         </div>
-                        <div class="article-subtitle">
-                            <div class="article-info">
-                                <?php if ($show['date'] && $date_modified) { ?>
-                                    <span class="info-span"><i class="fa fa-calendar"></i> <?php echo $date_modified; ?></span>
-                                <?php } ?>
-                                <?php if ($show['author'] && $author) { ?>
-                                    <span class="info-span"><i class="fa fa-user"></i> <?php echo $author; ?></span>
-                                <?php } ?>
-                                <?php if ($show['view'] && $viewed) { ?>
-                                    <span class="info-span"><i class="fa fa-eye"></i> <?php echo $viewed; ?></span>
-                                <?php } ?>
-                                <?php if ($show['comment'] && $comments) { ?>
-                                    <span class="info-span"><i
-                                            class="fa fa-comments-o"></i> <?php echo $comments; ?></span>
-                                <?php } ?>
-                                <?php if ($show['category'] && $categories) { ?>
-                                    <span class="info-span"><i class="fa fa-folder-open"></i>
-                                        <?php foreach ($categories as $category) { ?>
-                                            <a href="<?php echo $category['href'] ?>"><span
-                                                    class="label label-category"><?php echo $category['name'] ?></span></a>
-                                        <?php } ?>
-                              </span>
-                                <?php } ?>
-                                <?php if ($show['tag'] && $tags) { ?>
-                                    <span class="info-span"><i class="fa fa-tags"></i>
-                                        <?php foreach ($tags as $tag) { ?>
-                                            <a href="<?php echo $tag['href'] ?>"><span
-                                                    class="label label-info"><?php echo $tag['tag'] ?></span></a>
-                                        <?php } ?>
-                                                </span>
-                                <?php } ?>
-                            </div>
-                        </div>
                         <div class="article-description">
                             <p><?php echo $description; ?></p>
                         </div>
