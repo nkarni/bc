@@ -1,0 +1,41 @@
+.easy-blog{
+    font-size: 14px;
+}
+
+.easy-blog .btn{
+    font-size: 14px;
+}
+
+.easy-blog hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.easy-blog .article-info span{
+    padding-right: 1em;
+}
+
+.easy-blog .article-info .info-span, .easy-blog .article-info .fa{
+    color: #888;
+    white-space: nowrap;
+}
+
+.easy-blog .article-info p{
+    margin-bottom: 0;
+}
+
+.easy-blog .label-category{
+    background-color: #888888;
+}
+
+.easy-blog .comment-title{
+    margin-bottom: 0.5em;
+}
+
+.easy-blog .comment-description{
+    padding-left: 1em;
+}
+
+.easy-blog h2 {
+    margin-top: 10px;
+}
