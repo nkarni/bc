@@ -1171,3 +1171,53 @@ h3.related {
     color: #afac7e;
     text-transform: uppercase;
 }
+
+.easy-blog .panel {
+	border: 0 none !important;
+	border-radius: 0;
+}
+
+.easy-blog .panel-heading {
+	background: #fff;
+	border: 0 none !important;
+	border-radius: 0;
+	margin-top: 10px;
+}
+
+.easy-blog .panel-title {
+	font-size: 14px;
+	font-weight: bold;
+	padding-left: 45px;
+}
+
+.easy-blog .panel .collapse {
+	display: block;
+	overflow: hidden;
+	height: 0;
+}
+
+.easy-blog .panel .collapse.in {
+	height: auto;
+}
+
+.easy-blog .panel .collapse .panel-body::before {
+	content: "+";
+	display: inline-block;
+	width: 40px;
+	text-align: center;
+	font-family: Verdana;
+	margin-top: -65px;
+	margin-left: -55px;
+	font-weight: bold;
+	font-size: 40px;
+	position: absolute;
+}
+
+.easy-blog .panel .collapse.in .panel-body::before {
+	content: "-";
+}
+
+.easy-blog .panel-body {
+	border-top: 0 none !important;
+	padding-left: 60px;
+}
