@@ -1221,3 +1221,42 @@ h3.related {
 	border-top: 0 none !important;
 	padding-left: 60px;
 }
+
+.contact-us-info {
+	margin-top: 14px;
+
+}
+
+.contact-us-info h3 {
+	font-size: 1.17em;
+	font-weight: bold;
+	margin: 28px 0 20px;
+	line-height: 1.5;
+}
+
+.contact-us form input,
+.contact-us form select,
+.contact-us form textarea {
+	font-size: 12px;
+	padding: 6px 4px;
+	width: 100%;
+	border: 1px solid #CCC;
+	color: #404040;
+}
+
+.contact-us button {
+	border: 1px solid;
+	border-color: #ccc #ccc #bbb;
+	border-radius: 3px;
+	background: #b5b38c;
+	box-shadow: none;
+	color: #FFF;
+	font-size: 12px;
+	line-height: 1;
+	padding: .6em 1em .4em;
+	text-shadow: none;
+	text-transform: uppercase;
+}
+.contact-us button:hover {
+	background: #c9c8ab;
+}

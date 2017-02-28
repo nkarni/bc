@@ -149,6 +149,10 @@ class ControllerInformationContact extends Controller {
 			$data['captcha'] = '';
 		}
 
+		$this->load->model('catalog/information');
+		$information_info = $this->model_catalog_information->getInformation(8); // Get "Contact Us" page
+		$data['article'] = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
+
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['content_top'] = $this->load->controller('common/content_top');
