@@ -55,62 +55,6 @@
                         <div class="article-description">
                             <p><?php echo $description; ?></p>
                         </div>
-                        <!-- AddThis Button BEGIN -->
-                        <div class="addthis_toolbox addthis_default_style">
-                            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                            <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a>
-                            <a class="addthis_counter addthis_pill_style"></a>
-                        </div>
-                        <script type="text/javascript"
-                                src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script>
-                        <!-- AddThis Button END -->
-                        <?php if ($comment_status) { ?>
-                            <div class="article-comments" id="comments"></div>
-                            <div>
-                                <form class="form-horizontal" id="form-comment">
-                                    <div id="comment"></div>
-                                    <h2><?php echo $text_write; ?></h2>
-                                    <?php if ($comment_guest) { ?>
-                                        <div class="form-group required">
-                                            <div class="col-sm-12">
-                                                <label class="control-label"
-                                                       for="input-name"><?php echo $entry_name; ?></label>
-                                                <input type="text" name="name" value="<?php echo $author_name; ?>"
-                                                       id="input-name"
-                                                       class="form-control"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group required">
-                                            <div class="col-sm-12">
-                                                <label class="control-label"
-                                                       for="input-comment"><?php echo $entry_comment; ?></label>
-                                                <textarea name="text" rows="5" id="input-comment"
-                                                          class="form-control"></textarea>
-
-                                                <div class="help-block"><?php echo $text_note; ?></div>
-                                            </div>
-                                        </div>
-                                        <?php if ($site_key) { ?>
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <div class="g-recaptcha"
-                                                         data-sitekey="<?php echo $site_key; ?>"></div>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-                                        <div class="buttons clearfix">
-                                            <div class="pull-right">
-                                                <button type="button" id="button-comment"
-                                                        data-loading-text="<?php echo $text_loading; ?>"
-                                                        class="btn btn-primary"><?php echo $button_continue; ?></button>
-                                            </div>
-                                        </div>
-                                    <?php } else { ?>
-                                        <?php echo $text_login; ?>
-                                    <?php } ?>
-                                </form>
-                            </div>
-                        <?php } ?>
                     </div>
                 </div>
                 <?php echo $content_bottom; ?></div>
