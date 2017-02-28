@@ -1,7 +1,4 @@
 <?php echo $header; ?>
-<!--
-<link href="catalog/view/sharer/css/goodshare-color.min.css" rel="stylesheet" media="screen" />
--->
 <div class="container">
   <ul class="breadcrumb">
     <?php foreach ($breadcrumbs as $breadcrumb) { ?>
@@ -49,15 +46,6 @@
         <div syle="width:100%;">
 
             <div class="goodshare-color row" style="float:right;padding:10px;">
-
-                <?php foreach($social_list as $socialkey=>$socialshare){ ?>
-
-                    <?php if(in_array($socialkey,$wishlists_socials)) { ?>
-                        <a href="#" class="goodshare" data-type="<?php echo $socialkey; ?>"><img src="catalog/view/javascript/wishlists/socialshare/<?php echo $socialshare; ?>.png"></a>
-                    <?php } ?>
-
-                <?php } ?>
-
                 <?php if($wishlists_copy_url_status) { ?>
                     <span class="show-copy-link btn btn-primary btn-small"  onclick="js:CopyToClipboard('<?php echo $mysharelink; ?>');" style="padding:none !important;line-height:0.5 !important;">Copy URL</span>
                 <?php } ?>
@@ -266,4 +254,3 @@
 	});
 
 </script>
-<script src="catalog/view/javascript/wishlists/sharer/js/goodshare.js" type="text/javascript"></script>
