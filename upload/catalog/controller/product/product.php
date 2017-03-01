@@ -4,8 +4,10 @@ class ControllerProductProduct extends Controller {
 
 	public function index() {
 		$this->load->language('product/product');
+        $this->load->model('tool/image');
 
 		$data['breadcrumbs'] = array();
+        $data['category_crumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -42,6 +44,7 @@ class ControllerProductProduct extends Controller {
 
 		if (isset($this->request->get['path'])) {
 			$path = '';
+            $url = '';
 
 			$parts = explode('_', (string)$this->request->get['path']);
 
@@ -61,6 +64,14 @@ class ControllerProductProduct extends Controller {
 						'text' => $category_info['name'],
 						'href' => $this->url->link('product/category', 'path=' . $path)
 					);
+
+                    $data['category_crumbs'][] = array(
+                        'name' => $category_info['name'],
+                        'href' => $this->url->link('product/category', 'path=' . $path . '_' . $category_info['category_id'] . $url),
+                        'image' => $this->model_tool_image->cropsize($category_info['image'], 320, 200),
+                        'parent_id' => $category_info['parent_id'],
+                        'category_id' => $category_info['category_id']
+                    );
 				}
 			}
 
@@ -90,6 +101,14 @@ class ControllerProductProduct extends Controller {
 					'text' => $category_info['name'],
 					'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . $url)
 				);
+
+                $data['category_crumbs'][] = array(
+                    'name' => $category_info['name'],
+                    'href' => $this->url->link('product/category', 'path=' . $path . '_' . $category_info['category_id'] . $url),
+                    'image' => $this->model_tool_image->cropsize($category_info['image'], 320, 200),
+                    'parent_id' => $category_info['parent_id'],
+                    'category_id' => $category_info['category_id']
+                );
 			}
 		}
 

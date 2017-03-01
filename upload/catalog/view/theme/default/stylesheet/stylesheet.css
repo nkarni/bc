@@ -585,6 +585,10 @@ footer ul.social_icons {
 	margin: 0;
 }
 
+.category-crumbs-row{
+	margin-top: 20px;
+}
+
 .inner-category img {
     height: auto;
     max-width: 100%;
