@@ -1,5 +1,6 @@
 <?php echo $header; ?>
 <div class="container">
+    <?php if (isset($category_crumbs) && sizeOf($category_crumbs)>0) { ?>
     <div class="row inner-category category-crumbs-row">
         <?php
          foreach($category_crumbs as $category){ //$category['image'] = 'http://bcdev.utopiacreative.com/image/cache/catalog/category/ergofit-hero-750x550-cr-320x200.jpg'; ?>
@@ -18,6 +19,13 @@
         </div>
         <?php } ?>
     </div>
+    <?php } else { // if category breadcrumbs ?>
+    <ul class="breadcrumb pull-left">
+        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ul>
+    <?php } ?>
 
   <?php if (isset($alert_success) && $alert_success) { ?>
   <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $alert_success; ?>
