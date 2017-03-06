@@ -95,6 +95,10 @@
             <?php } ?>
           </ul>
 
+          <?php if ($sku) { ?>
+          <p>Product Code: <?php echo $sku; ?></p>
+          <?php } ?>
+
           <div class="panel-group" id="accordion">
             <div class="panel ">
               <div class="panel-heading">
@@ -285,7 +289,7 @@
 
                           <?php if ($options) {  $i = 1 ;?>
                             <?php foreach ($options as $option) {  $i++; ?>
-                              <div class="ghost-input-option<?php echo $option['product_option_id']; ?> ghost-option <?php echo (($i % 2) == 0 ? 'even' : '') ; ?>">
+                              <div class="ghost-input-option<?php echo $option['product_option_id']; ?> ghost-option <?php echo (($i % 2) == 0 ? 'white-bg' : '') ; ?>">
                                     <div><strong><?php echo $option['name']; ?></strong></div>
                                     <div class="ghost-selected-input-option<?php echo $option['product_option_id']; ?>"></div>
                                     <div class="ghost-selected-price-input-option<?php echo $option['product_option_id']; ?>"></div>
@@ -846,10 +850,10 @@
 
       <div id="product_submenu">
         <ul class="list-unstyled">
-          <li><a data-action="build" href="javascript:void(0);"><i class="fa fa-chevron-right"></i> Build</a></li>
-          <li><a data-action="accessories" href="javascript:void(0);"><i class="fa fa-chevron-right"></i> Accessories</a></li>
-          <li><a data-action="request_info" href="javascript:void(0);"><i class="fa fa-chevron-right"></i> Request More Information</a></li>
-          <li><a data-action="back_to_top" href="javascript:void(0);"><i class="fa fa-chevron-up"></i> Back To Top</a></li>
+          <li><a data-action="build" href="javascript:$('a[href=#build-options]').click();"><i class="fa fa-chevron-right"></i> Build</a></li>
+          <li><a data-action="accessories" href="javascript:$('a[href=#accessories]').click();"><i class="fa fa-chevron-right"></i> Accessories</a></li>
+          <li><a data-action="request_info" href="javascript:$('a[href=#request-info]').click();"><i class="fa fa-chevron-right"></i> Request More Information</a></li>
+          <li><a data-action="back_to_top" href="javascript: backToTop();"><i class="fa fa-chevron-up"></i> Back To Top</a></li>
         </ul>
       </div>
 
@@ -1410,6 +1414,22 @@
         if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
             e.preventDefault();
         }
+    });
+
+    function backToTop() {
+      $('html, body').animate({
+        scrollTop: 0
+      }, 500);
+    }
+
+    $(function() {
+      $(document).on('scroll', function(e) { 
+        if ($('body')[0].scrollTop > 119) {
+          $('body').addClass("scrolled-after-header");
+        } else {
+          $('body').removeClass("scrolled-after-header");
+        }
+      });
     });
     --></script>
 <?php echo $footer; ?>

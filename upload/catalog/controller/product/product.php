@@ -335,6 +335,7 @@ class ControllerProductProduct extends Controller {
 			$data['model'] = $product_info['model'];
 			$data['reward'] = $product_info['reward'];
 			$data['points'] = $product_info['points'];
+			$data['sku'] = $product_info['sku'];
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
 			$data['short_description'] = html_entity_decode($product_info['short_description'], ENT_QUOTES, 'UTF-8');
 			$data['specifications'] = html_entity_decode($product_info['specifications'], ENT_QUOTES, 'UTF-8');
@@ -517,7 +518,7 @@ class ControllerProductProduct extends Controller {
 					$rating = false;
 				}
                                 
-                                $category = $this->model_catalog_product->getCategories($product_id);
+                                $category = $this->model_catalog_product->getCategories($result['product_id']);
                                 if ($category){
                                     $category_array = $this->model_catalog_category->getCategory($category[0]['category_id']);
                                     $category_name  = $category_array['name'];

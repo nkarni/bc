@@ -674,7 +674,9 @@ footer ul.social_icons {
 #product .form-group{
 	margin-bottom: 0px !important;
 }
-
+.floating-cart .qty {
+	height: 50px;
+}
 .qty-input-group{
 	float: right;
 	width: 120px;
@@ -697,6 +699,8 @@ input.form-control.input-number {
 
 .dark-grey-bg{
 	background: #666666 !important;
+	border: 0 none !important;
+	padding: 9px 12px 8px 12px !important;
 }
 
 .qty span.glyphicon.glyphicon-minus , .qty span.glyphicon.glyphicon-plus{
@@ -720,7 +724,7 @@ input.form-control.input-number {
 	right: 0;
 	background: #9b9b9b;
 	color: #FFF;
-	padding: 10px;
+	padding: 3px 10px;
 }
 #product_submenu a{
 	color: white;
@@ -735,14 +739,38 @@ input.form-control.input-number {
 	background: white !important;
 }
 
+@media (max-width: 1620px) {
+	#product_submenu {
+		display: none;
+	}
+}
+
+.col-sm-12, .col-sm-6 {
+	position: static;
+}
 .floating-cart {
 	max-width: 300px;
 	margin: auto;
 	background: #f4f4f4;
 	border: 1px solid #CCC;
 	padding: 10px;
-	margin-top:28px;
-
+	margin-top: 28px;
+}
+@media(min-width: 1620px) {
+	.floating-cart {
+		margin-top: 0px;
+		position: absolute;
+		top: 129px;
+		right: 0;
+		z-index:999;
+	}
+	.scrolled-after-header .floating-cart {
+		position: fixed;
+		top: 10px;
+	}
+	#build-options.collapsing {
+		position: static;
+	}
 }
 
 .floating-cart h4{
@@ -760,7 +788,7 @@ input.form-control.input-number {
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }
-.ghost-wrapper even, .white-bg{
+.white-bg{
 	background: white;
 }
 
@@ -786,6 +814,10 @@ i.fa.fa-chevron-right, #product_submenu i.fa.fa-chevron-up {
 	padding-left: 2px;
 	margin-right: 10px;
 }
+#product_submenu i.fa.fa-chevron-right, 
+#product_submenu i.fa.fa-chevron-up {
+	margin-right: 0px;
+}
 #accordion a {
 	line-height: 20px;
 	margin-bottom: 12px;
@@ -804,6 +836,16 @@ i.fa.fa-chevron-right, #product_submenu i.fa.fa-chevron-up {
 	border-radius: 0px;
 }
 
+input.dark-grey-bg.input-number {
+	border-left: 1px solid #808080 !important;
+}
+
+.qty-input-group .input-group-btn:last-child {
+	border-left: 1px solid #808080 !important;
+}
+.qty-input-group .input-group-btn:last-child button {
+  margin-left: 0px
+}
 /* buttons */
 .buttons {
 	margin: 1em 0;
@@ -1450,4 +1492,7 @@ h3.related {
 }
 .contact-us button:hover {
 	background: #c9c8ab;
+}
+#accordion.panel-group .panel-heading+.panel-collapse>.panel-body {
+	border-top: 0 none;
 }

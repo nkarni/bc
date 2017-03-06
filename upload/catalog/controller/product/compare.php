@@ -118,6 +118,9 @@ class ControllerProductCompare extends Controller {
 					'special'      => $special,
 					'description'  => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..',
 					'model'        => $product_info['model'],
+					'specifications'=> html_entity_decode($product_info['specifications']),
+					'features'     => html_entity_decode($product_info['features']),
+					'model'        => $product_info['model'],
 					'manufacturer' => $product_info['manufacturer'],
 					'availability' => $availability,
 					'minimum'      => $product_info['minimum'] > 0 ? $product_info['minimum'] : 1,
@@ -143,6 +146,20 @@ class ControllerProductCompare extends Controller {
 				unset($this->session->data['compare'][$key]);
 			}
 		}
+
+		// Wishlists starts here
+		$this->load->model('account/wishlists');
+		$data['wishlists'] = array();				
+		$data['multiplewishlist'] = $this->config->get('wishlists_status');
+		$wishparams = array();
+		if ($this->customer->isLogged()) {
+			$data['show_wishlist'] = 1;
+
+		}else{
+			$data['show_wishlist'] = 0;
+		}
+		$data['text_login_must'] = $this->language->get('You must be logged in');
+		// Wishlists ends here
 
 		$data['continue'] = $this->url->link('common/home');
 
