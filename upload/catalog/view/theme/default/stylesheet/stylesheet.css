@@ -695,6 +695,45 @@ input.form-control.input-number {
 	color: #404040;
 }
 
+.dark-grey-bg{
+	background: #666666 !important;
+}
+
+.qty span.glyphicon.glyphicon-minus , .qty span.glyphicon.glyphicon-plus{
+	color: gray;
+}
+.qty .input-number, .qty span.glyphicon.glyphicon-minus:hover , .qty span.glyphicon.glyphicon-plus:hover{
+	color: white !important;
+}
+
+.btn-black, .btn-black:hover{
+	background: #000;
+	color: #FFF;
+	margin-top: 10px;
+	border: none !important;
+	line-height: 1.5em !important;
+}
+
+#product_submenu {
+	position: fixed;
+	bottom: 25%;
+	right: 0;
+	background: #9b9b9b;
+	color: #FFF;
+	padding: 10px;
+}
+#product_submenu a{
+	color: white;
+}
+
+#product_submenu li {
+	margin: 8px 0;
+}
+
+#product_submenu i.fa.fa-chevron-right, #product_submenu i.fa.fa-chevron-up{
+	color: #9b9b9b !important;
+	background: white !important;
+}
 
 .floating-cart {
 	max-width: 300px;
@@ -721,13 +760,44 @@ input.form-control.input-number {
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }
-.ghost-wrapper .even{
+.ghost-wrapper even, .white-bg{
 	background: white;
 }
 
 .ghost-option{
 	padding: 5px;
 	border-bottom: 1px solid #ccc;
+}
+
+i.fa.fa-chevron-right, #product_submenu i.fa.fa-chevron-up {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	color: #FFF;
+	background: #b5b38c;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	font-size: 14px;
+	line-height: 20px;
+	text-align: center;
+	position: relative;
+	top: -1px;
+	padding-left: 2px;
+	margin-right: 10px;
+}
+#accordion a {
+	line-height: 20px;
+	margin-bottom: 12px;
+	font-size: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#accordion .panel-heading {
+	padding: 5px 15px;
+	border: none !important;
+	background:transparent;
 }
 
 /* buttons */

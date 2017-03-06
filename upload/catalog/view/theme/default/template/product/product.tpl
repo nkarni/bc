@@ -96,10 +96,10 @@
           </ul>
 
           <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
+            <div class="panel ">
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#build-options">BUILD /
+                  <a data-toggle="collapse" data-parent="#accordion" href="#build-options"><i class="fa fa-chevron-right"></i>BUILD /
                     OPTIONS</a>
                 </h4>
               </div>
@@ -107,7 +107,6 @@
                 <div class="panel-body">
                   <div id="product">
                     <?php if ($options) { ?>
-                    <h3><?php echo $text_option; ?></h3>
                     <?php foreach ($options as $option) { ?>
                     <?php if ($option['type'] == 'select') { ?>
                     <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
@@ -327,39 +326,44 @@
                           <?php } ?>
                         </ul>
 
-                        <div class="form-group">
-                          <label class="control-label qty-label"
-                                 for="input-quantity"><?php echo $entry_qty; ?></label>
+                        <div class="qty white-bg">
+                          <label class="control-label qty-label" for="input-quantity"><?php echo $entry_qty; ?></label>
                           <div class="input-group qty-input-group" >
-                          <span class="input-group-btn ">
-                            <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </button>
-                          </span>
-                            <input type="text" name="quant[2]" class="form-control input-number" value="10" min="1" max="100">
+                            <span class="input-group-btn ">
+                              <button type="button" class="btn dark-grey-bg btn-number"  data-type="minus" data-field="quant[2]">
+                                  <span class="glyphicon glyphicon-minus"></span>
+                              </button>
+                            </span>
+                            <input type="text" name="quant[2]" class="form-control dark-grey-bg input-number" value="10" min="1" max="100">
                             <span class="input-group-btn">
-                            <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                          </span>
+                              <button type="button" class="btn dark-grey-bg btn-number" data-type="plus" data-field="quant[2]">
+                                  <span class="glyphicon glyphicon-plus"></span>
+                              </button>
+                            </span>
                           </div>
 
-                          <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/>
-                          <input type="hidden" name="default_open_moreinfo" id="default_open_moreinfo"
-                                 value="<?php echo $default_open_moreinfo; ?>"/>
+
+
                         </div>
+
                         <button type="button" id="button-cart"
                                 data-loading-text="<?php echo $text_loading; ?>"
                                 class="btn btn-primary btn-lg btn-block">ADD TO CART</button>
                         <?php } ?>
                         <button type="button" id="button-quote"
                                 data-loading-text="<?php echo $text_loading; ?>"
-                                class="btn btn-primary btn-lg btn-block">REQUEST A QUOTE</button>
+                                class="btn btn-primary btn-lg btn-block"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp; REQUEST A QUOTE</button>
+                        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/>
+                        <input type="hidden" name="default_open_moreinfo" id="default_open_moreinfo" value="<?php echo $default_open_moreinfo; ?>"/>
+                        <div class="text-left">
+                          <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
+                          <button class="wishlist-add-form btn  btn-black" rel="popover" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>" type="button">ADD TO WISHLIST</button>
+                          <?php } else { ?>
+                          <button data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>" class="btn  btn-black" >ADD TO WISHLIST</button>
+                          <?php } ?>
+                          <button type="button" data-toggle="tooltip" class="btn btn-black"  title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');">ADD TO COMPARISON</button>
+                        </div>
                       </div>
-                      <?php if ($minimum > 1) { ?>
-                      <div class="alert alert-info"><i
-                                class="fa fa-info-circle"></i> <?php echo $text_minimum; ?></div>
-                      <?php } ?>
 
 
                     </div>
@@ -370,7 +374,7 @@
 
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#request-info">REQUEST MORE
+                  <a data-toggle="collapse" data-parent="#accordion" href="#request-info"><i class="fa fa-chevron-right"></i>REQUEST MORE
                     INFORMATION</a>
                 </h4>
               </div>
@@ -772,7 +776,7 @@
 
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#desc">DESCRIPTION</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#desc"><i class="fa fa-chevron-right"></i>DESCRIPTION</a>
                 </h4>
               </div>
               <div id="desc" class="panel-collapse collapse">
@@ -783,7 +787,7 @@
 
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#specs">SPECIFICATIONS</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#specs"><i class="fa fa-chevron-right"></i>SPECIFICATIONS</a>
                 </h4>
               </div>
               <?php if ($specifications) { ?>
@@ -796,7 +800,7 @@
 
               <div class="panel-heading">
                 <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#features">FEATURES</a>
+                  <a data-toggle="collapse" data-parent="#accordion" href="#features"><i class="fa fa-chevron-right"></i>FEATURES</a>
                 </h4>
               </div>
               <?php if ($features) { ?>
@@ -840,6 +844,18 @@
           <?php } ?>
         </div>
       </div>
+
+      <div id="product_submenu">
+        <ul class="list-unstyled">
+          <li><a data-action="build" href="javascript:void(0);"><i class="fa fa-chevron-right"></i> Build</a></li>
+          <li><a data-action="accessories" href="javascript:void(0);"><i class="fa fa-chevron-right"></i> Accessories</a></li>
+          <li><a data-action="request_info" href="javascript:void(0);"><i class="fa fa-chevron-right"></i> Request More Information</a></li>
+          <li><a data-action="back_to_top" href="javascript:void(0);"><i class="fa fa-chevron-up"></i> Back To Top</a></li>
+        </ul>
+      </div>
+
+
+
       <?php if ($products) { ?>
       <h3 class="related"><?php echo $text_related; ?></h3>
       <div class="row">
@@ -1323,6 +1339,78 @@
                 return $activeproductrow + $buttons + $addbuttonhtml;
             }
         }).popover('toggle');
+    });
+
+    $('.btn-number').click(function(e){
+        e.preventDefault();
+
+        fieldName = $(this).attr('data-field');
+        type      = $(this).attr('data-type');
+        var input = $("input[name='"+fieldName+"']");
+        var currentVal = parseInt(input.val());
+        if (!isNaN(currentVal)) {
+            if(type == 'minus') {
+
+                if(currentVal > input.attr('min')) {
+                    input.val(currentVal - 1).change();
+                }
+                if(parseInt(input.val()) == input.attr('min')) {
+                    $(this).attr('disabled', true);
+                }
+
+            } else if(type == 'plus') {
+
+                if(currentVal < input.attr('max')) {
+                    input.val(currentVal + 1).change();
+                }
+                if(parseInt(input.val()) == input.attr('max')) {
+                    $(this).attr('disabled', true);
+                }
+
+            }
+        } else {
+            input.val(0);
+        }
+    });
+    $('.input-number').focusin(function(){
+        $(this).data('oldValue', $(this).val());
+    });
+    $('.input-number').change(function() {
+
+        minValue =  parseInt($(this).attr('min'));
+        maxValue =  parseInt($(this).attr('max'));
+        valueCurrent = parseInt($(this).val());
+
+        name = $(this).attr('name');
+        if(valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the minimum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+        if(valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the maximum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+
+
+    });
+    $(".input-number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+            // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
     });
     --></script>
 <?php echo $footer; ?>
