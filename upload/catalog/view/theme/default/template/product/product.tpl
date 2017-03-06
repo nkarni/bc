@@ -297,7 +297,6 @@
 
 
                       <div class="text-center">
-                        <br/>
                         <?php if($price_amount > 0){ ?>
                         <ul class="list-unstyled">
                           <?php if (!$special) { ?>

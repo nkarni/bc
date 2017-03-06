@@ -800,6 +800,10 @@ i.fa.fa-chevron-right, #product_submenu i.fa.fa-chevron-up {
 	background:transparent;
 }
 
+.checkout-cart .input-number{
+	border-radius: 0px;
+}
+
 /* buttons */
 .buttons {
 	margin: 1em 0;
@@ -840,7 +844,7 @@ i.fa.fa-chevron-right, #product_submenu i.fa.fa-chevron-up {
 	background-color: #e7e7e7;
 	background-image: linear-gradient(to bottom, #eeeeee, #dddddd);
 	background-repeat: repeat-x;
-	border-color: #dddddd #dddddd #b3b3b3 #b7b7b7;
+	border: none;
 }
 .btn-primary {
 	color: #ffffff;
