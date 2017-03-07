@@ -853,7 +853,7 @@
       <div id="product_submenu">
         <ul class="list-unstyled">
           <li><a data-action="build" href="javascript:$('a[href=#build-options]').click();"><i class="fa fa-chevron-right"></i> Build</a></li>
-          <li><a data-action="accessories" href="javascript:$('a[href=#accessories]').click();"><i class="fa fa-chevron-right"></i> Accessories</a></li>
+          <li><a data-action="desc" href="javascript:$('a[href=#desc]').click();"><i class="fa fa-chevron-right"></i> Description</a></li>
           <li><a data-action="request_info" href="javascript:$('a[href=#request-info]').click();"><i class="fa fa-chevron-right"></i> Request More Information</a></li>
           <li><a data-action="back_to_top" href="javascript: backToTop();"><i class="fa fa-chevron-up"></i> Back To Top</a></li>
         </ul>
