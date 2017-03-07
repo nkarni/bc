@@ -847,8 +847,8 @@ input.dark-grey-bg.input-number {
   margin-left: 0px
 }
 
-a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover, img:hover, img:focus, .img:active {
-	border: 0px !important;
+a:focus {
+	outline: none !important;
 }
 
 .alert a{

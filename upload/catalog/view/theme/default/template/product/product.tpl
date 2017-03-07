@@ -55,7 +55,7 @@
           <ul class="thumbnails">
             <?php if ($thumb) { ?>
             <li class="image-main"><a class="thumbnail" href="<?php echo $popup; ?>"
-                                      title="<?php echo $heading_title; ?>"><img src="<?php echo $thumb; ?>"
+                                      title="<?php echo $heading_title; ?>"><img src="<?php echo $popup; ?>"
                                                                                  title="<?php echo $heading_title; ?>"
                                                                                  alt="<?php echo $heading_title; ?>"/></a>
             </li>
