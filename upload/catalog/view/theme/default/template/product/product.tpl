@@ -1,6 +1,8 @@
 <?php echo $header; ?>
 <div class="container">
-  <?php if (isset($category_crumbs) && sizeOf($category_crumbs)>0) { ?>
+  <?php if (isset($category_crumbs) && sizeOf($category_crumbs)>0) {
+  $last_cat =  end($category_crumbs);
+  ?>
   <div class="row inner-category breadcrumb">
     <?php
          foreach($category_crumbs as $category){ //$category['image'] = 'http://bcdev.utopiacreative.com/image/cache/catalog/category/ergofit-hero-750x550-cr-320x200.jpg'; ?>
@@ -12,7 +14,7 @@
         </a>
       </div>
 
-      <div class="title <?php echo ($category_id == $category['category_id']) ? 'active' : ''; ?>">
+      <div class="title <?php echo ($last_cat['category_id'] == $category['category_id']) ? 'active' : ''; ?>">
         <p>
           <a href="<?php echo $category['href'] ?>"><?php echo $category['name'] ?></a>
         </p>
@@ -337,7 +339,7 @@
                                   <span class="glyphicon glyphicon-minus"></span>
                               </button>
                             </span>
-                            <input type="text" name="quant[2]" class="form-control dark-grey-bg input-number" value="10" min="1" max="100">
+                            <input type="text" id="input-quantity" name="quant[2]" class="form-control dark-grey-bg input-number" value="1" min="1" >
                             <span class="input-group-btn">
                               <button type="button" class="btn dark-grey-bg btn-number" data-type="plus" data-field="quant[2]">
                                   <span class="glyphicon glyphicon-plus"></span>
@@ -897,17 +899,7 @@
         <?php } ?>
       </div>
       <?php } ?>
-      <?php if ($tags) { ?>
-      <p><?php echo $text_tags; ?>
-        <?php for ($i = 0; $i < count($tags); $i++) { ?>
-        <?php if ($i < (count($tags) - 1)) { ?>
-        <a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>,
-        <?php } else { ?>
-        <a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>
-        <?php } ?>
-        <?php } ?>
-      </p>
-      <?php } ?>
+
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>

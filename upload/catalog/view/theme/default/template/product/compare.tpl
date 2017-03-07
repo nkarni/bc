@@ -54,24 +54,7 @@
               <?php } ?></td>
             <?php } ?>
           </tr>
-          <tr>
-            <td><?php echo $text_model; ?></td>
-            <?php foreach ($products as $product) { ?>
-            <td><?php echo $product['model']; ?></td>
-            <?php } ?>
-          </tr>
-          <tr>
-            <td><?php echo $text_manufacturer; ?></td>
-            <?php foreach ($products as $product) { ?>
-            <td><?php echo $product['manufacturer']; ?></td>
-            <?php } ?>
-          </tr>
-          <tr>
-            <td><?php echo $text_availability; ?></td>
-            <?php foreach ($products as $product) { ?>
-            <td><?php echo $product['availability']; ?></td>
-            <?php } ?>
-          </tr>
+
           <?php if ($review_status) { ?>
           <tr>
             <td><?php echo $text_rating; ?></td>

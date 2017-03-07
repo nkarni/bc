@@ -846,6 +846,15 @@ input.dark-grey-bg.input-number {
 .qty-input-group .input-group-btn:last-child button {
   margin-left: 0px
 }
+
+a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover, img:hover, img:focus, .img:active {
+	border: 0px !important;
+}
+
+.alert a{
+	border-bottom: 2px solid #ff6733;
+}
+
 /* buttons */
 .buttons {
 	margin: 1em 0;
