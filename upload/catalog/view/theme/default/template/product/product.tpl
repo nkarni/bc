@@ -364,7 +364,7 @@
                           <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
                           <button class="wishlist-add-form btn  btn-black" rel="popover" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>" type="button">ADD TO WISHLIST</button>
                           <?php } else { ?>
-                          <button data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>" class="btn  btn-black" >ADD TO WISHLIST</button>
+                          <button data-placement="top"  data-toggle="tooltip" title="Please login before adding to a wishlist" class="btn  btn-black" >ADD TO WISHLIST</button>
                           <?php } ?>
                           <button type="button" data-toggle="tooltip" class="btn btn-black"  title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');">ADD TO COMPARISON</button>
                         </div>
