@@ -562,7 +562,7 @@ footer ul.social_icons {
 }
 /* breadcrumb */
 .breadcrumb {
-    margin: 1px 0 24px -24px;
+    margin: 1px 0 3px -24px;
     padding: 20px 0;
     border: none;
     background: none;
@@ -845,6 +845,10 @@ input.dark-grey-bg.input-number {
 }
 .qty-input-group .input-group-btn:last-child button {
   margin-left: 0px
+}
+
+.cat-breadcrumbs{
+	margin: 0px 0px 24px -14px;
 }
 
 a:focus {
@@ -1386,6 +1390,13 @@ h3.related {
 	font-size: 9px;
     color: #afac7e;
     text-transform: uppercase;
+}
+
+.slick-prev{
+	left:0px !important;
+}
+.slick-next{
+	right: 0px !important;
 }
 
 .easy-blog .panel {

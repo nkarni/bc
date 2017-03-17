@@ -3,10 +3,20 @@
   <?php if (isset($category_crumbs) && sizeOf($category_crumbs)>0) {
   $last_cat =  end($category_crumbs);
   ?>
-  <div class="row inner-category breadcrumb">
+  <div class="row">
+    <div class="col-sm-12">
+      <ul class="breadcrumb pull-left">
+        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row inner-category">
     <?php
          foreach($category_crumbs as $category){ //$category['image'] = 'http://bcdev.utopiacreative.com/image/cache/catalog/category/ergofit-hero-750x550-cr-320x200.jpg'; ?>
-    <div class="col-md-2 col-sm-4 col-xs-6 sub-category">
+    <div class="col-md-2 col-sm-4 col-xs-6 sub-category cat-breadcrumbs">
       <div class="image_wrapper">
         <a href="<?php echo $category['href'] ?>">
           <img src="<?php echo $category['image'] ?>" class="attachment-home_category size-home_category"
@@ -362,7 +372,7 @@
                         <input type="hidden" name="default_open_moreinfo" id="default_open_moreinfo" value="<?php echo $default_open_moreinfo; ?>"/>
                         <div class="text-left">
                           <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
-                          <button class="wishlist-add-form btn  btn-black" rel="popover" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>" type="button">ADD TO WISHLIST</button>
+                          <button class="wishlist-add-form btn  btn-black" xxrel="popover" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>" type="button">ADD TO WISHLIST</button>
                           <?php } else { ?>
                           <button data-placement="top"  data-toggle="tooltip" title="Please login before adding to a wishlist" class="btn  btn-black" >ADD TO WISHLIST</button>
                           <?php } ?>
@@ -1178,12 +1188,12 @@
         });
     });
 
-    function applySelectionToGhost(){
-
+    function allSelected(){
         var allSelected = true;
 
         $('#product select').each(function (idx, select) {
             var text = $(select).find('option:selected').text();
+            console.log(text);
             var id = $(select).attr("id");
             var selectedIndex = document.getElementById(id).selectedIndex;
             if(selectedIndex == 0){
@@ -1192,7 +1202,11 @@
             $('.ghost-selected-' + id).html(text);
         });
 
-        if(allSelected){
+        return allSelected;
+    }
+
+    function applySelectionToGhost(){
+        if(allSelected()){
             $('.ghost-container').removeClass('hidden');
         }
     }
@@ -1260,6 +1274,7 @@
         //  $product = $(this).attr('product');
         $product = $(this).parents('.popover-content').find("input.active_product_id").val();
         $wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+
         $.ajax({
             url: 'index.php?route=account/wishlists/add',
             dataType: 'json',
@@ -1292,6 +1307,14 @@
 
     // For add product to existing wishlist
     $(document).on("click", ".dowishlist", function () {
+
+        if(!allSelected()){
+            $('.popover').popover('hide');
+            alert('Please select all product options before adding to wishlist');
+            return false;
+        }
+
+
         $wishlist = $(this).attr('wishlist');
         $product = $(this).parents('.popover-content').find("input.active_product_id").val();
         $.ajax({
@@ -1319,21 +1342,26 @@
 
     // For wishlist form
     $('.wishlist-add-form').click(function () {
-        $currentproduct = $(this).attr('product');
-        $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';
+        if(allSelected()){
+            $currentproduct = $(this).attr('product');
+            $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';
 
-        $(this).popover({
-            html: true,
-            trigger: 'manual',
-            placement: 'right',
+            $(this).popover({
+                html: true,
+                trigger: 'manual',
+                placement: 'left',
 
-            content: function () {
-                $buttons = getwishlists();
-                if ($buttons) $buttons += "<p>Or add a new Wish List:</p>";
-                $activeproductrow = '<input type="hidden" class="active_product_id" value="' + $currentproduct + '" />';
-                return $activeproductrow + $buttons + $addbuttonhtml;
-            }
-        }).popover('toggle');
+                content: function () {
+                    $buttons = getwishlists();
+                    if ($buttons) $buttons += "<p>Or add a new Wish List:</p>";
+                    $activeproductrow = '<input type="hidden" class="active_product_id" value="' + $currentproduct + '" />';
+                    return $activeproductrow + $buttons + $addbuttonhtml;
+                }
+            }).popover('toggle');
+        }else{
+            alert('Please select all product options before adding to wishlist.')
+        }
+
     });
 
     $('.btn-number').click(function(e){

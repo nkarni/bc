@@ -9,6 +9,9 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>">
+      <?php if($sent){ ?>
+      <h2>You enquiry was sent, we will be in touch shortly.</h2><br>
+      <?php } ?>
       <div class="contact-us-info">
         <?php echo isset($article) ? $article : ''; ?>
       </div>

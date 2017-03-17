@@ -7,7 +7,10 @@ class ControllerInformationContact extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
+        $data['sent'] = false;
+
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+		    /*
 			$mail = new Mail();
 			$mail->protocol = $this->config->get('config_mail_protocol');
 			$mail->parameter = $this->config->get('config_mail_parameter');
@@ -34,8 +37,11 @@ Company: " . $this->request->post['company'] . "\n
 Enquiry:\n" . $this->request->post['enquiry'];
 			$mail->setText($text);
 			$mail->send();
+		    */
 
-			$this->response->redirect($this->url->link('information/contact/success'));
+			//$this->response->redirect($this->url->link('information/contact/success'));
+
+            $data['sent'] = true;
 		}
 
 		$data['breadcrumbs'] = array();

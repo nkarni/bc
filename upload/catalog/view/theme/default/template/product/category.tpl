@@ -63,7 +63,7 @@
                     speed: 300,
                     slidesToShow: 6,
                     slidesToScroll: 1,
-                    variableWidth: true,
+                    variableWidth: true
                 });
             });
         </script>

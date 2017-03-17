@@ -164,9 +164,9 @@
 				  <?php } ?>
 				</div>
 				<a href="<?php echo $category['href']; ?>" class="see-all"><?php echo $text_all; ?> <?php echo $category['name']; ?></a> </div>
-				</div>				
+				</div>
 			</li>
-			
+
 			<?php } ?>
 			<?php } ?>
 		  </ul>

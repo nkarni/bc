@@ -31,7 +31,7 @@ class ControllerExtensionModuleAccount extends Controller {
 		$data['edit'] = $this->url->link('account/edit', '', true);
 		$data['password'] = $this->url->link('account/password', '', true);
 		$data['address'] = $this->url->link('account/address', '', true);
-		$data['wishlist'] = $this->url->link('account/wishlist');
+		$data['wishlist'] = $this->url->link('account/wishlists');
 		$data['order'] = $this->url->link('account/order', '', true);
 		$data['download'] = $this->url->link('account/download', '', true);
 		$data['reward'] = $this->url->link('account/reward', '', true);

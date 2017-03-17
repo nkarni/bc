@@ -482,29 +482,7 @@
             </div>
           </div>
         </fieldset>
-        <fieldset>
-          <legend><?php echo $text_newsletter; ?></legend>
-          <div class="form-group">
-            <label class="col-sm-2 control-label"><?php echo $entry_newsletter; ?></label>
-            <div class="col-sm-10">
-              <?php if ($newsletter) { ?>
-              <label class="radio-inline">
-                <input type="radio" name="newsletter" value="1" checked="checked" />
-                <?php echo $text_yes; ?></label>
-              <label class="radio-inline">
-                <input type="radio" name="newsletter" value="0" />
-                <?php echo $text_no; ?></label>
-              <?php } else { ?>
-              <label class="radio-inline">
-                <input type="radio" name="newsletter" value="1" />
-                <?php echo $text_yes; ?></label>
-              <label class="radio-inline">
-                <input type="radio" name="newsletter" value="0" checked="checked" />
-                <?php echo $text_no; ?></label>
-              <?php } ?>
-            </div>
-          </div>
-        </fieldset>
+
         <?php echo $captcha; ?>
         <?php if ($text_agree) { ?>
         <div class="buttons">

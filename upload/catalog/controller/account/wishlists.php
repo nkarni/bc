@@ -230,6 +230,11 @@ class ControllerAccountWishLists extends Controller {
         $data['is_owner'] = ($data['islogged'] == $customer)?1:0;
 
         $results = $this->model_account_wishlists->getWishlistItems($wishlist_id,"All");
+/*
+        echo '<pre>';
+        print_r($results);
+        echo '</pre>';
+*/
 
         $product_total = count($results);
 
