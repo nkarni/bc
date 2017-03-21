@@ -90,7 +90,7 @@
       <div class="col-sm-12 col-md-9">
 	  
 	  <div class="row">
-	  <div class="col-sm-8 col-md-9 prinav">
+	  <div class="col-sm-12 prinav">
     		<nav id="menu" class="navbar topmenu">
         <div class="navbar-header"><!--<span id="category" class="visible-xs"><?php //echo $text_category; ?></span>-->
           <button type="button" class="btn btn-navbar navbar-toggle topnav" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
@@ -169,6 +169,7 @@
 
 			<?php } ?>
 			<?php } ?>
+      <li class="dropdown <?php if($wishlist_active) echo "active"; ?>"><a class="dropdown-toggle" href="/index.php?route=account/wishlists">WISHLISTS</a></li>
 		  </ul>
 		</div>
 	  </nav>
