@@ -46,15 +46,6 @@
             <?php } ?>
           </select>
         </div>
-        <div class="col-sm-3">
-          <label class="checkbox-inline">
-            <?php if ($sub_category) { ?>
-            <input type="checkbox" name="sub_category" value="1" checked="checked" />
-            <?php } else { ?>
-            <input type="checkbox" name="sub_category" value="1" />
-            <?php } ?>
-            <?php echo $text_sub_category; ?></label>
-        </div>
       </div>
       <p>
         <label class="checkbox-inline">
@@ -66,6 +57,7 @@
           <?php echo $entry_description; ?></label>
       </p>
       <input type="button" value="<?php echo $button_search; ?>" id="button-search" class="btn btn-primary" />
+      <input type="button" value="Clear" id="button-clear" class="btn btn-default" />
       <h2><?php echo $text_search; ?></h2>
       <?php if ($products) { ?>
       <div class="row">
@@ -150,11 +142,7 @@ $('#button-search').bind('click', function() {
 		url += '&category_id=' + encodeURIComponent(category_id);
 	}
 
-	var sub_category = $('#content input[name=\'sub_category\']:checked').prop('value');
-
-	if (sub_category) {
-		url += '&sub_category=true';
-	}
+  url += '&sub_category=true';
 
 	var filter_description = $('#content input[name=\'description\']:checked').prop('value');
 
@@ -171,14 +159,11 @@ $('#content input[name=\'search\']').bind('keydown', function(e) {
 	}
 });
 
-$('select[name=\'category_id\']').on('change', function() {
-	if (this.value == '0') {
-		$('input[name=\'sub_category\']').prop('disabled', true);
-	} else {
-		$('input[name=\'sub_category\']').prop('disabled', false);
-	}
-});
-
 $('select[name=\'category_id\']').trigger('change');
+
+$('#button-clear').on('click', function() {
+  $('#input-search').val('');
+  $('#input-search').trigger('focus');
+});
 --></script>
 <?php echo $footer; ?>

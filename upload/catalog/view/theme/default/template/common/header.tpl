@@ -39,7 +39,6 @@
 
 <!-- Owl Stylesheets -->
     <link rel="stylesheet" href="catalog/view/javascript/jquery/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="catalog/view/javascript/jquery/owl-carousel/owl.theme.default.min.css">
 <!-- javascript -->
     <script src="catalog/view/javascript/jquery/owl-carousel/owl.carousel.js"></script>
     <script src="catalog/view/javascript/slick/slick.min.js" type="text/javascript"></script>
