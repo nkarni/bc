@@ -41,6 +41,13 @@
     outline: none;
     background: #fff;
 }
+
+@media (max-width: 480px) {
+  .slick-prev, .slick-next {
+    top: 89%;
+  }
+}
+
 .slick-prev:hover,
 .slick-prev:focus,
 .slick-next:hover,

@@ -143,12 +143,14 @@
                   <?php } ?>
                 </div>
               </div>
+              <?php if (!$standalone) { ?>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip" title="<?php echo $help_sku; ?>"><?php echo $entry_sku; ?></span></label>
                 <div class="col-sm-10">
                   <input type="text" name="sku" value="<?php echo $sku; ?>" placeholder="<?php echo $entry_sku; ?>" id="input-sku" class="form-control" />
                 </div>
               </div>
+              <?php } ?>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip" title="<?php echo $help_upc; ?>"><?php echo $entry_upc; ?></span></label>
                 <div class="col-sm-10">
