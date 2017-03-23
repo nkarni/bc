@@ -377,6 +377,12 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 			$product_id = 0;
 		}
 
+        if (isset($this->request->post['options'])) {
+            $options = htmlspecialchars_decode($this->request->post['options']);
+        } else {
+            $options = '';
+        }
+
         $this->load->model('account/wishlists');
 
 		$this->load->model('catalog/product');
@@ -399,7 +405,7 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
                     if(!in_array($product_id, $wishlists) ){
 
-                        $this->model_account_wishlists->addWishlistitem($product_id,$wishlist_id);
+                        $this->model_account_wishlists->addWishlistitem($product_id,$wishlist_id, $options);
 
                         $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id), $wishlist_name);
 

@@ -1192,7 +1192,6 @@
 
         $('#product select').each(function (idx, select) {
             var text = $(select).find('option:selected').text();
-            console.log(text);
             var id = $(select).attr("id");
             var selectedIndex = document.getElementById(id).selectedIndex;
             if(selectedIndex == 0){
@@ -1317,6 +1316,15 @@
             return false;
         }
 
+        // build the options field:
+        var options = [];
+        $('#product select').each(function (idx, select) {
+            var text = $(select).find('option:selected').text();
+            var id = $(select).attr("id");
+            var selectedIndex = document.getElementById(id).selectedIndex;
+            options.push( id.slice(12, id.length) + '":"' + $(select).val() );
+        });
+        options = JSON.stringify(options);
 
         $wishlist = $(this).attr('wishlist');
         $product = $(this).parents('.popover-content').find("input.active_product_id").val();
@@ -1324,7 +1332,12 @@
             url: 'index.php?route=account/wishlists/add',
             dataType: 'json',
             type: 'post',
-            data: 'wishlist_id=' + $wishlist + '&product_id=' + $product,
+            //data: 'wishlist_id=' + $wishlist + '&product_id=' + $product + '&options=' + options,
+            data: {
+                'wishlist_id': $wishlist,
+                'product_id': $product,
+                'options': options
+            },
             success: function (json) {
                 $return = '';
                 if (json.success) {
