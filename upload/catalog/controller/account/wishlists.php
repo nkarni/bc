@@ -1024,7 +1024,7 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
                 'recurring'       => $recurring
             );
         } else {
-            $this->remove($cart['cart_id']);
+            // $this->remove($cart['cart_id']);
         }
 
 
