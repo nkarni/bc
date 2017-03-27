@@ -330,6 +330,7 @@ class ControllerAccountWishLists extends Controller {
 
                 $data['wishlistitems'][] = array(
                     'product_id'   => $result['product_id'],
+                    'wishlist_item_id'   => $result['wishlist_item_id'],
                     'product_name' => $product_info['name'],
                     'thumb'      => $image,
                     'price' => $price,
@@ -581,6 +582,47 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
 
 	}
+
+    public function updateWishlistitemQty(){
+
+        $this->load->model('account/wishlists');
+
+        $this->load->model('catalog/product');
+
+        $json = array();
+
+        $data['text_success'] = $this->language->get('text_success');
+
+        if (isset($this->request->post['wishlist_item_id'])) {
+            $wishlist_item_id = $this->request->post['wishlist_item_id'];
+        } else {
+            $wishlist_item_id = false;
+        }
+
+        if($wishlist_item_id && (! $this->model_account_wishlists->isWishlistOwnerByItem($wishlist_item_id))){
+            $json['info'] = "Only the wishlist owner can update it.";
+        }elseif($wishlist_item_id) {
+
+            $qty = $this->request->post['quantity'];
+
+            $wishlist = $this->model_account_wishlists->updateWishlistItemQty($wishlist_item_id,$qty);
+
+            if ($wishlist) {
+
+                $json['success'] = "Your wishlist was updated Successfully!.";
+
+            }else{
+                $json['info'] = "Could not update your wishlist.";
+            }
+        }else{
+            $json['info'] = "No wishlist item id provided.";
+        }
+
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+
+    }
 	
 	public function editWishlistitem(){
 

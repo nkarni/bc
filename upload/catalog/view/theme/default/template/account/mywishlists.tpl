@@ -118,9 +118,9 @@ $class = 'col-sm-12';
               <td class="text-right">
 
                 <div class="input-group btn-block" style="max-width: 200px;">
-                  <input type="text" name="quantity[<?php echo $wishlistitem['quantity']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />
+                  <input type="text" name="quantity[<?php echo $wishlistitem['wishlist_item_id']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />
                   <span class="input-group-btn">
-                    <button type="submit" data-toggle="tooltip" title="<?php echo $button_update; ?>" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
+                    <button type="submit" data-toggle="tooltip" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" title="<?php echo $button_update; ?>" class="btn btn-primary update-qty"><i class="fa fa-refresh"></i></button>
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger" onclick="cart.remove('<?php echo $wishlistitem['product_id']; ?>');"><i class="fa fa-times-circle"></i></button>
                   </span>
                 </div>
@@ -146,6 +146,54 @@ $class = 'col-sm-12';
 <?php echo $footer; ?>
 
 <script type="text/javascript">
+
+    function updateListItem(item_id, quantity, action){
+        $.ajax({
+            url: 'index.php?route=account/wishlists/' + action,
+            type: 'post',
+            data: {
+                'wishlist_item_id': item_id,
+                'quantity' : quantity,
+                'action': action
+            },
+            dataType: 'json',
+            beforeSend: function() {
+               // $('#cart > button').button('loading');
+            },
+            complete: function() {
+               // $('#cart > button').button('reset');
+            },
+            success: function (json) {
+                $return = '';
+                if (json.success) {
+                    $return = json.success;
+                    $title = "Success  <span class='close'>&times;</span>";
+                    $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                }
+                else if (json.info) {
+                    $return = json.info;
+                    $title = "Information <span class='close'>&times;</span>";
+                    $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                }
+                //close popover widget
+                $('.popover').popover('hide');
+            }
+        });
+    }
+
+    $(document).on('click', '.update-qty', function() {
+        var itemId = $(this).data('item-id');
+        var qty = $('[name="quantity[' + itemId + ']"]').val();
+        updateListItem(itemId, qty, 'updateWishlistitemQty' );
+
+        console.log($(this).data('item-id'));
+        console.log($('[name="quantity[' + itemId + ']"]').val());
+    });
+
+
+
+
+
     $(document).ready(function(){
 
         var _gaq = _gaq || [];
@@ -223,6 +271,46 @@ $class = 'col-sm-12';
             
         }).popover('toggle');
 
+    });
+
+
+
+
+
+    $(document).on('click', '#addtoorder', function() {
+
+        // var wishlist_id=1;
+        //var product_id=42;
+
+        $product_id = $(this).attr('product');
+        $minimum = $(this).attr('minimum');
+        $wishlist_id = <?php echo $_GET['wishlist_id']; ?>;
+
+        if($.isNumeric($currentproduct) && $.isNumeric($minimum)){
+            //alert(1);
+
+            $.ajax({
+                url: 'index.php?route=account/wishlists/editWishlistitem',
+                type: 'post',
+                data: 'wishlist_id=' + $wishlist_id + '&product_id=' + $product_id,
+                dataType: 'json',
+                beforeSend: function() {
+                    $('#cart > button').button('loading');
+                },
+                complete: function() {
+                    $('#cart > button').button('reset');
+                },
+                success: function(json) {
+
+                }
+            });
+            $('.popover').popover('hide');
+
+            cart.add($currentproduct, $minimum);
+
+        }
+        $('.popover').popover('hide');
+        //alert(2);
     });
     
     $(document).on('click', '#addtoorder', function() {

@@ -37,8 +37,15 @@ class ModelAccountWishlists extends Model {
         return $query->row;
 
     }
-    
-    
+
+    public function updateWishlistItemQty($wishlist_item_id, $qty) {
+
+        $this->db->query("UPDATE " . DB_PREFIX . "wishlistitems SET quantity='". (int)$qty ."' WHERE wishlist_item_id = '" . (int)$wishlist_item_id . "'");
+
+        return $wishlist_item_id;
+    }
+
+
     public function editWishlistitem($data) {
 
         $customer = $this->customer->getId();
@@ -59,6 +66,19 @@ class ModelAccountWishlists extends Model {
         }
             return $return;
 
+    }
+
+    public function isWishlistOwnerByItem($wishlist_item_id) {
+
+        $query = $this->db->query("SELECT wishlist_id FROM `" . DB_PREFIX . "wishlistitems` WHERE wishlist_item_id = '".$wishlist_item_id. "'");
+
+        $wishlist_id = $query->row['wishlist_id'];
+
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "wishlist` WHERE wishlist_id=".$wishlist_id);
+
+        $customer = $this->customer->getId();
+
+        return ($query->row['created_by'] == $customer);
     }
 
     public function getWishlist($wishlist_id=0) {
