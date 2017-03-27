@@ -461,7 +461,7 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
                     $wishlist_name = ($wishlist_name == '')?$this->model_account_wishlists->getWishlistName($wishlist_id):$wishlist_name;
 
-                    if(!in_array($product_id, $wishlists) ){
+                    if(!$this->model_account_wishlists->wishlistItemExists($product_id,$wishlist_id, $options)){
 
                         $this->model_account_wishlists->addWishlistitem($product_id,$wishlist_id, $options, $quantity);
 
@@ -582,6 +582,41 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
 
 	}
+
+
+    public function addItemToOrder(){
+
+        $this->load->model('account/wishlists');
+
+        $json = array();
+
+        $data['text_success'] = $this->language->get('text_success');
+
+        if (isset($this->request->post['wishlist_item_id'])) {
+            $wishlist_item_id = $this->request->post['wishlist_item_id'];
+        } else {
+            $wishlist_item_id = false;
+        }
+
+        if($wishlist_item_id && (! $this->model_account_wishlists->isWishlistOwnerByItem($wishlist_item_id))){
+            $json['info'] = "Only the wishlist owner can update it.";
+        }elseif($wishlist_item_id) {
+
+            $full_item = $this->model_account_wishlists->getOneWishlistitem($wishlist_item_id);
+
+            if($full_item){
+                $this->cart->add($full_item['product_id'], $full_item['quantity'], $full_item['options']);
+            }else{
+                $json['info'] = "Could not find the item.";
+            }
+        }else{
+            $json['info'] = "No wishlist item id provided.";
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+
+    }
 
     public function updateWishlistitemQty(){
 

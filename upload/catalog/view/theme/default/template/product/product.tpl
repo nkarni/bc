@@ -1266,9 +1266,9 @@
     });
     // For add new wishlist with product
     $(document).on("click", '.addlist', function () {
-        //  $product = $(this).attr('product');
         $product = $(this).parents('.popover-content').find("input.active_product_id").val();
         $wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+
         if (!$wishlist.trim()) {
           alert("Please provide a name of your wishlist!");
           return;
@@ -1283,14 +1283,12 @@
                 $return = '';
                 if (json.success) {
                     $return = json.success;
-                    $title = "Success  <span class='close'>&times;</span>";
+                    $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
                 }
                 else if (json.info) {
                     $return = json.info;
-                    $title = "Information  <span class='close'>&times;</span>";
+                    $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
                 }
-                //Show alert message
-                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
                 //close popover window
                 $('.popover').popover('hide');
             }
@@ -1330,7 +1328,6 @@
             url: 'index.php?route=account/wishlists/add',
             dataType: 'json',
             type: 'post',
-            //data: 'wishlist_id=' + $wishlist + '&product_id=' + $product + '&options=' + options,
             data: {
                 'wishlist_id': $wishlist,
                 'product_id': $product,
@@ -1341,14 +1338,12 @@
                 $return = '';
                 if (json.success) {
                     $return = json.success;
-                    $title = "Success  <span class='close'>&times;</span>";
+                    $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
                 }
                 else if (json.info) {
                     $return = json.info;
-                    $title = "Information <span class='close'>&times;</span>";
+                    $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
                 }
-                //Show alert message
-                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
                 //close popover widget
                 $('.popover').popover('hide');
             }

@@ -38,6 +38,14 @@ class ModelAccountWishlists extends Model {
 
     }
 
+    public function wishlistItemExists($product_id,$wishlist_id, $options){
+
+        $query=$this->db->query("SELECT * FROM " . DB_PREFIX . "wishlistitems WHERE wishlist_id = '" . (int)$wishlist_id . "' AND product_id = '" . (int)$product_id . "' AND options = '" . $options . "'");
+
+        return (count($query->rows) > 0);
+
+    }
+
     public function updateWishlistItemQty($wishlist_item_id, $qty) {
 
         $this->db->query("UPDATE " . DB_PREFIX . "wishlistitems SET quantity='". (int)$qty ."' WHERE wishlist_item_id = '" . (int)$wishlist_item_id . "'");
@@ -48,6 +56,13 @@ class ModelAccountWishlists extends Model {
     public function deleteWishlistitem($wishlist_item_id) {
 
             return $this->db->query("DELETE FROM `" . DB_PREFIX . "wishlistitems` WHERE wishlist_item_id = '".$wishlist_item_id."'");
+    }
+
+    public function getOneWishlistitem($wishlist_item_id) {
+
+        $query =  $this->db->query("SELECT * FROM `" . DB_PREFIX . "wishlistitems` WHERE wishlist_item_id = '".$wishlist_item_id."'");
+
+        return $query->row;
     }
 
 

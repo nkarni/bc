@@ -190,9 +190,6 @@ $class = 'col-sm-12';
         }
     });
 
-
-
-
     $(document).ready(function(){
 
         var _gaq = _gaq || [];
@@ -209,7 +206,6 @@ $class = 'col-sm-12';
         $(".show-copy-link").click(function(){
             $(".share-copy-link").css("display","block");
         });
-
 
     });
     function popitup(url,share) {
@@ -237,8 +233,6 @@ $class = 'col-sm-12';
     function CopyToClipboard(text) {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
     }
-    
-    
          
     $('.wishlist-add-form').click(function () {
 		
@@ -277,21 +271,15 @@ $class = 'col-sm-12';
 
 
     $(document).on('click', '#addtoorder', function() {
+        var itemId = $(this).data('item-id');
 
-        // var wishlist_id=1;
-        //var product_id=42;
-
-        $product_id = $(this).attr('product');
-        $minimum = $(this).attr('minimum');
-        $wishlist_id = <?php echo $_GET['wishlist_id']; ?>;
-
-        if($.isNumeric($currentproduct) && $.isNumeric($minimum)){
-            //alert(1);
-
+        if($.isNumeric(itemId) && $.isNumeric(qty)){
             $.ajax({
-                url: 'index.php?route=account/wishlists/editWishlistitem',
+                url: 'index.php?route=account/wishlists/addItemToOrder',
                 type: 'post',
-                data: 'wishlist_id=' + $wishlist_id + '&product_id=' + $product_id,
+                data: {
+                    'wishlist_item_id': itemId
+                },
                 dataType: 'json',
                 beforeSend: function() {
                     $('#cart > button').button('loading');
@@ -303,51 +291,9 @@ $class = 'col-sm-12';
 
                 }
             });
-            $('.popover').popover('hide');
-
-            cart.add($currentproduct, $minimum);
-
         }
         $('.popover').popover('hide');
-        //alert(2);
     });
-    
-    $(document).on('click', '#addtoorder', function() {
-				
-       // var wishlist_id=1;
-		//var product_id=42;
-		
-        $product_id = $(this).attr('product');  
-        $minimum = $(this).attr('minimum');  
-        $wishlist_id = <?php echo $_GET['wishlist_id']; ?>;  
-        
-        if($.isNumeric($currentproduct) && $.isNumeric($minimum)){
-			//alert(1);
-		        
-			$.ajax({
-				url: 'index.php?route=account/wishlists/editWishlistitem',
-				type: 'post',
-				data: 'wishlist_id=' + $wishlist_id + '&product_id=' + $product_id,
-				dataType: 'json',
-				beforeSend: function() {
-					$('#cart > button').button('loading');
-				},
-				complete: function() {
-					$('#cart > button').button('reset');
-				},			
-				success: function(json) {
-					
-					}
-				});
-               $('.popover').popover('hide');
-                
-		       cart.add($currentproduct, $minimum);
-		
-		}		
-		$('.popover').popover('hide');
-		//alert(2);
-		});
-		
 		
    $(document).on('click', '.wishlist-close', function() { 
 		$('.popover').popover('hide');
