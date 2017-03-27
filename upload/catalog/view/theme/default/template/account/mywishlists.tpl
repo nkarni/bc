@@ -91,7 +91,7 @@ $class = 'col-sm-12';
         </thead>
         <tbody>
           <?php foreach ($wishlistitems as $wishlistitem) { ?>
-          <tr>
+          <tr id="tr-<?php echo $wishlistitem['wishlist_item_id']; ?>">
               <td class="text-center"><?php if ($wishlistitem['thumb']) { ?>
 
                   <a href="<?php echo $wishlistitem['href']; ?>"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" /></a>
@@ -121,17 +121,12 @@ $class = 'col-sm-12';
                   <input type="text" name="quantity[<?php echo $wishlistitem['wishlist_item_id']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />
                   <span class="input-group-btn">
                     <button type="submit" data-toggle="tooltip" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" title="<?php echo $button_update; ?>" class="btn btn-primary update-qty"><i class="fa fa-refresh"></i></button>
-                    <button type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger" onclick="cart.remove('<?php echo $wishlistitem['product_id']; ?>');"><i class="fa fa-times-circle"></i></button>
+                    <button type="button" data-toggle="tooltip" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" title="<?php echo $button_remove; ?>" class="btn btn-danger remove-wishlist-item"><i class="fa fa-times-circle"></i></button>
                   </span>
                 </div>
 
                 <button class="btn btn-primary bt-text"  title="" onclick="cart.add('<?php echo $wishlistitem['product_id']; ?>', '<?php echo $wishlistitem['minimum']; ?>');"  tabindex="0"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Order&nbsp;&nbsp;&nbsp;</button>
               </td>
-            <?php if($islogged) { ?>
-            <td class="text-right">
-              <a href="<?php echo $wishlistitem['remove']; ?>" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn-sm btn-default"><i class="fa fa-times-circle" style="color:#CE2727;"></i></a>
-            </td>
-            <?php } ?>
           </tr>
           <?php } ?>
         </tbody>
@@ -177,6 +172,9 @@ $class = 'col-sm-12';
                 }
                 //close popover widget
                 $('.popover').popover('hide');
+                if(quantity == 0){
+                    $('#tr-' + item_id).addClass('hidden');
+                }
             }
         });
     }
@@ -185,11 +183,14 @@ $class = 'col-sm-12';
         var itemId = $(this).data('item-id');
         var qty = $('[name="quantity[' + itemId + ']"]').val();
         updateListItem(itemId, qty, 'updateWishlistitemQty' );
-
-        console.log($(this).data('item-id'));
-        console.log($('[name="quantity[' + itemId + ']"]').val());
     });
 
+    $(document).on('click', '.remove-wishlist-item', function() {
+        if(confirm('Are you sure?')){
+            var itemId = $(this).data('item-id');
+            updateListItem(itemId, '0', 'updateWishlistitemQty' );
+        }
+    });
 
 
 

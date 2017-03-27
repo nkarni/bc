@@ -605,7 +605,11 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
             $qty = $this->request->post['quantity'];
 
-            $wishlist = $this->model_account_wishlists->updateWishlistItemQty($wishlist_item_id,$qty);
+            if($qty > 0){
+                $wishlist = $this->model_account_wishlists->updateWishlistItemQty($wishlist_item_id,$qty);
+            }else{
+                $wishlist = $this->model_account_wishlists->deleteWishlistitem($wishlist_item_id);
+            }
 
             if ($wishlist) {
 

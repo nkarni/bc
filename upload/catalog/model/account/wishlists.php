@@ -45,6 +45,11 @@ class ModelAccountWishlists extends Model {
         return $wishlist_item_id;
     }
 
+    public function deleteWishlistitem($wishlist_item_id) {
+
+            return $this->db->query("DELETE FROM `" . DB_PREFIX . "wishlistitems` WHERE wishlist_item_id = '".$wishlist_item_id."'");
+    }
+
 
     public function editWishlistitem($data) {
 
