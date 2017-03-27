@@ -49,7 +49,7 @@ div.popover{
 /* Wishlist Table Style starts here */
 
 .my-wishlist-table td {
-	vertical-align: middle !important;
+	vertical-align: top !important;
 }
 
 .my-wishlist-table .count-text {
@@ -58,11 +58,10 @@ div.popover{
 }
 
 .my-wishlist-table td {
-     vertical-align: middle !important;
+     vertical-align: top !important;
 }
 
 .my-wishlist-table .bt-text {
-    font-size: 9px !important;
     font-weight: bold !important;
     padding: 3.5px 9px !important;
 }

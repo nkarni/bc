@@ -312,7 +312,7 @@
                       </div>
 
                       <div class="text-center">
-                        <?php if($price_amount > 0){ ?>
+                        <?php // if($price_amount > 0){ ?>
                         <ul class="list-unstyled">
                           <?php if (!$special) { ?>
                           <li>
@@ -360,10 +360,8 @@
 
                         </div>
 
-                        <button type="button" id="button-cart"
-                                data-loading-text="<?php echo $text_loading; ?>"
-                                class="btn btn-primary btn-lg btn-block">ADD TO CART</button>
-                        <?php } ?>
+                        <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block">ADD TO ORDER</button>
+                        <?php // } ?>
                         <button type="button" id="button-quote"
                                 data-loading-text="<?php echo $text_loading; ?>"
                                 class="btn btn-primary btn-lg btn-block"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp; REQUEST A QUOTE</button>
@@ -1325,6 +1323,7 @@
             options.push( id.slice(12, id.length) + '":"' + $(select).val() );
         });
         options = JSON.stringify(options);
+        var quantity = $('#input-quantity').val();
 
         $wishlist = $(this).attr('wishlist');
         $product = $(this).parents('.popover-content').find("input.active_product_id").val();
@@ -1336,7 +1335,8 @@
             data: {
                 'wishlist_id': $wishlist,
                 'product_id': $product,
-                'options': options
+                'options': options,
+                'quantity' : quantity
             },
             success: function (json) {
                 $return = '';

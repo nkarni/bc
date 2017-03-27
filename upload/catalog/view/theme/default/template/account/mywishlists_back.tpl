@@ -116,16 +116,25 @@ $class = 'col-sm-12';
               </td>
 
               <td class="text-right">
-
-                <div class="input-group btn-block" style="max-width: 200px;">
-                  <input type="text" name="quantity[<?php echo $wishlistitem['quantity']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />
-                  <span class="input-group-btn">
-                    <button type="submit" data-toggle="tooltip" title="<?php echo $button_update; ?>" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
-                    <button type="button" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger" onclick="cart.remove('<?php echo $wishlistitem['product_id']; ?>');"><i class="fa fa-times-circle"></i></button>
-                  </span>
-                </div>
-
                 <button class="btn btn-primary bt-text"  title="" onclick="cart.add('<?php echo $wishlistitem['product_id']; ?>', '<?php echo $wishlistitem['minimum']; ?>');"  tabindex="0"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Order&nbsp;&nbsp;&nbsp;</button>
+
+                {*<?php if($wishlistitem['price_num'] > 0) { ?>*}
+                  {*<?php if(!$islogged) { ?>*}
+                  {*<a class="btn btn-primary bt-text" href="js:void();" onclick="cart.add('<?php echo $wishlistitem['product_id']; ?>', '<?php echo $wishlistitem['minimum']; ?>');"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Cart</a>*}
+                  {*<?php } else { ?>*}
+                      {*<?php if($wishlistitem['purchase_count'] != 0){ ?>*}
+                            {*<button type="button" class="btn btn-success bt-text" data-toggle="tooltip" title="<?php echo $wishlistitem['purchased_by']; ?>"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Already Bought</button>*}
+                      {*<?php } elseif($wishlistitem['is_bought'] != $wishlistitem['customer'] && $wishlistitem['is_bought'] !=0) { ?>						 *}
+                            {*<button type="button" class="btn btn-warning bt-text" data-toggle="tooltip" title="<?php echo $wishlistitem['purchased_by']; ?>"><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;Already Bought</button>*}
+                      {*<?php } else { ?>  *}
+						  {*<?php if($is_owner){ ?>*}
+                            {*<button class="btn btn-primary bt-text"  title="" onclick="cart.add('<?php echo $wishlistitem['product_id']; ?>', '<?php echo $wishlistitem['minimum']; ?>');"  tabindex="0"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Order&nbsp;&nbsp;&nbsp;</button>*}
+                          {*<?php } else { ?>  *}
+                            {*<button class="wishlist-add-form btn btn-primary bt-text" href="#a1" rel="popover" title="" product="<?php echo $wishlistitem['product_id']; ?>" minimum="<?php echo $wishlistitem['minimum']; ?>"  tabindex="0"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Order&nbsp;&nbsp;&nbsp;</button>*}
+                          {*<?php } ?>*}
+                      {*<?php } ?>*}
+                  {*<?php } ?>*}
+                  {*<?php } ?>*}
               </td>
             <?php if($islogged) { ?>
             <td class="text-right">

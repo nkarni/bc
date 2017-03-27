@@ -21,9 +21,9 @@ class ModelAccountWishlists extends Model {
         return $data['wishlist_id'];
     }
 
-    public function addWishlistitem($product_id,$wishlist_id, $options) {
+    public function addWishlistitem($product_id,$wishlist_id, $options, $quantity) {
 
-        $this->db->query("INSERT INTO " . DB_PREFIX . "wishlistitems SET wishlist_id = '" . $wishlist_id . "', options = '" . $options . "', product_id = '" . (int)$product_id . "', added_on = NOW()");
+        $this->db->query("INSERT INTO " . DB_PREFIX . "wishlistitems SET wishlist_id = '" . $wishlist_id . "', quantity = '" . $quantity . "', options = '" . $options . "', product_id = '" . (int)$product_id . "', added_on = NOW()");
 
     }
     

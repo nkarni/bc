@@ -690,7 +690,7 @@ label.control-label.qty-label {
 	font-size: 14px;
 }
 
-input.form-control.input-number {
+.product input.form-control.input-number {
 	line-height: 33px;
 	font-size: 15px;
 	height: 50px;
@@ -1515,4 +1515,8 @@ h3.related {
 }
 #accordion.panel-group .panel-heading+.panel-collapse>.panel-body {
 	border-top: 0 none;
+}
+
+.my-wishlist-table .bt-text{
+	font-size: 12px !important;
 }

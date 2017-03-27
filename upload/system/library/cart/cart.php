@@ -64,7 +64,7 @@ class Cart {
 								if ($option_value_query->row['points_prefix'] == '+') {
 									$option_points += $option_value_query->row['points'];
 								} elseif ($option_value_query->row['points_prefix'] == '-') {
-									$option_points -= $option_value_query->row['points'];
+									$option_points -= $option_value_zuery->row['points'];
 								}
 
 								if ($option_value_query->row['weight_prefix'] == '+') {
