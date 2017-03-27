@@ -142,39 +142,33 @@ $class = 'col-sm-12';
 
 <script type="text/javascript">
 
-    function updateListItem(item_id, quantity, action){
+    function updateListItem(itemId, quantity, action){
         $.ajax({
             url: 'index.php?route=account/wishlists/' + action,
             type: 'post',
             data: {
-                'wishlist_item_id': item_id,
+                'wishlist_item_id': itemId,
                 'quantity' : quantity,
                 'action': action
             },
             dataType: 'json',
             beforeSend: function() {
-               // $('#cart > button').button('loading');
+                $(".table").find("[data-item-id='" + itemId + "']").addClass('disabled');
             },
             complete: function() {
-               // $('#cart > button').button('reset');
+                $(".table").find("[data-item-id='" + itemId + "']").removeClass('disabled');
             },
             success: function (json) {
                 $return = '';
                 if (json.success) {
                     $return = json.success;
-                    $title = "Success  <span class='close'>&times;</span>";
-                    $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                    window.location.reload();
                 }
                 else if (json.info) {
                     $return = json.info;
-                    $title = "Information <span class='close'>&times;</span>";
-                    $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
                 }
                 //close popover widget
                 $('.popover').popover('hide');
-                if(quantity == 0){
-                    $('#tr-' + item_id).addClass('hidden');
-                }
             }
         });
     }
@@ -182,7 +176,11 @@ $class = 'col-sm-12';
     $(document).on('click', '.update-qty', function() {
         var itemId = $(this).data('item-id');
         var qty = $('[name="quantity[' + itemId + ']"]').val();
-        updateListItem(itemId, qty, 'updateWishlistitemQty' );
+        if(isNaN(qty)){
+            alert('Quantity must be a number');
+        }else{
+            updateListItem(itemId, qty, 'updateWishlistitemQty' );
+        }
     });
 
     $(document).on('click', '.remove-wishlist-item', function() {

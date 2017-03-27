@@ -348,7 +348,7 @@
                                   <span class="glyphicon glyphicon-minus"></span>
                               </button>
                             </span>
-                            <input type="text" id="input-quantity" name="quant[2]" class="form-control dark-grey-bg input-number" value="1" min="1" >
+                            <input type="text" id="input-quantity" name="quant[2]" class="form-control dark-grey-bg input-number" value="1" min="1" max="9999" >
                             <span class="input-group-btn">
                               <button type="button" class="btn dark-grey-bg btn-number" data-type="plus" data-field="quant[2]">
                                   <span class="glyphicon glyphicon-plus"></span>
@@ -932,7 +932,6 @@
     //--></script>
 <script type="text/javascript"><!--
     $('#more_info').on('click', function () {
-//    $('#product').hide();
         $('#more_info_div').show();
     });
     $('#button-cart').on('click', function () {
