@@ -117,7 +117,7 @@ $class = 'col-sm-12';
 
               <td class="text-right">
 
-                <div class="input-group btn-block" style="max-width: 200px;">
+                <div class="input-group btn-block pull-right" style="max-width: 138px;">
                   <input type="text" name="quantity[<?php echo $wishlistitem['wishlist_item_id']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />
                   <input type="hidden" id="itemname_<?php echo $wishlistitem['wishlist_item_id']; ?>" value="<?php echo $wishlistitem['product_name']; ?>"/>
                   <span class="input-group-btn">
