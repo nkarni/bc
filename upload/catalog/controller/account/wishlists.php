@@ -3,6 +3,7 @@
 
 class ControllerAccountWishLists extends Controller {
 	public function index() {
+
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/wishlists', '', true);
 
@@ -434,9 +435,11 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
         }
 
         if (isset($this->request->post['options'])) {
+
             $options = htmlspecialchars_decode($this->request->post['options']);
             $options = str_replace('[','{', $options);
             $options = str_replace(']','}', $options);
+
         } else {
             $options = '';
         }
@@ -482,8 +485,6 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
                     $wishlist_id=$this->model_account_wishlists->addWishlists($data_wishlist);
 
                     $this->model_account_wishlists->addWishlistitem($product_id,$wishlist_id);
-
-//                    $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlists/mywishlist'));
 
                     $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id), $wishlist_name);
 
@@ -605,7 +606,8 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
             $full_item = $this->model_account_wishlists->getOneWishlistitem($wishlist_item_id);
 
             if($full_item){
-                $this->cart->add($full_item['product_id'], $full_item['quantity'], $full_item['options']);
+                $this->cart->add($full_item['product_id'], $full_item['quantity'], json_decode($full_item['options']));
+                $json['success'] = $this->request->post['quantity'] . " X " . $this->request->post['wishlist_item_name'] . " was added to your <a href=\"/index.php?route=checkout/cart\">current order</a>.";
             }else{
                 $json['info'] = "Could not find the item.";
             }

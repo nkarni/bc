@@ -1317,7 +1317,7 @@
             var text = $(select).find('option:selected').text();
             var id = $(select).attr("id");
             var selectedIndex = document.getElementById(id).selectedIndex;
-            options.push( id.slice(12, id.length) + '":"' + $(select).val() );
+            options.push( id.slice(12, id.length) + '":"' + $(select).val());
         });
         options = JSON.stringify(options);
         var quantity = $('#input-quantity').val();

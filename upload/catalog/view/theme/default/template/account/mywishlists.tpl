@@ -119,13 +119,14 @@ $class = 'col-sm-12';
 
                 <div class="input-group btn-block" style="max-width: 200px;">
                   <input type="text" name="quantity[<?php echo $wishlistitem['wishlist_item_id']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />
+                  <input type="hidden" id="itemname_<?php echo $wishlistitem['wishlist_item_id']; ?>" value="<?php echo $wishlistitem['product_name']; ?>"/>
                   <span class="input-group-btn">
                     <button type="submit" data-toggle="tooltip" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" title="<?php echo $button_update; ?>" class="btn btn-primary update-qty"><i class="fa fa-refresh"></i></button>
                     <button type="button" data-toggle="tooltip" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" title="<?php echo $button_remove; ?>" class="btn btn-danger remove-wishlist-item"><i class="fa fa-times-circle"></i></button>
                   </span>
                 </div>
 
-                <button class="btn btn-primary bt-text"  title="" onclick="cart.add('<?php echo $wishlistitem['product_id']; ?>', '<?php echo $wishlistitem['minimum']; ?>');"  tabindex="0"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Order&nbsp;&nbsp;&nbsp;</button>
+                <button class="btn btn-primary bt-text add-to-order"  title="" tabindex="0" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" ><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Order&nbsp;&nbsp;&nbsp;</button>
               </td>
           </tr>
           <?php } ?>
@@ -267,18 +268,20 @@ $class = 'col-sm-12';
     });
 
 
-
-
-
-    $(document).on('click', '#addtoorder', function() {
+    $(document).on('click', '.add-to-order', function() {
         var itemId = $(this).data('item-id');
+        var qty = $('[name="quantity[' + itemId + ']"]').val();
+        var itemName = $('#itemname_' + itemId).val();
+
 
         if($.isNumeric(itemId) && $.isNumeric(qty)){
             $.ajax({
                 url: 'index.php?route=account/wishlists/addItemToOrder',
                 type: 'post',
                 data: {
-                    'wishlist_item_id': itemId
+                    'wishlist_item_id': itemId,
+                    'wishlist_item_name': itemName,
+                    'quantity': qty
                 },
                 dataType: 'json',
                 beforeSend: function() {
@@ -288,7 +291,14 @@ $class = 'col-sm-12';
                     $('#cart > button').button('reset');
                 },
                 success: function(json) {
-
+                    if (json.success) {
+                        $return = json.success;
+                        $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                    }
+                    else if (json.info) {
+                        $return = json.info;
+                        $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                    }
                 }
             });
         }
