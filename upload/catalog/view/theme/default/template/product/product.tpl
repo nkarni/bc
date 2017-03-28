@@ -16,7 +16,7 @@
   <div class="row inner-category">
     <?php
          foreach($category_crumbs as $category){ //$category['image'] = 'http://bcdev.utopiacreative.com/image/cache/catalog/category/ergofit-hero-750x550-cr-320x200.jpg'; ?>
-    <div class="col-md-2 col-sm-4 col-xs-6 sub-category cat-breadcrumbs">
+    <div class="col-md-2 col-sm-4 col-xs-4 sub-category cat-breadcrumbs">
       <div class="image_wrapper">
         <a href="<?php echo $category['href'] ?>">
           <img src="<?php echo $category['image'] ?>" class="attachment-home_category size-home_category"
@@ -1356,10 +1356,11 @@
             $currentproduct = $(this).attr('product');
             $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';
 
+            var placement = window.innerWidth < 768 ? 'bottom' : 'left';
             $(this).popover({
                 html: true,
                 trigger: 'manual',
-                placement: 'left',
+                placement: placement,
 
                 content: function () {
                     $buttons = getwishlists();

@@ -78,11 +78,11 @@ $class = 'col-sm-12';
         -->
         <thead>
         <tr>
-          <td class="text-left" width="15%"></td>
+          <td class="text-left hidden-xs" width="15%"></td>
 
           <td class="text-left" width="45%">Product</td>
 
-          <td class="text-left" width="15%">Selected Options</td>
+          <td class="text-left hidden-xs" width="15%">Selected Options</td>
 
           <td class="text-right" width="10%">Price</td>
 
@@ -92,12 +92,21 @@ $class = 'col-sm-12';
         <tbody>
           <?php foreach ($wishlistitems as $wishlistitem) { ?>
           <tr id="tr-<?php echo $wishlistitem['wishlist_item_id']; ?>">
-              <td class="text-center"><?php if ($wishlistitem['thumb']) { ?>
+              <td class="text-center hidden-xs"><?php if ($wishlistitem['thumb']) { ?>
 
-                  <a href="<?php echo $wishlistitem['href']; ?>"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" /></a>
+                  <a href="<?php echo $wishlistitem['href']; ?>"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" style="width: 100%" /></a>
                   <?php } ?></td>
-            <td class="text-left"><a href="<?php echo $wishlistitem['href']; ?>"><?php echo $wishlistitem['product_name']; ?></a><br><small><?php echo $wishlistitem['short_description'] ; ?></small></td>
-              <td  class="text-left">
+            <td class="text-left">
+            <a href="<?php echo $wishlistitem['href']; ?>" class="visible-xs" style="display: block; margin-bottom: 8px"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" style="width: 100%" /></a>
+            <a href="<?php echo $wishlistitem['href']; ?>"><?php echo $wishlistitem['product_name']; ?></a><br>
+                <small class="hidden-xs"><?php echo $wishlistitem['short_description'] ; ?></small>
+                <p class="visible-xs"><?php
+                    foreach ($wishlistitem['full_product_data'][0]['option'] as $option) {
+                    echo '<small>' . $option['name'] . ': ' . $option['value'] . '</small><br>';
+                    }
+                ?></p>
+            </td>
+              <td  class="text-left hidden-xs">
               <?php
                 foreach ($wishlistitem['full_product_data'][0]['option'] as $option) {
                   echo '<small>' . $option['name'] . ': ' . $option['value'] . '</small><br>';
@@ -117,7 +126,7 @@ $class = 'col-sm-12';
 
               <td class="text-right">
 
-                <div class="input-group btn-block pull-right" style="max-width: 138px;">
+                <div class="input-group btn-block pull-right" style="max-width: 140px;">
                   <input type="text" name="quantity[<?php echo $wishlistitem['wishlist_item_id']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />
                   <input type="hidden" id="itemname_<?php echo $wishlistitem['wishlist_item_id']; ?>" value="<?php echo $wishlistitem['product_name']; ?>"/>
                   <span class="input-group-btn">
