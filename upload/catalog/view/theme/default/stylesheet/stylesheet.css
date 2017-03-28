@@ -1555,3 +1555,17 @@ h3.related {
 .addlist {
 	padding: 0 12px;
 }
+
+.goodshare-color.row {
+	float: right;
+	margin-right: 10px;
+	margin-bottom:15px;
+}
+
+@media print
+{
+	.no-print, .no-print *
+	{
+		display: none !important;
+	}
+}

@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 <div class="container">
-  <ul class="breadcrumb">
+  <ul class="breadcrumb no-print">
     <?php foreach ($breadcrumbs as $breadcrumb) { ?>
     <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
     <?php } ?>
@@ -27,28 +27,12 @@ $class = 'col-sm-12';
       <h5>Created On :<?php echo $created_on; ?></h5>        
       <?php if(!$is_owner){ ?>
       <h5>Created By :<?php echo $created_by; ?></h5>
-      <?php } ?>      
-        
-          <!-- Content for Popover #1 -->
-          <div class="hidden wishlist-container-confirm" id="a1" style="position:absolute;">
-              <div class="popover-heading">
-                  <span class="close">close &times;</span>
-              </div>
-
-              <div class="popover-body-text">
-                  <div class="popover-body1">
-                 <span>Are you sure to purchase for <?php echo $created_by; ?>?</span>
-				  </div>
-              </div>
-              <div class="input-group"> <input type="text" class="form-control" name="wishlist_name" id="wishlist_name"  ><span class="input-group-btn"><button type="button" product="" class="addlist btn btn-default" >ADD</button></span></div>
-          </div>
-          <!-- Popover container ends here -->
-
+      <?php } ?>
 
         <?php if($visiblity) { ?>
-        <div syle="width:100%;">
+        <div class="no-print" syle="width:100%;">
 
-            <div class="goodshare-color row" style="float:right;padding:10px;">
+            <div class="goodshare-color row" >
                 <?php if($wishlists_copy_url_status) { ?>
                     <span class="show-copy-link btn btn-primary btn-small"  onclick="js:CopyToClipboard('<?php echo $mysharelink; ?>');" style="padding:none !important;line-height:0.5 !important;">Copy URL</span>
                 <?php } ?>
@@ -86,7 +70,7 @@ $class = 'col-sm-12';
 
           <td class="text-right" width="10%">Price</td>
 
-          <td class="text-right" width="15%"></td>
+          <td class="text-right no-print" width="15%"></td>
         </tr>
         </thead>
         <tbody>
@@ -97,7 +81,7 @@ $class = 'col-sm-12';
                   <a href="<?php echo $wishlistitem['href']; ?>"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" style="width: 100%" /></a>
                   <?php } ?></td>
             <td class="text-left">
-            <a href="<?php echo $wishlistitem['href']; ?>" class="visible-xs" style="display: block; margin-bottom: 8px"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" style="width: 100%" /></a>
+            <a href="<?php echo $wishlistitem['href']; ?>" class="visible-xs no-print" style="display: block; margin-bottom: 8px"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" style="width: 100%" /></a>
             <a href="<?php echo $wishlistitem['href']; ?>"><?php echo $wishlistitem['product_name']; ?></a><br>
                 <small class="hidden-xs"><?php echo $wishlistitem['short_description'] ; ?></small>
                 <p class="visible-xs"><?php
@@ -124,7 +108,7 @@ $class = 'col-sm-12';
                             </p>
               </td>
 
-              <td class="text-right">
+              <td class="text-right no-print">
 
                 <div class="input-group btn-block pull-right" style="max-width: 140px;">
                   <input type="text" name="quantity[<?php echo $wishlistitem['wishlist_item_id']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />

@@ -75,7 +75,7 @@
   <!-- </div> -->
 </nav>
 <header>
-  <div class="container">
+  <div class="container ">
     <div class="row">
       <div class="col-sm-12 col-md-3">
         <div id="logo">
@@ -86,9 +86,9 @@
           <?php } ?>
         </div>
       </div>
-      <div class="col-sm-12 col-md-9">
+      <div class="col-sm-12 col-md-9 no-print">
 	  
-	  <div class="row">
+	  <div class="row no-print">
 	  <div class="col-sm-12 prinav">
     		<nav id="menu" class="navbar topmenu">
         <div class="navbar-header"><!--<span id="category" class="visible-xs"><?php //echo $text_category; ?></span>-->
