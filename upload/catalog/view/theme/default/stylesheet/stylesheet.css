@@ -1520,3 +1520,12 @@ h3.related {
 .my-wishlist-table .bt-text{
 	font-size: 12px !important;
 }
+
+.my-wishlist-table .update-qty, .my-wishlist-table .remove-wishlist-item, .my-wishlist-table .bt-text {
+	padding: 0 8px;
+	line-height: 32px;
+} 
+
+.my-wishlist-table .bt-text {
+	margin-top: 4px;
+}
