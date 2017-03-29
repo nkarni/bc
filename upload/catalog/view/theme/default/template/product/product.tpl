@@ -1247,13 +1247,25 @@
             success: function (json) {
                 var items = [];
                 $.each(json, function (key, data) {
-                    items.push('<button type="button" style="cursor:pointer;" class="list-group-item dowishlist" wishlist=' + key + '>' + data + '<i class="fa fa-check-square-o label-icon-right"></i></button>');
+                    items.push('<button type="button" style="cursor:pointer;" class="list-group-item add-product-to-wishlist" wishlist=' + key + '>' + data + '<i class="fa fa-check-square-o label-icon-right"></i></button>');
                 });
                 if (items.length > 0)
                     $listitems = '<div class="list-group mywishlist-group">' + items.join('') + '</div>';
             }
         });
         return $listitems;
+    }
+
+    function getOptionsSelected(){
+        // build the options field:
+        var options = [];
+        $('#product select').each(function (idx, select) {
+            var text = $(select).find('option:selected').text();
+            var id = $(select).attr("id");
+            var selectedIndex = document.getElementById(id).selectedIndex;
+            options.push( id.slice(12, id.length) + '":"' + $(select).val());
+        });
+        return JSON.stringify(options);
     }
 
     // For mouseover style the wishlist items
@@ -1268,6 +1280,8 @@
     $(document).on("click", '.addlist', function () {
         $product = $(this).parents('.popover-content').find("input.active_product_id").val();
         $wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+        var options = getOptionsSelected();
+        var quantity = $('#input-quantity').val();
 
         if (!$wishlist.trim()) {
           alert("Please provide a name of your wishlist!");
@@ -1278,7 +1292,12 @@
             url: 'index.php?route=account/wishlists/add',
             dataType: 'json',
             type: 'post',
-            data: 'wishlist_name=' + encodeURIComponent($wishlist) + '&product_id=' + $product,
+            data: {
+                'wishlist_id': $wishlist,
+                'product_id': $product,
+                'options': options,
+                'quantity' : quantity
+            },
             success: function (json) {
                 $return = '';
                 if (json.success) {
@@ -1303,7 +1322,7 @@
     });
 
     // For add product to existing wishlist
-    $(document).on("click", ".dowishlist", function () {
+    $(document).on("click", ".add-product-to-wishlist", function () {
 
         if(!allSelected()){
             $('.popover').popover('hide');
@@ -1312,14 +1331,8 @@
         }
 
         // build the options field:
-        var options = [];
-        $('#product select').each(function (idx, select) {
-            var text = $(select).find('option:selected').text();
-            var id = $(select).attr("id");
-            var selectedIndex = document.getElementById(id).selectedIndex;
-            options.push( id.slice(12, id.length) + '":"' + $(select).val());
-        });
-        options = JSON.stringify(options);
+
+        options = getOptionsSelected();
         var quantity = $('#input-quantity').val();
 
         $wishlist = $(this).attr('wishlist');
