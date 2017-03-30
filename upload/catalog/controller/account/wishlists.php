@@ -484,7 +484,7 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
                     $wishlist_id=$this->model_account_wishlists->addWishlists($data_wishlist);
 
-                    $this->model_account_wishlists->addWishlistitem($product_id,$wishlist_id);
+                    $this->model_account_wishlists->addWishlistitem($product_id,$wishlist_id, $options, $quantity);
 
                     $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id), $wishlist_name);
 

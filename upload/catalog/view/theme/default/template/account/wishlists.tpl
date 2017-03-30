@@ -41,7 +41,7 @@
             <td class="text-left"><a href="<?php echo $wishlist['href']; ?>"><?php echo $wishlist['wishlist_name']; ?></a></td>
 
             <td class="text-right">
-              <a href="<?php echo $wishlist['remove']; ?>" data-toggle="tooltip" style="background: #9b9b9b;border-radius: 0px;"  title="<?php echo $button_remove; ?>" class="btn-sm btn-default"><i class="fa fa-times-circle" style="color:white;"></i></a></td>
+              <a href="#" data-item-remove="<?php echo $wishlist['remove']; ?>" data-toggle="tooltip" style="background: #9b9b9b;border-radius: 0px;"  title="<?php echo $button_remove; ?>" class="btn-sm btn-default remove-wishlist"><i class="fa fa-times-circle" style="color:white;"></i></a></td>
 
           </tr>
           <?php } ?>
@@ -60,9 +60,11 @@
 
 
         $(document).on('click', '.remove-wishlist', function() {
-            var url = $(this).data('item-remove');
-            console.log(url);
-            window.location.href = url;
+            if(confirm('Are you sure?')){
+                var url = $(this).data('item-remove');
+                console.log(url);
+                window.location.href = url;
+            }
         });
 
 

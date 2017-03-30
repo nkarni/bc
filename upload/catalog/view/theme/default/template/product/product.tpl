@@ -1293,7 +1293,7 @@
             dataType: 'json',
             type: 'post',
             data: {
-                'wishlist_id': $wishlist,
+                'wishlist_name': $wishlist,
                 'product_id': $product,
                 'options': options,
                 'quantity' : quantity
