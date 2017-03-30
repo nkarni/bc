@@ -47,30 +47,15 @@ $class = 'col-sm-12';
         <?php if ($wishlistitems) { ?>
 
       <table class="table table-hover my-wishlist-table">
-		  <!--
-        <thead>			
-          <tr>
-            <td class="text-left"></td>
-
-            <td class="text-left"><?php echo $column_name; ?></td>
-
-            <td class="text-right"><?php echo $column_status; ?></td>
-
-            <td class="text-right"><?php echo $column_action; ?></td>            
-          </tr>          
-        </thead>
-        -->
         <thead>
         <tr>
           <td class="text-left hidden-xs" width="15%"></td>
 
           <td class="text-left" width="45%">Product</td>
 
-          <td class="text-left hidden-xs" width="15%">Selected Options</td>
+          <td class="text-left hidden-xs" width="25%">Selected Options</td>
 
-          <td class="text-right" width="10%">Price</td>
-
-          <td class="text-right no-print" width="15%"></td>
+          <td class="text-center " width="15%">Quantity</td>
         </tr>
         </thead>
         <tbody>
@@ -97,29 +82,18 @@ $class = 'col-sm-12';
                 }
               ?>
               </td>
-              <td class="text-right">
-
-                            <p class="price">
-                              <?php if ($wishlistitem['price_num'] && $wishlistitem['price_num'] > 0) {
-                                 echo $wishlistitem['formatted_price'];
-                              }else{
-                                echo 'TBA';
-                              } ?>
-                            </p>
-              </td>
-
-              <td class="text-right no-print">
+              <td class="">
+                <div class="print-only" style="width: 100%; padding-left: 20px;"><?php echo $wishlistitem['quantity']; ?></div>
 
                 <div class="input-group btn-block pull-right" style="max-width: 140px;">
-                  <input type="text" name="quantity[<?php echo $wishlistitem['wishlist_item_id']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control" />
+
+                  <input type="text" name="quantity[<?php echo $wishlistitem['wishlist_item_id']; ?>]" value="<?php echo $wishlistitem['quantity']; ?>" size="1" class="input-number form-control no-print" />
                   <input type="hidden" id="itemname_<?php echo $wishlistitem['wishlist_item_id']; ?>" value="<?php echo $wishlistitem['product_name']; ?>"/>
-                  <span class="input-group-btn">
+                  <span class="input-group-btn no-print">
                     <button type="submit" data-toggle="tooltip" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" title="<?php echo $button_update; ?>" class="btn btn-primary update-qty"><i class="fa fa-refresh"></i></button>
                     <button type="button" data-toggle="tooltip" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" title="<?php echo $button_remove; ?>" class="btn btn-danger remove-wishlist-item"><i class="fa fa-times-circle"></i></button>
                   </span>
                 </div>
-
-                <button class="btn btn-primary bt-text add-to-order"  title="" tabindex="0" data-item-id="<?php echo $wishlistitem['wishlist_item_id']; ?>" ><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to Order&nbsp;&nbsp;&nbsp;</button>
               </td>
           </tr>
           <?php } ?>

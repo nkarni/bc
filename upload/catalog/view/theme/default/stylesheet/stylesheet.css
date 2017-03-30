@@ -1562,10 +1562,18 @@ h3.related {
 	margin-bottom:15px;
 }
 
+.print-only{
+	display: none;
+}
+
 @media print
 {
 	.no-print, .no-print *
 	{
 		display: none !important;
+	}
+
+	.print-only{
+		display: inline;
 	}
 }
