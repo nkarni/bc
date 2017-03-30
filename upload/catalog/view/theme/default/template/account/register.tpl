@@ -16,7 +16,7 @@
     <?php } else { ?>
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+    <div id="content" class="col-sm-12"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
       <p><?php echo $text_account_already; ?></p>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -484,28 +484,16 @@
         </fieldset>
 
         <?php echo $captcha; ?>
-        <?php if ($text_agree) { ?>
-        <div class="buttons">
-          <div class="pull-right"><?php echo $text_agree; ?>
-            <?php if ($agree) { ?>
-            <input type="checkbox" name="agree" value="1" checked="checked" />
-            <?php } else { ?>
-            <input type="checkbox" name="agree" value="1" />
-            <?php } ?>
-            &nbsp;
-            <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
-          </div>
-        </div>
-        <?php } else { ?>
+
         <div class="buttons">
           <div class="pull-right">
             <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
           </div>
         </div>
-        <?php } ?>
+
       </form>
       <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
+    <?php // echo $column_right; ?></div>
 </div>
 <script type="text/javascript"><!--
 // Sort the custom fields

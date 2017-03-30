@@ -52,16 +52,17 @@
       </div>-->
 	  
     </div>
-    <hr>
-    <p><?php echo $powered; ?></p>
   </div>
 </footer>
+<script>
+    $(document).ready(function(){
+        var loggedIn = '<?php echo $loggedIn ; ?>';
+        console.log(loggedIn);
+        if(loggedIn){
+            $("a[href='/index.php?route=account/login']").text('Account');
+        }
 
-<!--
-OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
-Please donate via PayPal to donate@opencart.com
-//-->
-
-<!-- Theme created by Welford Media for OpenCart 2.0 www.welfordmedia.co.uk -->
+    });
+</script>
 
 </body></html>

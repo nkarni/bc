@@ -39,7 +39,8 @@ class ControllerAccountRegister extends Controller {
 				$this->model_account_activity->addActivity('register', $activity_data);
 			}
 
-			$this->response->redirect($this->url->link('account/success'));
+			$this->response->redirect($this->url->link('account/account'));
+
 		}
 
 		$data['breadcrumbs'] = array();
@@ -435,15 +436,15 @@ class ControllerAccountRegister extends Controller {
 		}
 
 		// Agree to terms
-		if ($this->config->get('config_account_id')) {
-			$this->load->model('catalog/information');
-
-			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
-
-			if ($information_info && !isset($this->request->post['agree'])) {
-				$this->error['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
-			}
-		}
+//		if ($this->config->get('config_account_id')) {
+//			$this->load->model('catalog/information');
+//
+//			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+//
+//			if ($information_info && !isset($this->request->post['agree'])) {
+//				$this->error['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
+//			}
+//		}
 
 		return !$this->error;
 	}

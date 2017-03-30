@@ -74,6 +74,8 @@ class ControllerCommonFooter extends Controller {
 
         $data['footer_menu'] = $this->load->controller('common/cmenu/getFooterMenu');
 
+            $data['loggedIn'] = $this->customer->isLogged();
+
 		return $this->load->view('common/footer', $data);
 	}
 }

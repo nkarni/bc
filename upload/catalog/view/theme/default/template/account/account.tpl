@@ -16,13 +16,15 @@
     <?php } else { ?>
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+    <div id="content" class="col-sm-12"><?php echo $content_top; ?>
       <h2><?php echo $text_my_account; ?></h2>
       <ul class="list-unstyled">
         <li><a href="<?php echo $edit; ?>"><?php echo $text_edit; ?></a></li>
         <li><a href="<?php echo $password; ?>"><?php echo $text_password; ?></a></li>
         <li><a href="<?php echo $address; ?>"><?php echo $text_address; ?></a></li>
         <li><a href="<?php echo $wishlist; ?>"><?php echo $text_wishlist; ?></a></li>
+        <li><a href="/index.php?route=account/logout">Logout</a></li>
+
       </ul>
       <?php if ($credit_cards) { ?>
       <h2><?php echo $text_credit_card; ?></h2>
@@ -32,13 +34,9 @@
         <?php } ?>
       </ul>
       <?php } ?>
-      <h2><?php echo $text_my_orders; ?></h2>
-      <ul class="list-unstyled">
-        <li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
 
-      </ul>
 
       <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
+    <?php // echo $column_right; ?></div>
 </div>
 <?php echo $footer; ?> 

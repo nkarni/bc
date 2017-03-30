@@ -19,14 +19,13 @@
     <?php } else { ?>
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+    <div id="content" class="col-sm-12"><?php echo $content_top; ?>
       <div class="row">
         <div class="col-sm-6">
           <div class="well">
             <h2><?php echo $text_new_customer; ?></h2>
-            <p><strong><?php echo $text_register; ?></strong></p>
-            <p><?php echo $text_register_account; ?></p>
-            <a href="<?php echo $register; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
+
+            <a href="<?php echo $register; ?>" class="btn btn-primary"><?php echo $text_register; ?></a></div>
         </div>
         <div class="col-sm-6">
           <div class="well">
@@ -50,6 +49,6 @@
         </div>
       </div>
       <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
+    <?php // echo $column_right; ?></div>
 </div>
 <?php echo $footer; ?>
