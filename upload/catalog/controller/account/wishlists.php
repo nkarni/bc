@@ -189,7 +189,7 @@ class ControllerAccountWishLists extends Controller {
         $mail->setFrom($this->config->get('config_email'));
         $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
         $mail->setSubject($subject);
-        $mail->setText($str);
+        $mail->setHtml($str);
         $mail->send();
 
         $json['success'] = 'Your quote request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
