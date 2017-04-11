@@ -15,7 +15,8 @@
     <?php $class = 'col-sm-9'; ?>
     <?php } else { ?>
     <?php $class = 'col-sm-12'; ?>
-    <?php } ?>
+    <?php }
+    $class = 'col-sm-12'; ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
       <p><?php echo $text_email; ?></p>
@@ -37,6 +38,6 @@
         </div>
       </form>
       <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
+    <?php // echo $column_right; ?></div>
 </div>
 <?php echo $footer; ?>

@@ -150,18 +150,18 @@ class ControllerAccountWishLists extends Controller {
             . $address['country'] . '
         </p>';
 
-        $items = '<br><br><table style="width:100%"><TH style="width:40%">Product</TH><TH style="width:40%">Options</TH><TH>Qty</TH>';
+        $items = '<br><br><table cellpadding="10" style="width:100%"><TH  valign="top" align="left" style="width:40%">Product</TH><TH valign="top" align="left" style="width:40%">Options</TH><TH valign="top" align="left">Qty</TH>';
 
         foreach ($data['wishlistitems'] as $wishlistitem) {
 
             $items .= '<tr>';
-            $items .= '<td><a href="' .  $wishlistitem["href"]. '">' .  $wishlistitem['product_name'] . '</a></td>';
-            $items .= '<td>';
+            $items .= '<td valign="top" align="left"><a href="' .  $wishlistitem["href"]. '">' .  $wishlistitem['product_name'] . '</a></td>';
+            $items .= '<td valign="top" align="left">';
             foreach ($wishlistitem['full_product_data'][0]['option'] as $option) {
                 $items .= '<small>' . $option['name'] . ': ' . $option['value'] . '</small><br>';
             }
             $items .= '</td>';
-            $items .= '<td>' . $wishlistitem['quantity'] . '</td>';
+            $items .= '<td valign="top" align="left">' . $wishlistitem['quantity'] . '</td>';
             $items .= '</tr>';
         }
 
