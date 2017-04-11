@@ -57,6 +57,7 @@ class ControllerProductManufacturer extends Controller {
 		$data['content_bottom'] = $this->load->controller('common/content_bottom');
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
+        $data['text_view_details'] = $this->language->get('text_view_details');
 
 		$this->response->setOutput($this->load->view('product/manufacturer_list', $data));
 	}
@@ -159,6 +160,7 @@ class ControllerProductManufacturer extends Controller {
 			$data['button_continue'] = $this->language->get('button_continue');
 			$data['button_list'] = $this->language->get('button_list');
 			$data['button_grid'] = $this->language->get('button_grid');
+            $data['text_view_details'] = $this->language->get('text_view_details');
 
 			$data['compare'] = $this->url->link('product/compare');
 
