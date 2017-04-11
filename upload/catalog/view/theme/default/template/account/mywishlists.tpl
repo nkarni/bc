@@ -34,9 +34,11 @@ $class = 'col-sm-12';
 
             <div class="goodshare-color row" >
                 <?php if($wishlists_copy_url_status) { ?>
-                    <span class="show-copy-link btn btn-primary btn-small"  onclick="js:CopyToClipboard('<?php echo $mysharelink; ?>');" style="padding:none !important;line-height:0.5 !important;">Copy URL</span>
+                    <span class="show-copy-link btn btn-primary btn-small"  onclick="js:window.print();" style="padding:none !important;line-height:0.5 !important;">Print</span>
                 <?php } ?>
-                    <a class="show-copy-link btn btn-primary btn-small" href="mailto:?body=<?php echo str_replace("&amp;","%26", $mysharelink); ?>" style="padding:none !important;line-height:0.5 !important;">Email URL</a>
+                    <a class="show-copy-link btn btn-primary btn-small" href="mailto:?body=<?php echo str_replace("&amp;","%26", $mysharelink); ?>" style="padding:none !important;line-height:0.5 !important;">Share Via Email</a>
+              <span class="show-copy-link btn btn-primary btn-small" id="submit-btn"  onclick="js:requestQuotation();" style="padding:none !important;line-height:0.5 !important;">Submit for a Quotation</span>
+              <input type="hidden" id="wishlist-id" value="<?php echo $wishlist_id; ?>"/>
             </div>
 
         </div>
@@ -99,6 +101,22 @@ $class = 'col-sm-12';
           <?php } ?>
         </tbody>
       </table>
+      <?php if($visiblity) { ?>
+      <div class="no-print" syle="width:100%;">
+
+        <div class="goodshare-color row" >
+          <?php if($wishlists_copy_url_status) { ?>
+          <span class="show-copy-link btn btn-primary btn-small"  onclick="js:window.print();" style="padding:none !important;line-height:0.5 !important;">Print</span>
+          <?php } ?>
+          <a class="show-copy-link btn btn-primary btn-small" href="mailto:?body=<?php echo str_replace("&amp;","%26", $mysharelink); ?>" style="padding:none !important;line-height:0.5 !important;">Share Via Email</a>
+          <span class="show-copy-link btn btn-primary btn-small" id="submit-btn"  onclick="js:requestQuotation();" style="padding:none !important;line-height:0.5 !important;">Submit for a Quotation</span>
+          <input type="hidden" id="wishlist-id" value="<?php echo $wishlist_id; ?>"/>
+        </div>
+
+      </div>
+
+      <?php } ?>
+
       <?php } else { ?>
       <p><?php echo $text_empty; ?></p>
       <?php } ?>
@@ -109,6 +127,37 @@ $class = 'col-sm-12';
 <?php echo $footer; ?>
 
 <script type="text/javascript">
+
+      function requestQuotation(){
+          var wishListId = $('#wishlist-id').val();
+          $.ajax({
+              url: 'index.php?route=account/wishlists/requestQuotation',
+              type: 'get',
+              data: {
+                  'wishlist_id': wishListId
+              },
+              dataType: 'json',
+              beforeSend: function() {
+                  $("#submit-btn").addClass('disabled');
+              },
+              complete: function() {
+                  $("#submit-btn").removeClass('disabled');
+              },
+              success: function (json) {
+                  $return = '';
+                  if (json.success) {
+                      $return = json.success;
+                      $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                  }
+                  else if (json.info) {
+                      $return = json.info;
+                      $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                  }
+                  //close popover widget
+                  $('.popover').popover('hide');
+              }
+          });
+      }
 
     function updateListItem(itemId, quantity, action){
         $.ajax({

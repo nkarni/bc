@@ -122,8 +122,84 @@ class ControllerAccountWishLists extends Controller {
 		}
 	}
 
-    public function mywishlist() {
+	public function requestQuotation(){
 
+
+
+        $this->load->model('account/wishlists');
+        $this->load->model('account/address');
+        $json = array();
+        $str = '';
+
+        // get wishlist
+        $data = $this->mywishlist(false);
+
+        $customerdata = $this->model_account_customer->getCustomer($this->customer->getId());
+        // need to get address from $customerdata['address_id']
+        $address = $this->model_account_address->getAddress($customerdata['address_id']);
+
+         $customer_details_str = '<p><strong>Customer Details:</strong><br>
+            Name: ' . $customerdata['firstname'] . ' '  . $customerdata['lastname'] . '<br>
+            Email: <a href="mailto:' . $customerdata['email'] . '">'  . $customerdata['email'] . '</a><br>
+            Phone: '  . $customerdata['telephone'] . '<br><br>
+            Address:<br>'
+            . $address['address_1'] . '<br>'
+            . ($address['address_2'] != '' ? '(Address line 2: '  . $address['address_2'] . '<br>' : '') .
+             $address['postcode'] . '<br>'
+            . $address['city'] . '<br>'
+            . $address['country'] . '
+        </p>';
+
+        $items = '<br><br><table style="width:100%"><TH style="width:40%">Product</TH><TH style="width:40%">Options</TH><TH>Qty</TH>';
+
+        foreach ($data['wishlistitems'] as $wishlistitem) {
+
+            $items .= '<tr>';
+            $items .= '<td><a href="' .  $wishlistitem["href"]. '">' .  $wishlistitem['product_name'] . '</a></td>';
+            $items .= '<td>';
+            foreach ($wishlistitem['full_product_data'][0]['option'] as $option) {
+                $items .= '<small>' . $option['name'] . ': ' . $option['value'] . '</small><br>';
+            }
+            $items .= '</td>';
+            $items .= '<td>' . $wishlistitem['quantity'] . '</td>';
+            $items .= '</tr>';
+        }
+
+        $str = '<h2>Quote request for wishlist: ' . $data['heading_title'] . '</h2>';
+        $str .= $customer_details_str . $items;
+
+
+
+
+        // get admin email
+
+        // send email
+        $subject = sprintf('Quote request for wishlit - ', html_entity_decode( $data['heading_title'] , ENT_QUOTES, 'UTF-8'));
+
+        $mail = new Mail();
+        $mail->protocol = $this->config->get('config_mail_protocol');
+        $mail->parameter = $this->config->get('config_mail_parameter');
+        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+        $mail->setTo($this->config->get('config_email'));
+        $mail->setFrom($this->config->get('config_email'));
+        $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+        $mail->setSubject($subject);
+        $mail->setText($str);
+        $mail->send();
+
+        $json['success'] = 'Your quote request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
+
+        // return a message to user
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function mywishlist($loadTemplate = true) {
 
         $wishlist_id = $this->request->get['wishlist_id'];
         
@@ -173,6 +249,7 @@ class ControllerAccountWishLists extends Controller {
         );
 		
         $data['visiblity'] = $wishlist_info['visiblity'];
+        $data['wishlist_id'] = $wishlist_id;
 
         $data['mysharelink'] = $this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id);
 
@@ -234,12 +311,6 @@ class ControllerAccountWishLists extends Controller {
         $data['is_owner'] = ($data['islogged'] == $customer)?1:0;
 
         $results = $this->model_account_wishlists->getWishlistItems($wishlist_id,"All");
-/*
-        echo '<pre>';
-        print_r($results);
-        echo '</pre>';
-*/
-
 
         $product_total = count($results);
 
@@ -355,7 +426,10 @@ class ControllerAccountWishLists extends Controller {
 
             }
         }
-
+        if(! $loadTemplate){
+            $data['customerdata'] = $customerdata;
+            return $data;
+        }
 
         $data['social_list'] = array(
             'fb'=>'facebook',
@@ -379,6 +453,9 @@ class ControllerAccountWishLists extends Controller {
         $pagination->total = $product_total;
         $pagination->page = $page;
         $pagination->limit = $limit;
+        if(!$loadTemplate){
+            $pagination->limit = 999;
+        }
         $pagination->url = $this->url->link('account/wishlists/mywishlist&wishlist_id='.$wishlist_id);
 
         $data['pagination'] = $pagination->render();
@@ -393,7 +470,11 @@ class ControllerAccountWishLists extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
-	
+
+        if(!$loadTemplate){
+            return $data;
+        }
+
 		
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/account/mywishlists.tpl')) {
             $this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/account/mywishlists.tpl', $data));

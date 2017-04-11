@@ -6,7 +6,7 @@
     }
 </style>
 <footer>
-  <div class="container">
+  <div class="container no-print">
     <div class="row">
     <div class="col-sm-3">
         <h5>Our Products</h5>

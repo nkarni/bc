@@ -30,12 +30,6 @@ div.popover{
 }
 
 
-.popover .input-group-btn button.addlist {
-    width : 100% !important;
-    color: #444 !important;
-    font-weight: normal !important;
-    line-height: normal !important;
-}
 
 .list-group-item{
     width : 100% !important;
