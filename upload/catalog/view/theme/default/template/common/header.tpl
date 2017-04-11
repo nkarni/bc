@@ -168,7 +168,25 @@
 
 			<?php } ?>
 			<?php } ?>
-      <li class="dropdown <?php if($wishlist_active) echo "active"; ?>"><a class="dropdown-toggle" href="/index.php?route=account/wishlists">WISHLISTS</a></li>
+      <li class="dropdown <?php if($wishlist_active) echo "active"; ?>"><a class="dropdown-toggle" href="/index.php?route=account/wishlists">WISHLISTS</a>
+          <?php if(count($wishlists) > 0 ) { ?>
+          <div class="menudrop">
+            <div class="dropdown-menu">
+              <div class="dropdown-inner">
+
+                <?php foreach ($wishlists as $id => $name) { ?>
+                <ul class="list-unstyled">
+                  <li><a href="/index.php?route=account/wishlists/mywishlist&wishlist_id=<?php echo $id; ?>"><?php echo $name; ?></a></li>
+                </ul>
+                <?php } ?>
+
+              </div>
+            </div>
+          </div>
+
+          <?php } ?>
+
+          </li>
 		  </ul>
 		</div>
 	  </nav>

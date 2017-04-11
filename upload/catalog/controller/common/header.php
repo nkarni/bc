@@ -49,9 +49,45 @@ class ControllerCommonHeader extends Controller {
 
 		$data['text_home'] = $this->language->get('text_home');
 
+		$data['wishlists'] = array();
+
 		// Wishlist
 		if ($this->customer->isLogged()) {
 			$this->load->model('account/wishlist');
+
+
+            $customer = ($this->customer->isLogged())?$this->customer->getId():0;
+
+
+            if ($customer) {
+
+                $this->load->model('account/wishlists');
+
+                $wishparams['customer']= $customer;
+
+                $filter_data = array(
+                    'customer'  => $customer,
+                );
+
+                $results = $this->model_account_wishlists->getWishlists($filter_data);
+
+                foreach ($results as $result) {
+
+                    $name = strtoupper($result['wishlist_name']);
+
+                    if( strlen($name) > 25) {
+                        if (false !== ($breakpoint = strpos($name, ' ', 25))) {
+                            if ($breakpoint < strlen($name) - 1) {
+                                $name = substr($name, 0, $breakpoint) . '...';
+                            }
+                        }
+                    }
+
+                    $data['wishlists'][$result['wishlist_id']] = $name;
+                }
+            }
+
+
 
 			$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist());
 		} else {
