@@ -16,13 +16,8 @@
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
       <?php if ($categories) { ?>
-      <p><strong><?php echo $text_index; ?></strong>
-        <?php foreach ($categories as $category) { ?>
-        &nbsp;&nbsp;&nbsp;<a href="index.php?route=product/manufacturer#<?php echo $category['name']; ?>"><?php echo $category['name']; ?></a>
-        <?php } ?>
-      </p>
+
       <?php foreach ($categories as $category) { ?>
-      <h2 id="<?php echo $category['name']; ?>"><?php echo $category['name']; ?></h2>
       <?php if ($category['manufacturer']) { ?>
       <?php foreach (array_chunk($category['manufacturer'], 4) as $manufacturers) { ?>
       <div class="row">

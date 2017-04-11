@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']     = 'Find Your Favorite Brand';
+$_['heading_title']     = 'Our Brands';
 
 // Text
-$_['text_brand']        = 'Brand';
-$_['text_index']        = 'Brand Index:';
+$_['text_brand']        = 'Brands';
+$_['text_index']        = 'Brands Index:';
 $_['text_error']        = 'Brand not found!';
 $_['text_empty']        = 'There are no products to list.';
 $_['text_quantity']     = 'Qty:';

@@ -261,7 +261,9 @@ class ControllerProductProduct extends Controller {
 			
 			$_SESSION['last_viewed_product_url'] = $this->url->link('product/product', $url . '&product_id=' . $this->request->get['product_id']);
 
-			$this->document->setTitle($product_info['meta_title']);
+            $this->session->data['redirect'] = $this->url->link('account/account', '', 'SSL');
+
+            $this->document->setTitle($product_info['meta_title']);
 			$this->document->setDescription($product_info['meta_description']);
 			$this->document->setKeywords($product_info['meta_keyword']);
 			$this->document->addLink($this->url->link('product/product', 'product_id=' . $this->request->get['product_id']), 'canonical');
@@ -340,6 +342,9 @@ class ControllerProductProduct extends Controller {
 			$data['short_description'] = html_entity_decode($product_info['short_description'], ENT_QUOTES, 'UTF-8');
 			$data['specifications'] = html_entity_decode($product_info['specifications'], ENT_QUOTES, 'UTF-8');
 			$data['features'] = html_entity_decode($product_info['features'], ENT_QUOTES, 'UTF-8');
+            $this->load->model('localisation/country');
+
+            $data['countries'] = $this->model_localisation_country->getCountries();
 
 			if ($product_info['quantity'] <= 0) {
 				$data['stock'] = $product_info['stock_status'];

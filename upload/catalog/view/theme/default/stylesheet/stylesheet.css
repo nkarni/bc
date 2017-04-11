@@ -1562,6 +1562,11 @@ h3.related {
 	margin-bottom:15px;
 }
 
+#product .wishlist-add-form{
+	margin-top: 5px;
+	height: 55px;
+}
+
 .print-only{
 	display: none;
 }

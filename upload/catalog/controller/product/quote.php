@@ -270,6 +270,11 @@ class ControllerProductQuote extends Controller {
             $data['footer'] = $this->load->controller('common/footer');
             $data['header'] = $this->load->controller('common/header');
             $data['button_submit'] = $this->language->get('button_submit');
+
+            $this->load->model('localisation/country');
+
+            $data['countries'] = $this->model_localisation_country->getCountries();
+
             $this->response->setOutput($this->load->view('product/quote', $data));
         }
         

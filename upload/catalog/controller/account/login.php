@@ -5,6 +5,8 @@ class ControllerAccountLogin extends Controller {
 	public function index() {
 		$this->load->model('account/customer');
 
+
+
 		// Login override for admin users
 		if (!empty($this->request->get['token'])) {
 			$this->customer->logout();
@@ -86,7 +88,9 @@ class ControllerAccountLogin extends Controller {
 
 				$this->model_account_activity->addActivity('login', $activity_data);
 			}
-
+            if(isset($_SESSION['last_viewed_product_url'])){
+                $this->response->redirect($_SESSION['last_viewed_product_url']);
+            }
 
 			// Added strpos check to pass McAfee PCI compliance test (http://forum.opencart.com/viewtopic.php?f=10&t=12043&p=151494#p151295)
 			if (isset($this->request->post['redirect']) && $this->request->post['redirect'] != $this->url->link('account/logout', '', true) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) !== false)) {

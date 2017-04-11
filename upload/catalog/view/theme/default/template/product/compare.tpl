@@ -116,9 +116,9 @@
           <?php foreach ($products as $product) { ?>
           <td>
             <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
-            <button class="wishlist-add-form btn btn-primary btn-block" rel="popover" product="<?php echo $product['product_id']; ?>" title="Wishlist" type="button">ADD TO WISHLIST</button>
+            <button class="wishlist-add-form btn btn-primary btn-block hidden" rel="popover" product="<?php echo $product['product_id']; ?>" title="Wishlist" type="button">ADD TO WISHLIST</button>
             <?php } else { ?>
-            <button data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>" class="btn btn-primary btn-block" >ADD TO WISHLIST</button>
+            <button data-placement="top" data-toggle="tooltip" title="<?php echo $text_login_must; ?>" class="btn btn-primary btn-block hidden" >ADD TO WISHLIST</button>
             <?php } ?>
             <a href="<?php echo $product['remove']; ?>" class="btn btn-danger btn-block"><?php echo $button_remove; ?></a></td>
           <?php } ?>
