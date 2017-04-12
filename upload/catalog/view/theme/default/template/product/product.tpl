@@ -363,18 +363,14 @@
                         <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block hidden">ADD TO ORDER</button>
                         <?php // } ?>
 
-                        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/>
+                        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/><input type="hidden" name="customer-id" name="customer-id" value="<?php echo $customer_id; ?>"/>
                         <input type="hidden" name="default_open_moreinfo" id="default_open_moreinfo" value="<?php echo $default_open_moreinfo; ?>"/>
                         <div class="text-left">
-                          <?php if($show_wishlist==1 && $multiplewishlist==1) { ?>
-                          <button class="wishlist-add-form btn-primary btn-lg btn-block" product="<?php echo $product_id; ?>" title="<?php echo $button_wishlist; ?>" type="button">ADD TO WISHLIST</button>
-                          <?php } else { ?>
-                          <button data-placement="top"  data-toggle="tooltip" title="Please login before adding to a wishlist" class="wishlist-add-form btn-primary btn-lg btn-block" >ADD TO WISHLIST</button>
-                          <?php } ?>
+                          <button class="wishlist-add-form btn-primary btn-lg btn-block" title="<?php echo $button_wishlist; ?>" type="button">ADD TO WISHLIST</button>
                           <button type="button" id="button-quote"
                                   data-loading-text="<?php echo $text_loading; ?>"
                                   class="btn btn-primary btn-lg btn-block">REQUEST A QUOTE</button>
-                          <button type="button"  data-toggle="tooltip" class="btn btn-primary btn-lg btn-block"  title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product_id; ?>');">ADD TO COMPARISON</button>
+                          <button type="button"  data-toggle="tooltip" class="btn btn-primary btn-lg btn-block"  title="<?php echo $button_compare; ?>">ADD TO COMPARISON</button>
                         </div>
                       </div>
 
@@ -1079,8 +1075,20 @@
         });
     });
 
+    function isLoggedIn(){
+        if($('#customer-id').val() > 0){
+            return true;
+        }
+        return false;
+    }
+
     // For wishlist form
     $('.wishlist-add-form').click(function () {
+        if(!isLoggedIn()){
+            $return = 'Please <a href="/index.php?route=account/login">login</a> before adding to wishlist';
+            $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+        }
+
         if(allSelected()){
             $currentproduct = $(this).attr('product');
             $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';

@@ -860,6 +860,8 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
                 $json[$result['wishlist_id']] = $result['wishlist_name'];
                 
             }
+        }else{
+            $json['info'] = $result['wishlist_name'];
         }
 
         $this->response->addHeader('Content-Type: application/json');

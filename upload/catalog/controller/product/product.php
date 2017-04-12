@@ -346,6 +346,8 @@ class ControllerProductProduct extends Controller {
 
             $data['countries'] = $this->model_localisation_country->getCountries();
 
+            $data['customer_id'] = ($this->customer->isLogged())?$this->customer->getId():0;
+
 			if ($product_info['quantity'] <= 0) {
 				$data['stock'] = $product_info['stock_status'];
 			} elseif ($this->config->get('config_stock_display')) {

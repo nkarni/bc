@@ -726,7 +726,7 @@ label.control-label.qty-label {
 
 #product_submenu {
 	position: fixed;
-	bottom: 25%;
+	bottom: 0;
 	right: 0;
 	background: #9b9b9b;
 	color: #FFF;
@@ -755,7 +755,6 @@ label.control-label.qty-label {
 	position: static;
 }
 .floating-cart {
-	max-width: 300px;
 	margin: auto;
 	background: #f4f4f4;
 	border: 1px solid #CCC;
