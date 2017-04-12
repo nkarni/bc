@@ -366,7 +366,7 @@
                         <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/><input type="hidden" name="customer-id" name="customer-id" value="<?php echo $customer_id; ?>"/>
                         <input type="hidden" name="default_open_moreinfo" id="default_open_moreinfo" value="<?php echo $default_open_moreinfo; ?>"/>
                         <div class="text-left">
-                          <button class="wishlist-add-form btn-primary btn-lg btn-block" title="<?php echo $button_wishlist; ?>" type="button">ADD TO WISHLIST</button>
+                          <button class="wishlist-add-form btn-primary btn-lg btn-block" title="<?php echo $button_wishlist; ?>" product="<?php echo $product_id; ?>" type="button">ADD TO WISHLIST</button>
                           <button type="button" id="button-quote"
                                   data-loading-text="<?php echo $text_loading; ?>"
                                   class="btn btn-primary btn-lg btn-block">REQUEST A QUOTE</button>
@@ -1089,6 +1089,44 @@
             $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
         }
         return ;
+        if(allSelected()){
+            $currentproduct = $(this).attr('product');
+            $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';
+
+            var placement = window.innerWidth < 768 ? 'bottom' : 'left';
+            $(this).popover({
+                html: true,
+                trigger: 'manual',
+                placement: placement,
+
+                content: function () {
+                    $buttons = getwishlists();
+                    if ($buttons) $buttons += "<p>Or add a new Wish List:</p>";
+                    $activeproductrow = '<input type="hidden" class="active_product_id" value="' + $currentproduct + '" />';
+                    return $activeproductrow + $buttons + $addbuttonhtml;
+                }
+            }).popover('toggle');
+        }else{
+            alert('Please select all product options before adding to wishlist.')
+        }
+
+    });
+
+    // For request a quote
+    $('.request-quote').click(function () {
+        if(!isLoggedIn()){
+            $return = 'Please <a href="/index.php?route=account/login">Register or Login</a> before requesting a quote';
+            $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+            return ;
+        }
+
+
+        if(allSelected()){
+            alert('Please select all product options before adding to wishlist.');
+            return ;
+        }
+
+
         if(allSelected()){
             $currentproduct = $(this).attr('product');
             $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';
