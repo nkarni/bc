@@ -1088,7 +1088,7 @@
             $return = 'Please <a href="/index.php?route=account/login">login</a> before adding to wishlist';
             $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
         }
-
+        return ;
         if(allSelected()){
             $currentproduct = $(this).attr('product');
             $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';
