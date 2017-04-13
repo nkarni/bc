@@ -136,7 +136,7 @@
                         <?php foreach ($option['product_option_value'] as $option_value) { ?>
                         <option value="<?php echo $option_value['product_option_value_id']; ?>"
                                 data-price="<?php echo $option_value['price_value'] ?: ''; ?>"><?php echo $option_value['name']; ?>
-                          <?php if ($option_value['price']) { ?>
+                          <?php if ($option_value['price'] && $showOptionPrices) { ?>
                           (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>
                           )
                           <?php } ?>
@@ -314,7 +314,7 @@
 
                       <div class="text-center">
                         <?php // if($price_amount > 0){ ?>
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled hidden">
                           <?php if (!$special) { ?>
                           <li>
                             <h2 id="product-price"
