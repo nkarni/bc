@@ -15,19 +15,19 @@
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h1><?php echo $heading_title; ?></h1>
-      <?php if ($categories) { ?>
+      <?php if ($manufacturers) { ?>
 
-      <?php foreach ($categories as $category) { ?>
-      <?php if ($category['manufacturer']) { ?>
-      <?php foreach (array_chunk($category['manufacturer'], 4) as $manufacturers) { ?>
+      <?php // foreach ($categories as $category) { ?>
+      <?php // if ($category['manufacturer']) { ?>
+      <?php // foreach (array_chunk($category['manufacturer'], 4) as $manufacturers) { ?>
       <div class="row">
         <?php foreach ($manufacturers as $manufacturer) { ?>
-        <div class="col-sm-3"><a href="<?php echo $manufacturer['href']; ?>"><?php echo $manufacturer['name']; ?></a></div>
+        <div class="col-sm-3 col-md-2 "><a href="<?php echo $manufacturer['href']; ?>"><?php echo $manufacturer['name']; ?></a></div>
         <?php } ?>
       </div>
-      <?php } ?>
-      <?php } ?>
-      <?php } ?>
+      <?php // } ?>
+      <?php // } ?>
+      <?php // } ?>
       <?php } else { ?>
       <p><?php echo $text_empty; ?></p>
       <div class="buttons clearfix">

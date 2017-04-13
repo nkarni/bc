@@ -30,23 +30,31 @@ class ControllerProductManufacturer extends Controller {
 
 		$data['categories'] = array();
 
+		// in BC we don't want to to group them by those categories
+		$data['manufacturers'] = array();
+
 		$results = $this->model_catalog_manufacturer->getManufacturers();
 
 		foreach ($results as $result) {
-			if (is_numeric(utf8_substr($result['name'], 0, 1))) {
-				$key = '0 - 9';
-			} else {
-				$key = utf8_substr(utf8_strtoupper($result['name']), 0, 1);
-			}
+//			if (is_numeric(utf8_substr($result['name'], 0, 1))) {
+//				$key = '0 - 9';
+//			} else {
+//				$key = utf8_substr(utf8_strtoupper($result['name']), 0, 1);
+//			}
+//
+//			if (!isset($data['categories'][$key])) {
+//				$data['categories'][$key]['name'] = $key;
+//			}
 
-			if (!isset($data['categories'][$key])) {
-				$data['categories'][$key]['name'] = $key;
-			}
+//			$data['categories'][$key]['manufacturer'][] = array(
+//				'name' => $result['name'],
+//				'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])
+//			);
 
-			$data['categories'][$key]['manufacturer'][] = array(
-				'name' => $result['name'],
-				'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])
-			);
+            $data['manufacturers'][] = array(
+                'name' => $result['name'],
+                'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])
+            );
 		}
 
 		$data['continue'] = $this->url->link('common/home');
