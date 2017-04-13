@@ -802,6 +802,20 @@ label.control-label.qty-label {
 	border-bottom: 1px solid #ccc;
 }
 
+#send-quote-request{
+	max-width: 120px;
+	float: left;
+	margin-top: 5px;
+}
+#send-quote-cancel{
+	max-width: 120px;
+	float: right;
+}
+.quote-request-wrapper{
+	display: none;
+	padding: 20px;
+}
+
 i.fa.fa-chevron-right, #product_submenu i.fa.fa-chevron-up {
 	display: inline-block;
 	width: 20px;
@@ -1561,7 +1575,7 @@ h3.related {
 	margin-bottom:15px;
 }
 
-#product .wishlist-add-form{
+#product .wishlist-btn, #product #btn-compare{
 	margin-top: 5px;
 	height: 55px;
 }

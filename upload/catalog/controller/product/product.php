@@ -894,6 +894,70 @@ class ControllerProductProduct extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+    public function quote() {
+        $this->load->language('product/product');
+        $this->load->model('catalog/product');
+        $this->load->model('account/customer');
+        $this->load->model('account/address');
+        $json = array();
+        $str = '';
+
+        $product_info = $this->model_catalog_product->getProduct($this->request->post['product_id']);
+
+        $customerdata = $this->model_account_customer->getCustomer($this->customer->getId());
+        // need to get address from $customerdata['address_id']
+        $address = $this->model_account_address->getAddress($customerdata['address_id']);
+
+        $customer_details_str = '<p><strong>Customer Details:</strong><br>
+            Name: ' . $customerdata['firstname'] . ' '  . $customerdata['lastname'] . '<br>
+            Email: <a href="mailto:' . $customerdata['email'] . '">'  . $customerdata['email'] . '</a><br>
+            Phone: '  . $customerdata['telephone'] . '<br><br>
+            Address:<br>'
+            . $address['address_1'] . '<br>'
+            . ($address['address_2'] != '' ? '(Address line 2: '  . $address['address_2'] . '<br>' : '') .
+            $address['postcode'] . '<br>'
+            . $address['city'] . '<br>'
+            . $address['country'] . '
+        </p>';
+
+        $items = '<br><br><table cellpadding="10" style="width:100%"><TH  valign="top" align="left" style="width:40%">Product</TH><TH valign="top" align="left" style="width:40%">Options</TH><TH valign="top" align="left">Qty</TH>';
+        $items .= '<tr>';
+        $items .= '<td valign="top" align="left"><a href="' . $data['share'] = $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']) . '">' .  $product_info['name'] . '</a></td>';
+        $items .= '<td valign="top" align="left">' . $this->request->post['options'] .'</td>';
+        $items .= '<td valign="top" align="left">' . $this->request->post['quantity'] . '</td>';
+        $items .= '</tr></table>';
+
+
+        $str = '<h2>Quote request for: ' . $product_info['name'] . '</h2>';
+        $str .= $customer_details_str . $items;
+        $str .= '<br><strong>Further Info:</strong><br>' . (strlen($this->request->post['notes']) > 0 ? $this->request->post['notes'] : 'None provided.');
+
+
+        // send email
+        $subject = sprintf('Quote request for - ', html_entity_decode( $product_info['name'] , ENT_QUOTES, 'UTF-8'));
+
+        $mail = new Mail();
+        $mail->protocol = $this->config->get('config_mail_protocol');
+        $mail->parameter = $this->config->get('config_mail_parameter');
+        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+        $mail->setTo($this->config->get('config_email'));
+        $mail->setFrom($this->config->get('config_email'));
+        $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+        $mail->setSubject($subject);
+        $mail->setHtml($str);
+        $mail->send();
+
+        $json['success'] = 'Your quote request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
 	public function getRecurringDescription() {
 		$this->load->language('product/product');
 		$this->load->model('catalog/product');

@@ -202,7 +202,7 @@ class ControllerAccountWishLists extends Controller {
     public function mywishlist($loadTemplate = true) {
 
         $wishlist_id = $this->request->get['wishlist_id'];
-        
+
         $this->load->language('account/wishlists');
 
         $this->load->model('account/wishlists');
@@ -216,12 +216,12 @@ class ControllerAccountWishLists extends Controller {
         $wishlist_info = $this->model_account_wishlists->getWishlist($wishlist_id);
 
         if (!$this->customer->isLogged() && $wishlist_info['visiblity'] != 1) {
-			
+
 			$this->session->data['redirect'] = $this->url->link('account/wishlist', '', true);
-			
+
 			$this->response->redirect($this->url->link('account/login', '', true));
         }
-        
+
         $customer = $wishlist_info['customer'];
 
         $wishlist_name = $wishlist_info['wishlist_name'];
@@ -247,7 +247,7 @@ class ControllerAccountWishLists extends Controller {
             'text' => $wishlist_name,
             'href' => $this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id)
         );
-		
+
         $data['visiblity'] = $wishlist_info['visiblity'];
         $data['wishlist_id'] = $wishlist_id;
 
@@ -272,7 +272,7 @@ class ControllerAccountWishLists extends Controller {
         $customerdata = $this->model_account_customer->getCustomer($wishlist_info['created_by']);
 
         $data['created_by'] = '';
-        
+
         if($customerdata){
 			$data['created_by'] = $customerdata['firstname']." ".$customerdata['lastname'];
         }
@@ -307,7 +307,7 @@ class ControllerAccountWishLists extends Controller {
         }
 
         $data['wishlistitems'] = array();
-        
+
         $data['is_owner'] = ($data['islogged'] == $customer)?1:0;
 
         $results = $this->model_account_wishlists->getWishlistItems($wishlist_id,"All");
@@ -323,8 +323,8 @@ class ControllerAccountWishLists extends Controller {
             $is_bought = $this->model_account_wishlists->isproductpurchased($wishlist_id,$result['product_id'],$customer);
 
             $purchased_by = $this->model_account_wishlists->getCustomerName($is_bought);
-            
-            
+
+
             if(is_array($is_bought)){
                 $bought_by = $this->model_account_wishlists->getCustomerName($is_bought['purchased_by']);
                 $bought_on = ($is_bought['purchased_on']== '')? '' : " On ".date("d/m/Y H:m:s",strtotime($is_bought['purchased_on'])) ;
@@ -333,7 +333,7 @@ class ControllerAccountWishLists extends Controller {
 
                 $is_bought =$is_bought['purchased_by'];
             }
-			
+
             if ($product_info) {
                 if ($product_info['image']) {
                     //$image = $this->model_tool_image->resize($product_info['image'], $this->config->get('config_image_wishlist_width'), $this->config->get('config_image_wishlist_height'));
@@ -341,7 +341,7 @@ class ControllerAccountWishLists extends Controller {
                 } else {
                     $image = false;
                 }
-                
+
                 if ($product_info['price']) {
 					$price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')),$this->session->data['currency']);
 				} else {
@@ -475,7 +475,7 @@ class ControllerAccountWishLists extends Controller {
             return $data;
         }
 
-		
+
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/account/mywishlists.tpl')) {
             $this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/account/mywishlists.tpl', $data));
         } else {
@@ -639,8 +639,8 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
                 else {
                     $data['status'] = 0;
                 }
-                
-                
+
+
                 if (isset($this->request->post['purchased_by'])) {
                     $data['purchased_by'] = $this->request->post['purchased_by'];
                 }
@@ -650,8 +650,8 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
                 else {
                     $data['purchased_by'] = 0;
                 }
-                
-                
+
+
                 $this->model_account_wishlists->editWishlists($data);
 
                 $json['success'] = "Your wishList has updated Successfully!.";
@@ -745,7 +745,7 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
         $this->response->setOutput(json_encode($json));
 
     }
-	
+
 	public function editWishlistitem(){
 
         $this->load->model('account/wishlists');
@@ -776,14 +776,14 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
             $wishlist = $this->model_account_wishlists->getWishlistitem($wishlist_id,$product_id);
 
             if ($wishlist) {
-               
+
                if($this->customer->getId()){
                     $data['purchased_by'] = $this->customer->getId();;
                 }
                 else {
                     $data['purchased_by'] = 0;
-                }                   
-                
+                }
+
                 $this->model_account_wishlists->editWishlistitem($data);
 
                 $json['success'] = "Your wishList has updated Successfully!.";
@@ -792,7 +792,7 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
         }
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
-		
+
 	}
 
 
@@ -840,16 +840,16 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
     public function getwishlists(){
 
         $json = array();
-        
+
         $customer = ($this->customer->isLogged())?$this->customer->getId():0;
-        
+
 
         if ($customer) {
 
             $this->load->model('account/wishlists');
-            
+
             $wishparams['customer']= $customer;
-          
+
             $filter_data = array(
                 'customer'  => $customer,
             );
@@ -858,10 +858,10 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
             foreach ($results as $result) {
                 $json[$result['wishlist_id']] = $result['wishlist_name'];
-                
+
             }
         }else{
-            $json['info'] = $result['wishlist_name'];
+
         }
 
         $this->response->addHeader('Content-Type: application/json');

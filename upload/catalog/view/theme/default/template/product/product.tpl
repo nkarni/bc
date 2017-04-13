@@ -54,6 +54,7 @@
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
+
       <div class="row">
         <?php if ($column_left || $column_right) { ?>
         <?php $class = 'col-sm-6'; ?>
@@ -126,7 +127,7 @@
                     <?php foreach ($options as $option) { ?>
                     <?php if ($option['type'] == 'select') { ?>
                     <div class="form-group<?php echo ($option['required'] ? ' required' : ''); ?>">
-                      <label class="control-label"
+                      <label class="control-label" id="label-option-<?php echo $option['product_option_id']; ?>"
                              for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
                       <select name="option[<?php echo $option['product_option_id']; ?>]"
                               id="input-option<?php echo $option['product_option_id']; ?>"
@@ -363,15 +364,24 @@
                         <button type="button" id="button-cart" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-primary btn-lg btn-block hidden">ADD TO ORDER</button>
                         <?php // } ?>
 
-                        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/><input type="hidden" name="customer-id" name="customer-id" value="<?php echo $customer_id; ?>"/>
+                        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>"/><input type="hidden" id="customer-id" name="customer-id" value="<?php echo $customer_id; ?>"/>
                         <input type="hidden" name="default_open_moreinfo" id="default_open_moreinfo" value="<?php echo $default_open_moreinfo; ?>"/>
                         <div class="text-left">
-                          <button class="wishlist-add-form btn-primary btn-lg btn-block" title="<?php echo $button_wishlist; ?>" product="<?php echo $product_id; ?>" type="button">ADD TO WISHLIST</button>
-                          <button type="button" id="button-quote"
+                          <button class="wishlist-btn btn-primary btn-lg btn-block" title="<?php echo $button_wishlist; ?>" product="<?php echo $product_id; ?>" type="button">ADD TO WISHLIST</button>
+                          <button type="button"
                                   data-loading-text="<?php echo $text_loading; ?>"
-                                  class="btn btn-primary btn-lg btn-block">REQUEST A QUOTE</button>
-                          <button type="button"  data-toggle="tooltip" class="btn btn-primary btn-lg btn-block"  title="<?php echo $button_compare; ?>">ADD TO COMPARISON</button>
+                                  class="request-quote btn btn-primary btn-lg btn-block">REQUEST A QUOTE</button>
+                          <div class=" row quote-request-wrapper ">
+                            <div class="col-sm-12"><textarea rows="10" id="quote-request-notes" placeholder="Please provide any other relevant information and submit." class="form-control"></textarea>
+                            </div>
+                            <div class="col-sm-12">
+                              <button class="btn-primary btn-lg btn-block" title="Submit" product="<?php echo $product_id; ?>" id="send-quote-request" data-product="<?php echo $product_id; ?>" type="button">SUBMIT</button>
+                              <button class="btn-primary btn-lg btn-block" title="Cancel" id="send-quote-cancel" type="button">CANCEL</button>
+                            </div>
+                          </div>
+                          <button type="button"  id="btn-compare" data-toggle="tooltip" class="btn btn-primary btn-lg btn-block" data-product="<?php echo $product_id; ?>"  title="<?php echo $button_compare; ?>">ADD TO COMPARISON</button>
                         </div>
+
                       </div>
 
 
@@ -972,12 +982,28 @@
         // build the options field:
         var options = [];
         $('#product select').each(function (idx, select) {
+
             var text = $(select).find('option:selected').text();
             var id = $(select).attr("id");
+            var optionId = id.slice(12, id.length);
             var selectedIndex = document.getElementById(id).selectedIndex;
-            options.push( id.slice(12, id.length) + '":"' + $(select).val());
+            options.push( optionId + '":"' + $(select).val());
+
         });
         return JSON.stringify(options);
+    }
+    function getOptionsSelectedStrings(){
+        // build the options field:
+        var str = '';
+        $('#product select').each(function (idx, select) {
+            var id = $(select).attr("id");
+            var optionId = id.slice(12, id.length);
+            var text = $(select).find('option:selected').text();
+            var label = $('#label-option-' + optionId).text();
+            var selectedIndex = document.getElementById(id).selectedIndex;
+            str += label + ': ' + text + '<br>'
+        });
+        return str;
     }
 
     // For mouseover style the wishlist items
@@ -1083,12 +1109,14 @@
     }
 
     // For wishlist form
-    $('.wishlist-add-form').click(function () {
+    $('.wishlist-btn').click(function () {
+
         if(!isLoggedIn()){
             $return = 'Please <a href="/index.php?route=account/login">login</a> before adding to wishlist';
             $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+            return ;
         }
-        return ;
+
         if(allSelected()){
             $currentproduct = $(this).attr('product');
             $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';
@@ -1113,39 +1141,59 @@
     });
 
     // For request a quote
+    $('#send-quote-cancel').click(function () {
+        $('.quote-request-wrapper').hide();
+    });
+
+
     $('.request-quote').click(function () {
-        if(!isLoggedIn()){
+        if (!isLoggedIn()) {
             $return = 'Please <a href="/index.php?route=account/login">Register or Login</a> before requesting a quote';
             $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-            return ;
+            return;
         }
 
-
-        if(allSelected()){
+        if (!allSelected()) {
             alert('Please select all product options before adding to wishlist.');
-            return ;
+            return;
         }
 
+        $('.quote-request-wrapper').show()
+    });
+
+
+    $('#send-quote-request').click(function () {
 
         if(allSelected()){
-            $currentproduct = $(this).attr('product');
-            $addbuttonhtml = '<div class="input-group"><input type="text" class="form-control" name="wishlist_name" id="wishlist_name" placeholder="Type a new wishlist name" ><span class="input-group-btn"><button type="button" product="' + $currentproduct + '" class="addlist btn btn-default" >ADD</button></span></div>';
-
-            var placement = window.innerWidth < 768 ? 'bottom' : 'left';
-            $(this).popover({
-                html: true,
-                trigger: 'manual',
-                placement: placement,
-
-                content: function () {
-                    $buttons = getwishlists();
-                    if ($buttons) $buttons += "<p>Or add a new Wish List:</p>";
-                    $activeproductrow = '<input type="hidden" class="active_product_id" value="' + $currentproduct + '" />';
-                    return $activeproductrow + $buttons + $addbuttonhtml;
+            $product = $(this).attr('data-product');
+            var notes = $('#quote-request-notes').val();
+            var options = getOptionsSelectedStrings();
+            var quantity = $('#input-quantity').val();
+            $.ajax({
+                url: 'index.php?route=product/product/quote',
+                dataType: 'json',
+                type: 'post',
+                data: {
+                    'product_id': $product,
+                    'options': options,
+                    'quantity' : quantity,
+                    'notes' : notes
+                },
+                success: function (json) {
+                    $return = '';
+                    if (json.success) {
+                        $return = json.success;
+                        $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                    }
+                    else if (json.info) {
+                        $return = json.info;
+                        $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+                    }
+                    $('.quote-request-wrapper').hide()
                 }
-            }).popover('toggle');
+            });
         }else{
-            alert('Please select all product options before adding to wishlist.')
+            alert('Please select all product options before requesting a quote.')
         }
 
     });
@@ -1227,64 +1275,6 @@
         scrollTop: 0
       }, 500);
     }
-
-    $('#button-quote').on('click', function () {
-
-        if(!allSelected()){
-            $('.popover').popover('hide');
-            alert('Please select all product options before adding to wishlist');
-            return false;
-        }
-
-        $.ajax({
-            url: 'index.php?route=product/quote',
-            type: 'post',
-            data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
-            dataType: 'json',
-            beforeSend: function () {
-                $('#button-quote').button('loading');
-            },
-            complete: function () {
-                $('#button-quote').button('reset');
-            },
-            success: function (json) {
-                $('.alert, .text-danger').remove();
-                $('.form-group').removeClass('has-error');
-
-                if (json['error']) {
-                    if (json['error']['option']) {
-                        for (i in json['error']['option']) {
-                            var element = $('#input-option' + i.replace('_', '-'));
-
-                            if (element.parent().hasClass('input-group')) {
-                                element.parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
-                            } else {
-                                element.after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
-                            }
-                        }
-                    }
-
-                    if (json['error']['recurring']) {
-                        $('select[name=\'recurring_id\']').after('<div class="text-danger">' + json['error']['recurring'] + '</div>');
-                    }
-
-                    // Highlight any found errors
-                    $('.text-danger').parent().addClass('has-error');
-                }
-
-                if (json['success']) {
-                    var url = $('base').attr('href') + 'index.php?route=product/quote/showquote';
-                    $html = '<form name="quoteform" method="post" id="quoteform" action="' + url + '">' + json['success'] + '</form>';
-
-                    $($html).appendTo('body');
-                    $('#quoteform').submit();
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-        });
-    });
 
     $(function() {
       $(document).on('scroll', function(e) { 
