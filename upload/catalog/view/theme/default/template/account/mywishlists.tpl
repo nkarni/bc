@@ -155,13 +155,15 @@ $class = 'col-sm-12';
       }
 
     function updateListItem(itemId, quantity, action){
+        var wishListId = $('#wishlist-id').val();
         $.ajax({
             url: 'index.php?route=account/wishlists/' + action,
             type: 'post',
             data: {
                 'wishlist_item_id': itemId,
                 'quantity' : quantity,
-                'action': action
+                'action': action,
+                'wishlist_id' : wishListId
             },
             dataType: 'json',
             beforeSend: function() {
