@@ -177,6 +177,10 @@ $class = 'col-sm-12';
 
                 //close popover widget
                 $('.popover').popover('hide');
+
+                if(quantity == 0){
+                    $('#tr-' + itemId).hide('slow');
+                }
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 alertHandler.error(xhr, ajaxOptions, thrownError);

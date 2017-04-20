@@ -729,6 +729,8 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
             $wishlist_item_id = false;
         }
 
+
+
         if($wishlist_item_id && (! $this->model_account_wishlists->isWishlistOwnerByItem($wishlist_item_id))){
             $json['info'] = "Only the wishlist owner can update it.";
         }elseif($wishlist_item_id) {
