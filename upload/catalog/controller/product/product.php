@@ -14,6 +14,8 @@ class ControllerProductProduct extends Controller {
 			'href' => $this->url->link('common/home')
 		);
 
+        $data['showOptionPrices'] = false;
+
 		$this->load->model('catalog/category');
                 
                 if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
