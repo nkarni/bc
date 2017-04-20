@@ -346,7 +346,7 @@ var alertHandler = {
 
         } else if (json['info']) {
             $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + json['info'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-            $('html, body').animate({ scrollTop: 0 }, 'slow');
+
         }
 		$('html, body').animate({ scrollTop: 0 }, 'slow');
     },

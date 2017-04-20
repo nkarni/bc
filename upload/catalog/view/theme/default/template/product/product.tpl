@@ -1065,8 +1065,10 @@
     $('.wishlist-btn').click(function () {
 
         if(!isLoggedIn()){
-            $return = 'Please <a href="/index.php?route=account/login">login</a> before adding to wishlist';
+            $('.alert').remove();
+            $return = 'Please <a href="/index.php?route=account/login">Register or Login</a> before adding to wishlist';
             $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+            $('html, body').animate({ scrollTop: 0 }, 'slow');
             return ;
         }
 
@@ -1133,13 +1135,15 @@
 
     $('.request-quote').click(function () {
         if (!isLoggedIn()) {
+            $('.alert').remove();
             $return = 'Please <a href="/index.php?route=account/login">Register or Login</a> before requesting a quote';
             $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
+            $('html, body').animate({ scrollTop: 0 }, 'slow');
             return;
         }
 
         if (!allSelected()) {
-            alert('Please select all product options before adding to wishlist.');
+            alert('Please select all product options before requesting a quote.');
             return;
         }
 
