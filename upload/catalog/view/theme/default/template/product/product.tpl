@@ -1044,15 +1044,7 @@
                 $(".add-product-to-wishlist").removeClass('disabled');
             },
             success: function (json) {
-                $return = '';
-                if (json.success) {
-                    $return = json.success;
-                    $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                }
-                else if (json.info) {
-                    $return = json.info;
-                    $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                }
+                alertHandler.success(json);
                 //close popover widget
                 $('.popover').popover('hide');
             },
