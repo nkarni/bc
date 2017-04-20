@@ -57,7 +57,6 @@
 <script>
     $(document).ready(function(){
         var loggedIn = '<?php echo $loggedIn ; ?>';
-        console.log(loggedIn);
         if(loggedIn){
             $("a[href='/index.php?route=account/login']").text('Account');
         }

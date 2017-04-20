@@ -144,19 +144,12 @@ $class = 'col-sm-12';
                   $("#submit-btn").removeClass('disabled');
               },
               success: function (json) {
-                  $return = '';
-                  if (json.success) {
-                      $return = json.success;
-                      $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                      $('#content').parent().after('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                  }
-                  else if (json.info) {
-                      $return = json.info;
-                      $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                      $('#content').parent().after('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                  }
+                  alertHandler.success(json);
                   //close popover widget
                   $('.popover').popover('hide');
+              },
+              error: function(xhr, ajaxOptions, thrownError) {
+                  alertHandler.error(xhr, ajaxOptions, thrownError);
               }
           });
       }
@@ -178,16 +171,13 @@ $class = 'col-sm-12';
                 $(".table").find("[data-item-id='" + itemId + "']").removeClass('disabled');
             },
             success: function (json) {
-                $return = '';
-                if (json.success) {
-                    $return = json.success;
-                    window.location.reload();
-                }
-                else if (json.info) {
-                    $return = json.info;
-                }
+                alertHandler.success(json);
+
                 //close popover widget
                 $('.popover').popover('hide');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alertHandler.error(xhr, ajaxOptions, thrownError);
             }
         });
     }
@@ -209,24 +199,12 @@ $class = 'col-sm-12';
         }
     });
 
-    $(document).ready(function(){
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-36251023-1']);
-        _gaq.push(['_setDomainName', 'jqueryscript.net']);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-
-        $(".show-copy-link").click(function(){
-            $(".share-copy-link").css("display","block");
-        });
-
+    $(".show-copy-link").click(function(){
+        $(".share-copy-link").css("display","block");
     });
+
+
     function popitup(url,share) {
         shareurl = '';
         if(url != ''){

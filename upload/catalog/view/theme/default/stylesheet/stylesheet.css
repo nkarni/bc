@@ -1579,6 +1579,9 @@ h3.related {
 	margin-top: 5px;
 	height: 55px;
 }
+.btn-block{
+	text-align: center;
+}
 
 .print-only{
 	display: none;

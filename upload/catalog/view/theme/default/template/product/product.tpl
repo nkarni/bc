@@ -700,8 +700,7 @@
             }
         });
     });
-    //--></script>
-<script type="text/javascript"><!--
+
     $('#more_info').on('click', function () {
         $('#more_info_div').show();
     });
@@ -752,14 +751,13 @@
                     $('#cart > ul').load('index.php?route=common/cart/info ul li');
                 }
             },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            error: function(xhr, ajaxOptions, thrownError) {
+                alertHandler.error(xhr, ajaxOptions, thrownError);
             }
         });
     });
 
-    //--></script>
-<script type="text/javascript"><!--
+
     $('.date').datetimepicker({
         pickTime: false
     });
@@ -823,49 +821,6 @@
                 });
             }
         }, 500);
-    });
-    //--></script>
-<script type="text/javascript"><!--
-    $('#review').delegate('.pagination a', 'click', function (e) {
-        e.preventDefault();
-
-        $('#review').fadeOut('slow');
-
-        $('#review').load(this.href);
-
-        $('#review').fadeIn('slow');
-    });
-
-    $('#review').load('index.php?route=product/product/review&product_id=<?php echo $product_id; ?>');
-
-    $('#button-review').on('click', function () {
-        $.ajax({
-            url: 'index.php?route=product/product/write&product_id=<?php echo $product_id; ?>',
-            type: 'post',
-            dataType: 'json',
-            data: $("#form-review").serialize(),
-            beforeSend: function () {
-                $('#button-review').button('loading');
-            },
-            complete: function () {
-                $('#button-review').button('reset');
-            },
-            success: function (json) {
-                $('.alert-success, .alert-danger').remove();
-
-                if (json['error']) {
-                    $('#review').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
-                }
-
-                if (json['success']) {
-                    $('#review').after('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
-
-                    $('input[name=\'name\']').val('');
-                    $('textarea[name=\'text\']').val('');
-                    $('input[name=\'rating\']:checked').prop('checked', false);
-                }
-            }
-        });
     });
 
     $('.image-additional img').on('click', function (e) {
@@ -957,8 +912,6 @@
         $('#input-quantity').on('keyup', recalculateTotal);
     });
 
-    //--></script>
-<script type="text/javascript"><!--
     function getwishlists() {
         $listitems = '';
         $.ajax({
@@ -1030,6 +983,12 @@
             url: 'index.php?route=account/wishlists/add',
             dataType: 'json',
             type: 'post',
+            beforeSend: function() {
+                $(".addlist").addClass('disabled');
+            },
+            complete: function() {
+                $(".addlist").removeClass('disabled');
+            },
             data: {
                 'wishlist_name': $wishlist,
                 'product_id': $product,
@@ -1037,18 +996,11 @@
                 'quantity' : quantity
             },
             success: function (json) {
-                $return = '';
-                if (json.success) {
-                    $return = json.success;
-                    $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                }
-                else if (json.info) {
-                    $return = json.info;
-                    $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                }
+                alertHandler.success(json);
                 //close popover window
                 $('.popover').popover('hide');
-            }
+            },
+
         });
     });
 
@@ -1085,6 +1037,12 @@
                 'options': options,
                 'quantity' : quantity
             },
+            beforeSend: function() {
+                $(".add-product-to-wishlist").addClass('disabled');
+            },
+            complete: function() {
+                $(".add-product-to-wishlist").removeClass('disabled');
+            },
             success: function (json) {
                 $return = '';
                 if (json.success) {
@@ -1097,6 +1055,9 @@
                 }
                 //close popover widget
                 $('.popover').popover('hide');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alertHandler.error(xhr, ajaxOptions, thrownError);
             }
         });
     });
@@ -1140,6 +1101,38 @@
 
     });
 
+    //For compare
+    $('#btn-compare').click(function () {
+
+        if(allSelected()){
+            var product_id = $(this).attr('data-product');
+            var options = getOptionsSelected();
+            $.ajax({
+                url: 'index.php?route=product/compare/add',
+                dataType: 'json',
+                type: 'post',
+                data: {
+                    'product_id': product_id,
+                    'options': options
+                },
+                beforeSend: function() {
+                    $("#btn-compare").addClass('disabled');
+                },
+                complete: function() {
+                    $("#btn-compare").removeClass('disabled');
+                },
+                success: function(json) {
+                  alertHandler.success(json);
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alertHandler.error(xhr, ajaxOptions, thrownError);
+                }
+            });
+        }else{
+            alert('Please select all product options before ading to comparison.')
+        }
+    });
+
     // For request a quote
     $('#send-quote-cancel').click(function () {
         $('.quote-request-wrapper').hide();
@@ -1179,17 +1172,18 @@
                     'quantity' : quantity,
                     'notes' : notes
                 },
+                beforeSend: function() {
+                    $("#send-quote-request").addClass('disabled');
+                },
+                complete: function() {
+                    $("#send-quote-request").removeClass('disabled');
+                },
                 success: function (json) {
-                    $return = '';
-                    if (json.success) {
-                        $return = json.success;
-                        $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                    }
-                    else if (json.info) {
-                        $return = json.info;
-                        $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                    }
+                    alertHandler.success(json);
                     $('.quote-request-wrapper').hide()
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alertHandler.error(xhr, ajaxOptions, thrownError);
                 }
             });
         }else{

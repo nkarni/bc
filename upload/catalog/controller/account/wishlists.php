@@ -491,6 +491,32 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
 		$json = array();
 
+		// if index is set then we are adding from comparison page
+        if (isset($this->request->post['index'])) {
+            $info = $this->session->data['compare'][$this->request->post['index']];
+            $keys = array_keys($info);
+            $product_id = $keys[0];
+            $options = $info[$product_id];
+        }else{
+
+            if (isset($this->request->post['product_id'])) {
+                $product_id = $this->request->post['product_id'];
+            } else {
+                $product_id = 0;
+            }
+
+            if (isset($this->request->post['options'])) {
+
+                $options = htmlspecialchars_decode($this->request->post['options']);
+                $options = str_replace('[','{', $options);
+                $options = str_replace(']','}', $options);
+
+            } else {
+                $options = '';
+            }
+
+        }
+
         if (isset($this->request->post['wishlist_name'])) {
             $wishlist_name = $this->request->post['wishlist_name'];
         } else {
@@ -503,27 +529,13 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
             $wishlist_id = 0;
         }
 
-		if (isset($this->request->post['product_id'])) {
-            $product_id = $this->request->post['product_id'];
-        } else {
-            $product_id = 0;
-        }
-
         if (isset($this->request->post['quantity'])) {
             $quantity = $this->request->post['quantity'];
         } else {
-            $quantity = 0;
+            $quantity = 1;
         }
 
-        if (isset($this->request->post['options'])) {
 
-            $options = htmlspecialchars_decode($this->request->post['options']);
-            $options = str_replace('[','{', $options);
-            $options = str_replace(']','}', $options);
-
-        } else {
-            $options = '';
-        }
 
         $this->load->model('account/wishlists');
 
@@ -549,10 +561,10 @@ $this->response->setOutput($this->load->view('account/mywishlists.tpl', $data));
 
                         $this->model_account_wishlists->addWishlistitem($product_id,$wishlist_id, $options, $quantity);
 
-                        $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id), $wishlist_name);
+                        $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . (int)$product_id ), $product_info['name'], $this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id), $wishlist_name);
 
                     }else {
-                        $json['info'] = sprintf($this->language->get('text_exists'), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'],$this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id), $wishlist_name);
+                        $json['info'] = sprintf($this->language->get('text_exists'), $this->url->link('product/product', 'product_id=' . (int)$product_id ), $product_info['name'],$this->url->link('account/wishlists/mywishlist','wishlist_id='.$wishlist_id), $wishlist_name);
                     }
 
                 }

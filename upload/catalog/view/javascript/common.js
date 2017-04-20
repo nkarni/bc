@@ -308,6 +308,8 @@ var wishlist = {
 }
 
 var compare = {
+
+
 	'add': function(product_id) {
 		$.ajax({
 			url: 'index.php?route=product/compare/add',
@@ -333,6 +335,24 @@ var compare = {
 	'remove': function() {
 
 	}
+}
+
+var alertHandler = {
+
+    'success': function(json) {
+        $('.alert').remove();
+        if (json['success']) {
+            $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+        } else if (json['info']) {
+            $('#content').parent().before('<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' + json['info'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            $('html, body').animate({ scrollTop: 0 }, 'slow');
+        }
+		$('html, body').animate({ scrollTop: 0 }, 'slow');
+    },
+    'error': function(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
 }
 
 /* Agree to Terms */
