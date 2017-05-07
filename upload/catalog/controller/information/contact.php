@@ -10,7 +10,7 @@ class ControllerInformationContact extends Controller {
         $data['sent'] = false;
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-		    /*
+
 			$mail = new Mail();
 			$mail->protocol = $this->config->get('config_mail_protocol');
 			$mail->parameter = $this->config->get('config_mail_parameter');
@@ -26,20 +26,20 @@ class ControllerInformationContact extends Controller {
 			$mail->setSender(html_entity_decode($this->request->post['first_name'] . " " . $this->request->post['last_name'], ENT_QUOTES, 'UTF-8'));
 			$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['first_name']), ENT_QUOTES, 'UTF-8'));
 			$text = "Contact form was submitted on BackCare website:
-
-Enquiry Type: " . $this->request->post['enquiry_type'] . "\n
-First Name: " . $this->request->post['first_name'] . "\n 
-Last Name: " . $this->request->post['last_name'] . "\n
-Email: " . $this->request->post['email'] . "\n
-Postcode: " . $this->request->post['postcode'] . "\n
-Country: " . $this->request->post['country'] . "\n
-Company: " . $this->request->post['company'] . "\n
-Enquiry:\n" . $this->request->post['enquiry'];
+            
+            Enquiry Type: " . $this->request->post['enquiry_type'] . "\n
+            First Name: " . $this->request->post['first_name'] . "\n 
+            Last Name: " . $this->request->post['last_name'] . "\n
+            Email: " . $this->request->post['email'] . "\n
+            Postcode: " . $this->request->post['postcode'] . "\n
+            Country: " . $this->request->post['country'] . "\n
+            Company: " . $this->request->post['company'] . "\n
+            Enquiry:\n" . $this->request->post['enquiry'];
 			$mail->setText($text);
 			$mail->send();
-		    */
 
-			//$this->response->redirect($this->url->link('information/contact/success'));
+
+			$this->response->redirect($this->url->link('information/contact/success'));
 
             $data['sent'] = true;
 		}
@@ -230,6 +230,13 @@ Enquiry:\n" . $this->request->post['enquiry'];
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
+        $this->load->model('localisation/country');
+
+        $data['countries'] = $this->model_localisation_country->getCountries();
+        if (isset($this->request->post['country'])) {
+            $data['country'] = 'Australia';
+        }
+
 		$this->response->setOutput($this->load->view('information/contact', $data));
 	}
 
@@ -246,9 +253,15 @@ Enquiry:\n" . $this->request->post['enquiry'];
 			$this->error['email'] = $this->language->get('error_email');
 		}
 
-		if ((utf8_strlen($this->request->post['enquiry']) < 10) || (utf8_strlen($this->request->post['enquiry']) > 3000)) {
-			$this->error['enquiry'] = $this->language->get('error_enquiry');
-		}
+//		if ((utf8_strlen($this->request->post['enquiry']) < 10) || (utf8_strlen($this->request->post['enquiry']) > 3000)) {
+//			$this->error['enquiry'] = 'Please specify your query so we can help';
+//		}
+
+        if ((utf8_strlen($this->request->post['postcode']) < 2) || (utf8_strlen($this->request->post['postcode']) > 4)) {
+            $this->error['postcode'] = 'Post code is required';
+        }
+
+
 
 		// Captcha
 		if ($this->config->get($this->config->get('config_captcha') . '_status') && in_array('contact', (array)$this->config->get('config_captcha_page'))) {

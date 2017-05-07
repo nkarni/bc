@@ -802,12 +802,16 @@ label.control-label.qty-label {
 	border-bottom: 1px solid #ccc;
 }
 
-#send-quote-request{
+#send-quote-request, #send-more-info-request{
+	max-width: 120px;
+	float: left;
+	margin-top: 5px;
+}{
 	max-width: 120px;
 	float: left;
 	margin-top: 5px;
 }
-#send-quote-cancel{
+#send-quote-cancel, #send-more-info-cancel{
 	max-width: 120px;
 	float: right;
 }
@@ -1581,6 +1585,12 @@ h3.related {
 }
 .btn-block{
 	text-align: center;
+}
+
+.normal-link{
+	font-size: 12px !important;
+	color: #ff6733 !important;
+	text-transform: none !important;
 }
 
 .print-only{

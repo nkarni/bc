@@ -400,159 +400,23 @@
               <div id="request-info" class="panel-collapse collapse">
                 <div class="panel-body">
                   <div id="more_info_div">
-                    <form action="<?php echo $action; ?>" method="post"
-                          enctype="multipart/form-data" class="form-horizontal">
-                      <fieldset>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <input type="text" name="first_name"
-                                   value="<?php echo $first_name; ?>" id="input-first-name"
-                                   placeholder="First Name *" class="form-control"/>
-                            <?php if ($error_first_name) { ?>
-                            <div class="text-danger"><?php echo $error_first_name; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <input type="text" name="last_name"
-                                   value="<?php echo $last_name; ?>" id="input-last-name"
-                                   placeholder="Last Name *" class="form-control"/>
-                            <?php if ($error_last_name) { ?>
-                            <div class="text-danger"><?php echo $error_last_name; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <input type="text" name="email" value="<?php echo $email; ?>"
-                                   id="input-email" placeholder="Email *"
-                                   class="form-control"/>
-                            <?php if ($error_email) { ?>
-                            <div class="text-danger"><?php echo $error_email; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <input type="text" name="company"
-                                   value="<?php echo $company; ?>" id="input-company"
-                                   placeholder="Company" class="form-control"/>
-                            <?php if ($error_company) { ?>
-                            <div class="text-danger"><?php echo $error_company; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <input type="text" name="phone" value="<?php echo $phone; ?>"
-                                   id="input-phone" placeholder="Phone"
-                                   class="form-control"/>
-                            <?php if ($error_phone) { ?>
-                            <div class="text-danger"><?php echo $error_phone; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-sm-12">
-                            <div class="styled_select">
-                              <select name="country" id="input-country" class="form-control">
-                                <option value="">Please Select</option>
-                                  <?php foreach ($countries as $countryRecord) { ?>
-                                    <?php if ($countryRecord['country_id'] == $country) { ?>
-                                      <option value="<?php echo $countryRecord['name']; ?>" selected="selected"><?php echo $countryRecord['name']; ?></option>
-                                    <?php } else { ?>
-                                      <option value="<?php echo $countryRecord['name']; ?>"><?php echo $countryRecord['name']; ?></option>
-                                    <?php } ?>
-                                  <?php } ?>
-                              </select>
-                              <?php if ($error_country) { ?>
-                              <div class="text-danger"><?php echo $error_country; ?></div>
-                              <?php } ?>
+                    <?php if ($customer_id > 0) { ?>
 
-                              </div>
-                            <?php if ($error_country) { ?>
-                            <div class="text-danger"><?php echo $error_country; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                            <input type="text" name="postcode"
-                                   value="<?php echo $postcode; ?>" id="input-phone"
-                                   placeholder="Postcode *" class="form-control"/>
-                            <?php if ($error_postcode) { ?>
-                            <div class="text-danger"><?php echo $error_postcode; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-sm-12">
-                            <div class="styled_select">
-                              <select name="project_size"
-                                      value="<?php echo $project_size; ?>"
-                                      id="input-project-size" class="form-control"
-                                      tabindex="6">
-                                <option value="" selected="selected">Project Size *
-                                </option>
-                                <option value="< 10 Workstations">< 10 Workstations
-                                </option>
-                                <option value="11 - 24 Workstations">11 - 24
-                                  Workstations
-                                </option>
-                                <option value="25 - 100 Workstations">25 - 100
-                                  Workstations
-                                </option>
-                                <option value="> 100 Workstations">> 100 Workstations
-                                </option>
-                              </select></div>
-                            <?php if ($error_project_size) { ?>
-                            <div class="text-danger"><?php echo $error_project_size; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-sm-12">
-                            <div class="styled_select">
-                              <select name="industry_sector"
-                                      value="<?php echo $industry_sector; ?>"
-                                      id="input-industry-sector" class="form-control"
-                                      tabindex="6">
-                                <option value="" selected="selected">Industry Sector *
-                                </option>
-                                <option value="Home Office">Home Office</option>
-                                <option value="Commercial">Commercial</option>
-                                <option value="Architects & Designers">Architects &
-                                  Designers
-                                </option>
-                                <option value="Government">Government</option>
-                                <option value="Rehab Provider">Rehab Provider</option>
-                                <option value="Healthcare">Healthcare</option>
-                              </select></div>
-                            <?php if ($error_industry_sector) { ?>
-                            <div class="text-danger"><?php echo $error_industry_sector; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                        <div class="form-group required">
-                          <div class="col-sm-12">
-                                                        <textarea name="other_information" rows="10"
-                                                                  id="input-other_information"
-                                                                  placeholder="Other Information"
-                                                                  class="form-control"><?php echo $other_information; ?></textarea>
-                            <?php if ($error_other_information) { ?>
-                            <div class="text-danger"><?php echo $error_other_information; ?></div>
-                            <?php } ?>
-                          </div>
-                        </div>
-                      </fieldset>
-                      <div class="buttons">
-                        <div class="pull-right">
-                          <input class="btn btn-primary" type="submit"
-                                 value="<?php echo $button_submit; ?>"/>
-                        </div>
+                    <div class=" row more-info-request-wrapper ">
+                      <div class="col-sm-12"><textarea rows="10" id="more-info-request-notes" placeholder="Please provide any other relevant information and submit." class="form-control"></textarea>
                       </div>
-                    </form>
+                      <div class="col-sm-12">
+                        <button class="btn-primary btn-lg btn-block" title="Submit" product="<?php echo $product_id; ?>" id="send-more-info-request" data-product="<?php echo $product_id; ?>" type="button">SUBMIT</button>
+                        <button class="btn-primary btn-lg btn-block" title="Cancel" id="send-more-info-cancel" type="button">CANCEL</button>
+                      </div>
+                    </div>
+
+                    <?php } else { ?>
+
+                   Please <a href="/index.php?route=account/login" class="normal-link">Click Here</a> to register or login.
+
+                    <?php } ?>
+
                   </div>
                 </div>
               </div>
@@ -701,9 +565,7 @@
         });
     });
 
-    $('#more_info').on('click', function () {
-        $('#more_info_div').show();
-    });
+
     $('#button-cart').on('click', function () {
         $.ajax({
             url: 'index.php?route=checkout/cart/add',
@@ -851,11 +713,6 @@
     });
 
     $(document).ready(function () {
-        var checkMoreInfo = $("#default_open_moreinfo").val();
-        if (checkMoreInfo == 'show') {
-//        $('#product').hide();
-            $('#more_info_div').show();
-        }
         $('.thumbnail').magnificPopup({
             type: 'image',
         });
@@ -1147,15 +1004,14 @@
             return;
         }
 
-        $('.quote-request-wrapper').show()
+        $('.quote-request-wrapper').toggle();
     });
 
 
-    $('#send-quote-request').click(function () {
+    $('#send-more-info-request').click(function () {
 
-        if(allSelected()){
             $product = $(this).attr('data-product');
-            var notes = $('#quote-request-notes').val();
+            var notes = $('#more-info-request-notes').val();
             var options = getOptionsSelectedStrings();
             var quantity = $('#input-quantity').val();
             $.ajax({
@@ -1166,26 +1022,31 @@
                     'product_id': $product,
                     'options': options,
                     'quantity' : quantity,
-                    'notes' : notes
+                    'notes' : notes,
+                    'trigger' : 'more-info'
                 },
                 beforeSend: function() {
-                    $("#send-quote-request").addClass('disabled');
+                    $("#send-more-info-request").addClass('disabled');
                 },
                 complete: function() {
-                    $("#send-quote-request").removeClass('disabled');
+                    $("#send-more-info-request").removeClass('disabled');
                 },
                 success: function (json) {
                     alertHandler.success(json);
-                    $('.quote-request-wrapper').hide()
+                    $('#more-info-request-notes').val('');
+                    $('#request-info').removeClass('in');
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     alertHandler.error(xhr, ajaxOptions, thrownError);
                 }
             });
-        }else{
-            alert('Please select all product options before requesting a quote.')
-        }
 
+
+    });
+
+    $('#send-more-info-cancel').click(function () {
+        $('#more-info-request-notes').val('');
+        $('#request-info').removeClass('in');
     });
 
     $('.btn-number').click(function(e){
