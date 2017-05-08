@@ -120,6 +120,7 @@
     });
     // For add new wishlist with product
     $(document).on("click", '.addlist', function () {
+        $('.popover').popover('hide');
         //  $product = $(this).attr('product');
         $product = $(this).parents('.popover-content').find("input.active_product_id").val();
         $wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
@@ -140,9 +141,15 @@
             }
         });
     });
+    $(document).on("blur", '.popover', function () {
+        $('.popover').popover('hide');
+    });
+
 
     // For wishlist form
     $('.wishlist-btn').click(function () {
+
+        $('.popover').popover('hide');
 
         if(!isLoggedIn()){
             $return = 'Please <a href="/index.php?route=account/login">login</a> before adding to wishlist';
