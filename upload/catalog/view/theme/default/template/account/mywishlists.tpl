@@ -29,7 +29,7 @@ $class = 'col-sm-12';
       <h5>Created By :<?php echo $created_by; ?></h5>
       <?php } ?>
 
-        <?php if($visiblity) { ?>
+        <?php if($visiblity && count($wishlistitems) > 0) { ?>
         <div class="no-print" syle="width:100%;">
 
             <div class="goodshare-color row" >
@@ -46,7 +46,7 @@ $class = 'col-sm-12';
         <?php } ?>
 
 
-        <?php if ($wishlistitems) { ?>
+        <?php if (count($wishlistitems) > 0) { ?>
 
       <table class="table table-hover my-wishlist-table">
         <thead>
@@ -71,11 +71,7 @@ $class = 'col-sm-12';
             <a href="<?php echo $wishlistitem['href']; ?>" class="visible-xs no-print" style="display: block; margin-bottom: 8px"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" style="width: 100%" /></a>
             <a href="<?php echo $wishlistitem['href']; ?>"><?php echo $wishlistitem['product_name']; ?></a><br>
                 <small class="hidden-xs"><?php echo $wishlistitem['short_description'] ; ?></small>
-                <p class="visible-xs"><?php
-                    foreach ($wishlistitem['full_product_data'][0]['option'] as $option) {
-                    echo '<small>' . $option['name'] . ': ' . $option['value'] . '</small><br>';
-                    }
-                ?></p>
+
             </td>
               <td  class="text-left hidden-xs">
               <?php
@@ -101,7 +97,7 @@ $class = 'col-sm-12';
           <?php } ?>
         </tbody>
       </table>
-      <?php if($visiblity) { ?>
+      <?php if($visiblity && count($wishlistitems) > 0) { ?>
       <div class="no-print" syle="width:100%;">
 
         <div class="goodshare-color row" >
@@ -118,7 +114,8 @@ $class = 'col-sm-12';
       <?php } ?>
 
       <?php } else { ?>
-      <p><?php echo $text_empty; ?></p>
+      <h3>You currently don't have any items in your WISHLIST.</h3>
+      <p>To add items, simply browse our wide range and add your favourite products by clicking the "Add to WISHLIST" button. You can then sign up and save your WISHLIST to view it on your mobile device or print it off and bring it in store on your next trip to Backcare & Seating.</p>
       <?php } ?>
 
       <?php echo $content_bottom; ?></div>

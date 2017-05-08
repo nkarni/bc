@@ -20,7 +20,7 @@
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h2><?php echo $heading_title; ?></h2>
-      <?php if ($products) { ?>
+      <?php if (count($products) > 0) { ?>
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead>
