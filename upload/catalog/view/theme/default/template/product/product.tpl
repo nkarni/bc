@@ -974,6 +974,7 @@
                 },
                 success: function(json) {
                   alertHandler.success(json);
+                  compare.updateCount();
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     alertHandler.error(xhr, ajaxOptions, thrownError);

@@ -185,7 +185,15 @@ class ControllerProductCompare extends Controller {
 
 		$this->response->setOutput($this->load->view('product/compare', $data));
 	}
+    public function count(){
+        if (!isset($this->session->data['compare'])) {
+            $this->session->data['compare'] = array();
+        }
 
+        $json['count'] = count( $this->session->data['compare']);
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 	public function add() {
 		$this->load->language('product/compare');
 

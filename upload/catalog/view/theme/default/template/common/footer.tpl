@@ -39,7 +39,7 @@
             }
         });
         <?php if($compare_number > 0){ ?>
-            $("a[href='/index.php?route=product/compare']").text($("a[href='/index.php?route=product/compare']").text() + ' (<?php echo $compare_number ; ?>)');
+            compare.updateCount()
         <?php } ?>
 
     });

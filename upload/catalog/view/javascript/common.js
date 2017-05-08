@@ -334,8 +334,29 @@ var compare = {
 	},
 	'remove': function() {
 
-	}
+	},
+
+    'updateCount': function (){
+    $.ajax({
+        url: 'index.php?route=product/compare/count',
+        dataType: 'json',
+        type: 'post',
+        data: {
+        },
+        success: function(json) {
+            var txt = '';
+            if(json['count'] > 0){
+                txt = 'Product Comparison (' + json['count'] + ')';
+            }else{
+                txt = 'Product Comparison' ;
+            }
+            $("a[href='/index.php?route=product/compare']").text(txt);
+        }
+    });
 }
+}
+
+
 
 var alertHandler = {
 
