@@ -20,3 +20,5 @@ $_['text_compare']      = '( %s products in your comparison (max 4)';
 $_['text_success']      = 'Success: The proudct was added to your <a href="%s">product comparison</a>!';
 $_['text_remove']       = 'Success: You have modified your product comparison!';
 $_['text_empty']        = 'You have not chosen any products to compare.';
+$_['text_limit']        = 'Your <a href="%s">product comparison</a> already contains 6 items, please remove some items before adding more.';
+$_['text_already_in']        = 'This product and selected options are already in your <a href="%s">product comparison</a>.';

@@ -124,7 +124,7 @@ class ControllerProductCompare extends Controller {
                         'thumb'        => $image,
                         'price'        => $price,
                         'special'      => $special,
-                        'description'  => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..',
+                        'description'  => utf8_substr(strip_tags(html_entity_decode($product_info['short_description'], ENT_QUOTES, 'UTF-8')), 0, 200) . '..',
                         'model'        => $product_info['model'],
                         'specifications'=> html_entity_decode($product_info['specifications']),
                         'features'     => html_entity_decode($product_info['features']),
@@ -223,7 +223,7 @@ class ControllerProductCompare extends Controller {
 			if (!in_array($item, $this->session->data['compare'])) {
 
 			    if(count($this->session->data['compare']) > 5){
-                    $json['info'] = 'Your comparison already contains 6 items, please remove some items before adding more.';
+                    $json['info'] = sprintf($this->language->get('text_limit'), $this->url->link('product/compare'));
                 }else{
                     $this->session->data['compare'][] = $item;
                     $json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
@@ -231,7 +231,7 @@ class ControllerProductCompare extends Controller {
                 }
 			}else{
 
-                $json['info'] = 'This product and selected options are already in your comparison';
+                $json['info'] = sprintf($this->language->get('text_already_in'), $this->url->link('product/compare'));
 
             }
 
