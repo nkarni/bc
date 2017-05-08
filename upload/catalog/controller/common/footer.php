@@ -74,7 +74,13 @@ class ControllerCommonFooter extends Controller {
 
         $data['footer_menu'] = $this->load->controller('common/cmenu/getFooterMenu');
 
-            $data['loggedIn'] = $this->customer->isLogged();
+        $data['loggedIn'] = $this->customer->isLogged();
+
+        if (!isset($this->session->data['compare'])) {
+            $this->session->data['compare'] = array();
+        }
+
+        $data['compare_number'] = count($this->session->data['compare']);
 
 		return $this->load->view('common/footer', $data);
 	}

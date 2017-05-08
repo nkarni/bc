@@ -222,10 +222,13 @@ class ControllerProductCompare extends Controller {
             $item = array($product_id => $options);
 			if (!in_array($item, $this->session->data['compare'])) {
 
-				$this->session->data['compare'][] = $item;
-                $json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
-                $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/compare'));
-
+			    if(count($this->session->data['compare']) > 5){
+                    $json['info'] = 'Your comparison already contains 6 items, please remove some items before adding more.';
+                }else{
+                    $this->session->data['compare'][] = $item;
+                    $json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
+                    $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/compare'));
+                }
 			}else{
 
                 $json['info'] = 'This product and selected options are already in your comparison';
