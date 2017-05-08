@@ -135,22 +135,12 @@
                 $(".addlist").removeClass('disabled');
             },
             success: function (json) {
-                $return = '';
-                if (json.success) {
-                    $return = json.success;
-                    $title = "Success  <span class='close'>&times;</span>";
-                }
-                else if (json.info) {
-                    $return = json.info;
-                    $title = "Information  <span class='close'>&times;</span>";
-                }
-                //Show alert message
-                $('#content').parent().before('<div class="alert alert-info"><i class="fa fa-info-circle"></i>' + $return + ' <button type="button" class="close" data-dismiss="alert">&times;</button> <div>');
-                //close popover window
+                alertHandler.success(json);
                 $('.popover').popover('hide');
             }
         });
     });
+
     // For wishlist form
     $('.wishlist-btn').click(function () {
 
