@@ -95,42 +95,7 @@
           <button type="button" class="btn btn-navbar navbar-toggle topnav" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <?php /*
-          <ul class="nav navbar-nav">
-            <li class="dropdown"><a href="about-us" class="dropdown-toggle" data-toggle="dropdown">About</a>
-              <div class="dropdown-menu">
-                <div class="dropdown-inner">
-                  <ul class="list-unstyled">
-                    <li><a href="#">Focus</a></li>
-                    <li><a href="#">Australian Made</a></li>
-                    <li><a href="#">Consultancy</a></li>
-                    <li><a href="#">Fitouts</a></li>
-                    <li><a href="#">Trials</a></li>
-                    <li><a href="#">Environment</a></li>
-                    <li><a href="#">Franchise</a></li>
-                  </ul>
-                </div>
-            </li>
-            <li class="dropdown"><a href="resources" class="dropdown-toggle" data-toggle="dropdown">Resources</a>
-              <div class="dropdown-menu">
-                <div class="dropdown-inner">
-                  <ul class="list-unstyled">
-                    <li><a href="#">Office Seating</a></li>
-                    <li><a href="#">Ergonomic Accessories</a></li>
-                    <li><a href="#">Consultancy</a></li>
-                    <li><a href="#">Health</a></li>
-                    <li><a href="#">Sleep</a></li>
-                    <li><a href="#">Support</a></li>
-                  </ul>
-                </div>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle">FAQ</a></li>
-            <li class="dropdown"><a href="index.php?route=account/login" class="dropdown-toggle">Login</a></li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle">Contact Us</a></li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle">Wishlist</a></li>
-            <li><?php echo $search; ?></li>
-          </ul> */
-            ?>
+
             <ul class="nav navbar-nav">
             <?php   echo $very_top_menu ; ?>
             <li><?php echo $search; ?></li>
