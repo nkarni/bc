@@ -62,7 +62,7 @@ $class = 'col-sm-12';
         </thead>
         <tbody>
           <?php foreach ($wishlistitems as $wishlistitem) { ?>
-          <tr id="tr-<?php echo $wishlistitem['wishlist_item_id']; ?>">
+          <tr id="tr-<?php echo $wishlistitem['wishlist_item_id']; ?>" class="wishlist-item">
               <td class="text-center hidden-xs"><?php if ($wishlistitem['thumb']) { ?>
 
                   <a href="<?php echo $wishlistitem['href']; ?>"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" style="width: 100%" /></a>
@@ -176,6 +176,9 @@ $class = 'col-sm-12';
                 $('.popover').popover('hide');
 
                 if(quantity == 0){
+                    if ($('.wishlist-item').length - $('.wishlist-item[style]').length === 1) {
+                        window.location.reload()
+                    }
                     $('#tr-' + itemId).hide('slow');
                 }
             },
