@@ -230,17 +230,18 @@ class ControllerInformationContact extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
-        $this->load->model('localisation/country');
+		$this->load->model('localisation/country');
 
-        $data['countries'] = $this->model_localisation_country->getCountries();
-        if (isset($this->request->post['country'])) {
-            $data['country'] = 'Australia';
-        }
+		$data['countries'] = $this->model_localisation_country->getCountries();
 
 		$this->response->setOutput($this->load->view('information/contact', $data));
 	}
 
 	protected function validate() {
+		if (!$this->request->post['enquiry_type']) {
+			$this->error['enquiry_type'] = 'Please specify the type of your enquiry';
+		}
+
 		if ((utf8_strlen($this->request->post['first_name']) < 2) || (utf8_strlen($this->request->post['first_name']) > 32)) {
 			$this->error['first_name'] = $this->language->get('error_first_name');
 		}
@@ -253,13 +254,13 @@ class ControllerInformationContact extends Controller {
 			$this->error['email'] = $this->language->get('error_email');
 		}
 
-//		if ((utf8_strlen($this->request->post['enquiry']) < 10) || (utf8_strlen($this->request->post['enquiry']) > 3000)) {
-//			$this->error['enquiry'] = 'Please specify your query so we can help';
-//		}
+		if ((utf8_strlen($this->request->post['enquiry']) < 10) || (utf8_strlen($this->request->post['enquiry']) > 3000)) {
+			$this->error['enquiry'] = 'Please specify your query so we can help';
+		}
 
-        if ((utf8_strlen($this->request->post['postcode']) < 2) || (utf8_strlen($this->request->post['postcode']) > 4)) {
-            $this->error['postcode'] = 'Post code is required';
-        }
+		if ((utf8_strlen($this->request->post['postcode']) < 3) || (utf8_strlen($this->request->post['postcode']) > 8)) {
+				$this->error['postcode'] = 'Valid post code is required';
+		}
 
 
 

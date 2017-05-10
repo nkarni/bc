@@ -82,6 +82,8 @@ class ControllerCommonFooter extends Controller {
 
         $data['compare_number'] = count($this->session->data['compare']);
 
+		$data['contact_url'] = 'http://' . $this->request->server['HTTP_HOST'] . '/articles/about-backcare-and-seating/contact';
+		
 		return $this->load->view('common/footer', $data);
 	}
 }

@@ -38,6 +38,12 @@
                 alert('Please register or login to access your wishlists');
             }
         });
+
+        var contactLink = $("a[href='<?php echo $contact_url; ?>']");
+        if (contactLink) {
+            contactLink.attr('href', '/index.php?route=information/contact')
+        }
+
         <?php if($compare_number > 0){ ?>
             compare.updateCount()
         <?php } ?>
