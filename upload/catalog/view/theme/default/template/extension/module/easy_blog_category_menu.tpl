@@ -1,5 +1,7 @@
 <div class="easy-blog">
 <div class="list-group">
+  <?php echo $sidebar_menu ; ?>
+  <!--
   <?php foreach ($blog_categories as $blog_category) { ?>
   <?php if ($blog_category['blog_category_id'] == $blog_category_id) { ?>
   <a href="<?php echo $blog_category['href']; ?>" class="list-group-item active"><?php echo $blog_category['name']; ?></a>
@@ -16,5 +18,6 @@
   <a href="<?php echo $blog_category['href']; ?>" class="list-group-item"><?php echo $blog_category['name']; ?></a>
   <?php } ?>
   <?php } ?>
+  -->
 </div>
 </div>

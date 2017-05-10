@@ -72,6 +72,8 @@ class ControllerExtensionModuleEasyBlogCategoryMenu extends Controller {
 			);
 		}
 
+		$data['sidebar_menu'] = $this->load->controller('common/cmenu/getArticleSidebarMenu');
+
 		return $this->load->view('extension/module/easy_blog_category_menu', $data);
 		
 	}

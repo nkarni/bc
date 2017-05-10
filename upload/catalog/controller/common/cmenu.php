@@ -9,7 +9,11 @@ class ControllerCommonCmenu extends Controller {
         return $this->getOnemenu('footer');
     }
 
-    public function getOnemenu($menu_name){
+	public function getArticleSidebarMenu() {
+        return $this->getOnemenu('article_sidebar', 'side');
+	}
+
+    public function getOnemenu($menu_name, $type = 'top'){
         $sql = "SELECT * FROM " . DB_PREFIX . "cmenu i LEFT JOIN " . DB_PREFIX . "cmenu_title id ON (i.cmenu_id = id.cmenu_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' AND menu_name ='" . $menu_name . "' ORDER BY sort_order ASC";
          $query = $this->db->query($sql);
         $results = $query->rows;
@@ -50,7 +54,7 @@ class ControllerCommonCmenu extends Controller {
             );
         }
 
-        $data['cmenu'] = $this->buildMenu($menu,0);
+        $data['cmenu'] = $this->buildMenu($menu, 0, $type);
         return $this->load->view('common/cmenu', $data);
 
     }
@@ -105,7 +109,7 @@ class ControllerCommonCmenu extends Controller {
 		return $this->load->view('common/cmenu', $data);
 	}
 
-	public function buildMenu($menu, $parentid) 
+	public function buildMenu($menu, $parentid, $type) 
 	{ 
 		  //$result = '<div class="dd">';
 		  //$result .= '<ol class="dd-list">';
@@ -115,10 +119,16 @@ class ControllerCommonCmenu extends Controller {
 		if ($level == 0) {
 			foreach ($menu as $item){
 				if ($item['parent_id'] == $parentid) { 
-					$result .= '<li class="dropdown">';
-					$result .= '<a class="dropdown-toggle" href="'. $item['href'] .'">'. $item['title'] . $item['caret'] . '</a>';
-					$result .= $this->buildMenu($menu, $item['cmenu_id']); 
-					$result .= "</li>";
+					if ($type === 'top') {
+						$result .= '<li class="dropdown">';
+						$result .= '<a class="dropdown-toggle" href="'. $item['href'] .'">'. $item['title'] . $item['caret'] . '</a>';
+						$result .= $this->buildMenu($menu, $item['cmenu_id'], $type); 
+						$result .= "</li>";
+					}
+					else if ($type === 'side') {
+						$result .= '<a class="list-group-item" href="'. $item['href'] .'">'. $item['title'] . '</a>';
+						$result .= $this->buildMenu($menu, $item['cmenu_id'], $type); 
+					}
 				} 
 			} 
 			return $result;
@@ -126,10 +136,16 @@ class ControllerCommonCmenu extends Controller {
 		else {
 			foreach ($menu as $item){
 				if ($item['parent_id'] == $parentid) { 
-					$result .= '<li>';
-					$result .= '<a href="'. $item['href'] .'">'. $item['title'] . $item['caret'] . '</a>';
-					$result .= $this->buildMenu($menu, $item['cmenu_id']); 
-					$result .= "</li>";
+					if ($type === 'top') {
+						$result .= '<li>';
+						$result .= '<a href="'. $item['href'] .'">'. $item['title'] . $item['caret'] . '</a>';
+						$result .= $this->buildMenu($menu, $item['cmenu_id'], $type); 
+						$result .= "</li>";
+					}
+					else if ($type === 'side') {
+						$result .= '<a class="list-group-item" href="'. $item['href'] .'">   - '. $item['title'] . '</a>';
+						$result .= $this->buildMenu($menu, $item['cmenu_id'], $type); 
+					}
 				} 
 			} 
 			return $result ?  "\n<div class='dropdown-menu'><div class='dropdown-inner'><ul class='list-unstyled'>\n$result</ul></div></div>\n" : null; 

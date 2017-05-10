@@ -78,7 +78,7 @@ class ControllerExtensionModuleCmenu extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 
 		// add multi menu adjustment
-        $data['menus'] = array('Very Top' => 'very_top', 'Footer' => 'footer');
+		$data['menus'] = array('Very Top' => 'very_top', 'Footer' => 'footer', 'Article Sidebar' => 'article_sidebar');
 
 		$this->response->setOutput($this->load->view('extension/module/cmenu.tpl', $data));
 	}

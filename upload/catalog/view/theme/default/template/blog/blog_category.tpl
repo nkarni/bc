@@ -49,7 +49,7 @@
       </div>
       <?php } ?>
       <?php } ?>
-      <?php if ($articles) { ?>
+      <?php if ($articles && count($blog_categories) === 0) { ?>
         <div class="row">
           <?php foreach ($articles as $article) { ?>
           <div class="panel panel-default">
