@@ -89,7 +89,7 @@ class ControllerAccountLogin extends Controller {
 				$this->model_account_activity->addActivity('login', $activity_data);
 			}
             if(isset($_SESSION['last_viewed_product_url'])){
-                $this->response->redirect($_SESSION['last_viewed_product_url']);
+                $this->response->redirect($_SESSION['last_viewed_product_url'] . "?redirected");
             }
 
 			// Added strpos check to pass McAfee PCI compliance test (http://forum.opencart.com/viewtopic.php?f=10&t=12043&p=151494#p151295)

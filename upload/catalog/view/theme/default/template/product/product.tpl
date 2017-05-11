@@ -1142,5 +1142,27 @@
         }
       });
     });
+
+    $(function() {
+        var buildOptions = [];
+        $('#build-options #product select').on('change', function() {
+            $('#build-options #product select').each(function(idx, option) {
+                buildOptions.push({
+                    id: option.id,
+                    value: $(option).val()
+                });
+            });
+            window.localStorage.lastProductBuildOptions = JSON.stringify(buildOptions);
+        });
+
+        if (window.localStorage.lastProductBuildOptions && window.location.href.indexOf("?redirected") !== -1) {
+            var options = JSON.parse(window.localStorage.lastProductBuildOptions);
+            if (!options.length) return;
+            options.forEach(function(option) {
+                $('#' + option.id).val(option.value);
+            })
+            $('#' + options[0].id).trigger('change');
+        }
+    })
     --></script>
 <?php echo $footer; ?>
