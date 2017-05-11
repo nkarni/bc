@@ -51,6 +51,9 @@
       <?php } else { ?>
       <h3>You currently don't have any wishlists.</h3>
       <p>To add items, simply browse our wide range and add your favourite products by clicking the "Add to WISHLIST" button. You can then sign up and save your WISHLIST to view it on your mobile device or print it off and bring it in store on your next trip to Backcare & Seating.</p>
+      <div class="buttons">
+        <a href="/" class="btn btn-primary">Browse Our Range</a>
+      </div>
       <?php } ?>
       <?php echo $content_bottom; ?></div>
     <?php // echo $column_right; ?></div>
