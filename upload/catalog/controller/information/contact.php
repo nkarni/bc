@@ -24,7 +24,8 @@ class ControllerInformationContact extends Controller {
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setReplyTo($this->request->post['email']);
 			$mail->setSender(html_entity_decode($this->request->post['first_name'] . " " . $this->request->post['last_name'], ENT_QUOTES, 'UTF-8'));
-			$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['first_name']), ENT_QUOTES, 'UTF-8'));
+//			$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['first_name']), ENT_QUOTES, 'UTF-8'));
+            $mail->setSubject(html_entity_decode('Website Contact Enquiry from ' . $this->request->post['first_name'] . ' ' . $this->request->post['last_name'], ENT_QUOTES, 'UTF-8'));
 			$text = "Contact form was submitted on BackCare website:
             
             Enquiry Type: " . $this->request->post['enquiry_type'] . "\n

@@ -1011,6 +1011,11 @@
 
     $('#send-more-info-request').click(function () {
 
+            if (!allSelected()) {
+                alert('Please select all product options.');
+                return;
+            }
+
             $product = $(this).attr('data-product');
             var notes = $('#more-info-request-notes').val();
             var options = getOptionsSelectedStrings();
