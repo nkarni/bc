@@ -927,7 +927,7 @@ class ControllerProductProduct extends Controller {
         $items = '<br><br><table cellpadding="10" style="width:100%"><TH  valign="top" align="left" style="width:40%">Product</TH><TH valign="top" align="left" style="width:40%">Options</TH><TH valign="top" align="left">Qty</TH>';
         $items .= '<tr>';
         $items .= '<td valign="top" align="left"><a href="' . $data['share'] = $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']) . '">' .  $product_info['name'] . '</a></td>';
-        $items .= '<td valign="top" align="left">' . $this->request->post['options'] .'</td>';
+        $items .= '<td valign="top" align="left">' . str_replace("&lt;br&gt;", "<br>", $this->request->post['options']) .'</td>';
         $items .= '<td valign="top" align="left">' . $this->request->post['quantity'] . '</td>';
         $items .= '</tr></table>';
 
