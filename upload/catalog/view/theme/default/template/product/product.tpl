@@ -1008,6 +1008,42 @@
         $('.quote-request-wrapper').toggle();
     });
 
+    $('#send-quote-request').click(function () {
+        if (!allSelected()) {
+            alert('Please select all product options.');
+            return;
+        }
+
+        $product = $(this).attr('data-product');
+        var notes = $('#quote-request-notes').val();
+        var options = getOptionsSelectedStrings();
+        var quantity = $('#input-quantity').val();
+        $.ajax({
+            url: 'index.php?route=product/product/quote',
+            dataType: 'json',
+            type: 'post',
+            data: {
+                'product_id': $product,
+                'options': options,
+                'quantity' : quantity,
+                'notes' : notes
+            },
+            beforeSend: function() {
+                $("#send-quote-request").addClass('disabled');
+            },
+            complete: function() {
+                $("#send-quote-request").removeClass('disabled');
+            },
+            success: function (json) {
+                alertHandler.success(json);
+                $('#quote-request-notes').val('');
+                $('.quote-request-wrapper').toggle();
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alertHandler.error(xhr, ajaxOptions, thrownError);
+            }
+        });
+    });
 
     $('#send-more-info-request').click(function () {
 
