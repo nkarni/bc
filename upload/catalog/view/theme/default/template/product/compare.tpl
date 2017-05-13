@@ -128,7 +128,7 @@
             url: 'index.php?route=account/wishlists/add',
             dataType: 'json',
             type: 'post',
-            data: 'wishlist_name=' + encodeURIComponent($wishlist) + '&product_id=' + $product,
+            data: 'wishlist_name=' + encodeURIComponent($wishlist) + '&index=' + $product,
             beforeSend: function() {
                 $(".addlist").addClass('disabled');
             },
@@ -162,6 +162,7 @@
         $(this).popover({
             html: true,
             trigger: 'manual',
+            placement: 'top',
 
             content: function () {
                 $buttons = getwishlists();

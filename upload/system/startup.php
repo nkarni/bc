@@ -1,6 +1,6 @@
 <?php
 // Error Reporting
-error_reporting(E_ALL);
+error_reporting(E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR);
 
 // Check Version
 if (version_compare(phpversion(), '5.4.0', '<') == true) {

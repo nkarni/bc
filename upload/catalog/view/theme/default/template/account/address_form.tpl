@@ -255,7 +255,7 @@
           <?php } ?>
           <?php } ?>
           <?php } ?>
-          <div class="form-group">
+          <div class="form-group" style="display: none">
             <label class="col-sm-2 control-label"><?php echo $entry_default; ?></label>
             <div class="col-sm-10">
               <?php if ($default) { ?>

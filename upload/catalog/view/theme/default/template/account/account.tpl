@@ -16,27 +16,17 @@
     <?php } else { ?>
     <?php $class = 'col-sm-12'; ?>
     <?php } ?>
-    <div id="content" class="col-sm-12"><?php echo $content_top; ?>
-      <h2><?php echo $text_my_account; ?></h2>
-      <ul class="list-unstyled">
-        <li><a href="<?php echo $edit; ?>"><?php echo $text_edit; ?></a></li>
-        <li><a href="<?php echo $password; ?>"><?php echo $text_password; ?></a></li>
-        <li><a href="<?php echo $address; ?>"><?php echo $text_address; ?></a></li>
-        <li><a href="<?php echo $wishlist; ?>"><?php echo $text_wishlist; ?></a></li>
-        <li><a href="/index.php?route=account/logout">Logout</a></li>
+    <div id="content" class="col-sm-9"><?php echo $content_top; ?>
+      <h2>Hi <?php echo $first_name; ?></h2>
 
-      </ul>
-      <?php if ($credit_cards) { ?>
-      <h2><?php echo $text_credit_card; ?></h2>
-      <ul class="list-unstyled">
-        <?php foreach ($credit_cards as $credit_card) { ?>
-        <li><a href="<?php echo $credit_card['href']; ?>"><?php echo $credit_card['name']; ?></a></li>
-        <?php } ?>
-      </ul>
-      <?php } ?>
+      <p>Welcome back!<br>
+      We have your details listed below. Edit your Account or Password at any time.</p>
 
+      <p><b>Email:</b> <?php echo $email; ?></p>
+
+      <p><a href='/index.php' class="btn btn-primary">Browse Products</a></p>
 
       <?php echo $content_bottom; ?></div>
-    <?php // echo $column_right; ?></div>
+    <?php echo $column_right; ?></div>
 </div>
 <?php echo $footer; ?> 
