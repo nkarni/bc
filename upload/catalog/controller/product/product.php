@@ -931,7 +931,7 @@ class ControllerProductProduct extends Controller {
         $items .= '<td valign="top" align="left">' . $this->request->post['quantity'] . '</td>';
         $items .= '</tr></table>';
 
-        if($this->request->post['more-info']){
+        if(isset($this->request->post['more-info'])){
             $str = '<h2>More information request for: ' . $product_info['name'] . '</h2>';
         }else{
             $str = '<h2>Quote request for: ' . $product_info['name'] . '</h2>';
@@ -943,7 +943,7 @@ class ControllerProductProduct extends Controller {
 
         // send email
 
-        if($this->request->post['more-info']){
+        if(isset($this->request->post['more-info'])){
             $subject = sprintf('More information request for - ', html_entity_decode( $product_info['name'] , ENT_QUOTES, 'UTF-8'));
         }else{
             $subject = sprintf('Quote request for - ', html_entity_decode( $product_info['name'] , ENT_QUOTES, 'UTF-8'));
@@ -966,7 +966,7 @@ class ControllerProductProduct extends Controller {
         $mail->setHtml($str);
         $mail->send();
 
-        if($this->request->post['more-info']){
+        if(isset($this->request->post['more-info'])) {
             $json['success'] = 'Your information request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
         }else{
             $json['success'] = 'Your quote request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
