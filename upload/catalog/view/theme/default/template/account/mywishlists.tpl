@@ -211,6 +211,7 @@ $class = 'col-sm-12';
       });
 
       $(document).on('click', '.share-button', function() {
+          $('.alert').remove();
           $('.share-wrapper').removeClass('hidden');
           $('html, body').animate({scrollTop: 0}, 'slow');
           return false;
