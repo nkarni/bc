@@ -10,7 +10,7 @@ $_['text_your_details']    = 'Your Personal Details';
 $_['text_your_address']    = 'Your Address';
 $_['text_newsletter']      = 'Newsletter';
 $_['text_your_password']   = 'Your Password';
-$_['text_agree']           = 'I have read and agree to the <a href="%s" class="agree"><b>%s</b></a>';
+$_['text_agree']           = 'I have read and agree to the <a href="%s" target="_blank"><b>TERMS & CONDITIONS</b></a> and the <a href="%s" target="_blank"><b>PRIVACY POLICY</b></a>';
 
 // Entry
 $_['entry_customer_group'] = 'Customer Group';

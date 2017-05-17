@@ -124,21 +124,22 @@ class ControllerAccountWishLists extends Controller {
 
 	public function requestQuotation(){
 
-
-
         $this->load->model('account/wishlists');
         $this->load->model('account/address');
+        $this->load->model('tool/image');
+        $this->load->model('account/customer');
         $json = array();
-        $str = '';
 
         // get wishlist
         $data = $this->mywishlist(false);
 
+        $trigger = $this->request->get['trigger'];
+
         $customerdata = $this->model_account_customer->getCustomer($this->customer->getId());
-        // need to get address from $customerdata['address_id']
+
         $address = $this->model_account_address->getAddress($customerdata['address_id']);
 
-         $customer_details_str = '<p><strong>Customer Details:</strong><br>
+         $customer_full_details_str = '<p><strong>Customer Details:</strong><br>
             Name: ' . $customerdata['firstname'] . ' '  . $customerdata['lastname'] . '<br>
             Email: <a href="mailto:' . $customerdata['email'] . '">'  . $customerdata['email'] . '</a><br>
             Phone: '  . $customerdata['telephone'] . '<br><br>
@@ -150,50 +151,76 @@ class ControllerAccountWishLists extends Controller {
             . $address['country'] . '
         </p>';
 
-        $items = '<br><br><table cellpadding="10" style="width:100%"><TH  valign="top" align="left" style="width:40%">Product</TH><TH valign="top" align="left" style="width:40%">Options</TH><TH valign="top" align="left">Qty</TH>';
+        $customer_short_details_str = '<p><strong>Customer Details:</strong><br>
+            Name: ' . $customerdata['firstname'] . ' '  . $customerdata['lastname'] . '<br>
+            Email: <a href="mailto:' . $customerdata['email'] . '">'  . $customerdata['email'] . '</a><br>
+            Phone: '  . $customerdata['telephone'] . '<br><br>
+        </p>';
 
         foreach ($data['wishlistitems'] as $wishlistitem) {
 
-            $items .= '<tr>';
-            $items .= '<td valign="top" align="left"><a href="' .  $wishlistitem["href"]. '">' .  $wishlistitem['product_name'] . '</a></td>';
-            $items .= '<td valign="top" align="left">';
-            foreach ($wishlistitem['full_product_data'][0]['option'] as $option) {
-                $items .= '<small>' . $option['name'] . ': ' . $option['value'] . '</small><br>';
+            $product_info = $this->model_catalog_product->getProduct($wishlistitem['product_id']);
+            $product_info['options'] = '';
+            if ($product_info['image']) {
+                $product_info['thumb'] = $this->model_tool_image->cropsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+            } else {
+                $product_info['thumb'] = '';
             }
-            $items .= '</td>';
-            $items .= '<td valign="top" align="left">' . $wishlistitem['quantity'] . '</td>';
-            $items .= '</tr>';
+
+            foreach ($wishlistitem['full_product_data'][0]['option'] as $option) {
+                $product_info['options'] .= '' . $option['name'] . ':<br>' . $option['value'] . '<br><br>';
+            }
+
+            $product_info['href'] =  $this->url->link('product/product', 'product_id=' . $product_info['product_id']);
+            $product_info['qty'] = $wishlistitem['quantity'];
+
+            $email_data['products'][] = $product_info;
+
         }
 
-        $str = '<h2>Quote request for wishlist: ' . $data['heading_title'] . '</h2>';
-        $str .= $customer_details_str . $items;
+        if($trigger == 'quote'){
+            $subject = sprintf('Quote request for wishlist - %s', html_entity_decode( $data['heading_title'] , ENT_QUOTES, 'UTF-8'));
+        }else{
+            $subject = sprintf('Backcare & Seating wishlist - %s', html_entity_decode( $data['heading_title'] , ENT_QUOTES, 'UTF-8'));
+        }
 
+        $email_data['title'] = $subject;
+        $email_data['subtitle'] = null;
 
+        if($trigger == 'quote'){
 
+            $email_data['intro'] = $customer_full_details_str;
+            $html = $this->load->view('common/email', $email_data);
+            $to = $this->config->get('config_email');
 
-        // get admin email
+            // send email to admin
+            $this->model_account_customer->sendMail($to, $subject, $html);
 
-        // send email
-        $subject = sprintf('Quote request for wishlit - ', html_entity_decode( $data['heading_title'] , ENT_QUOTES, 'UTF-8'));
+            // send copy to client
+            $to = $customerdata['email'];
+            $client_msg = 'Your quote request was sent to the relevant store, we will get in touch shortly.<br>Please do not replay to this email.<br><br>';
+            $email_data['intro'] = 'Dear ' .  $customerdata['firstname'] . ' '  . $customerdata['lastname'] . ',<br>' . $client_msg . $email_data['intro'];
+            $html = $this->load->view('common/email', $email_data);
+            $this->model_account_customer->sendMail($to, $subject, $html);
 
-        $mail = new Mail();
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
-        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+            $json['success'] = 'Your quote request was sent, we will be in touch shortly.';
 
-        $mail->setTo($this->config->get('config_email'));
-        $mail->setFrom($this->config->get('config_email'));
-        $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-        $mail->setSubject($subject);
-        $mail->setHtml($str);
-        $mail->send();
+        }else{
+            $email_data['intro'] = 'Dear ' . $this->request->get['share-name'] . ',<br>' . $customerdata['firstname'] . ' '  . $customerdata['lastname'] . ' requested that we share this wishlist with you.';
+            $html = $this->load->view('common/email', $email_data);
+            $to = $this->request->get['share-email'];
 
-        $json['success'] = 'Your quote request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
+            // send email to invitee
+            $this->model_account_customer->sendMail($to, $subject, $html);
 
+            // send copy to client
+            $to = $customerdata['email'];
+            $email_data['intro'] = 'Dear ' .  $customerdata['firstname'] . ' '  . $customerdata['lastname'] . ',<br>The following wishlist was sent at your request to ' . $this->request->get['share-name'] . '(' . $this->request->get['share-email'] . ').<br>Please do not replay to this email.<br><br>';
+            $html = $this->load->view('common/email', $email_data);
+            $this->model_account_customer->sendMail($to, $subject, $html);
+
+            $json['success'] = 'The wishlist was emailed.';
+        }
         // return a message to user
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));

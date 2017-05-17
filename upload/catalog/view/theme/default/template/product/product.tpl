@@ -811,7 +811,7 @@
             var text = $(select).find('option:selected').text();
             var label = $('#label-option-' + optionId).text();
             var selectedIndex = document.getElementById(id).selectedIndex;
-            str += label + ': ' + text + '<br>'
+            str += label + ':<br>' + text + '<br>'
         });
         return str;
     }

@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']      = 'My Account Information';
+$_['heading_title']      = 'My Profile';
 
 // Text
 $_['text_account']       = 'Account';
-$_['text_edit']          = 'Edit Information';
+$_['text_edit']          = 'Edit Profile';
 $_['text_your_details']  = 'Your Personal Details';
 $_['text_success']       = 'Success: Your account has been successfully updated.';
 

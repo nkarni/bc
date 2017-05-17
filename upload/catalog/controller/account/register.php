@@ -323,25 +323,28 @@ class ControllerAccountRegister extends Controller {
 			$data['captcha'] = '';
 		}
 
-		if ($this->config->get('config_account_id')) {
-			$this->load->model('catalog/information');
-
-			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
-
-			if ($information_info) {
-				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title'], $information_info['title']);
-			} else {
-				$data['text_agree'] = '';
-			}
-		} else {
-			$data['text_agree'] = '';
-		}
-
+		// override for BC for text_agree
+//		if ($this->config->get('config_account_id')) {
+//			$this->load->model('catalog/information');
+//
+//			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+//
+//			if ($information_info) {
+//				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title'], $information_info['title']);
+//			} else {
+//				$data['text_agree'] = '';
+//			}
+//		} else {
+//			$data['text_agree'] = '';
+//		}
+//
 		if (isset($this->request->post['agree'])) {
 			$data['agree'] = $this->request->post['agree'];
 		} else {
 			$data['agree'] = false;
 		}
+
+        $data['text_agree'] = sprintf($this->language->get('text_agree'), '/terms-and-conditions', '/privacy-policy');
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -445,7 +448,9 @@ class ControllerAccountRegister extends Controller {
 //				$this->error['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
 //			}
 //		}
-
+        if (!isset($this->request->post['agree'])) {
+            $this->error['warning'] = sprintf($this->language->get('error_agree'), 'Terms & Conditions and the Privacy Policy');
+        }
 		return !$this->error;
 	}
 

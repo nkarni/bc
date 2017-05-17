@@ -6,7 +6,7 @@
     <?php } ?>
   </ul>
   <?php if ($success) { ?>
-  <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
+  <div class="alert alert-success no-print"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
     <button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>
   <?php } ?>
@@ -31,14 +31,31 @@ $class = 'col-sm-12';
 
         <?php if($visiblity && count($wishlistitems) > 0) { ?>
         <div class="no-print" syle="width:100%;">
-
+          <div class=" share-wrapper hidden" >
+            <div class="row">
+              <div class="col-sm-12"><p>Email this wishlist to:</p></div>
+              <div class="col-sm-12"><input type="text"  id="share-name" placeholder="Name" class="form-control"/></div>
+              <div class="col-sm-12"><input type="text"  id="share-email" placeholder="Email" class="form-control"/></div>
+            </div>
+          <div class="row">
+              <div class="col-sm-4 pull-right">
+                <button class="btn-primary btn-small btn-block share-wishlist" title="Submit" type="button">SUBMIT</button>
+              </div>
+              <div class="col-sm-4 pull-left">
+              <button class="btn-primary btn-small btn-block" title="Cancel" id="share-cancel" type="button">CANCEL</button>
+            </div>
+          </div>
+          </div>
             <div class="goodshare-color row" >
                 <?php if($wishlists_copy_url_status) { ?>
                     <span class="show-copy-link btn btn-primary btn-small"  onclick="js:window.print();" style="padding:none !important;line-height:0.5 !important;">Print</span>
                 <?php } ?>
-                    <a class="show-copy-link btn btn-primary btn-small" href="mailto:?body=<?php echo str_replace("&amp;","%26", $mysharelink); ?>" style="padding:none !important;line-height:0.5 !important;">Share Via Email</a>
+                    <a class="show-copy-link btn btn-primary btn-small share-button" href="#" style="padding:none !important;line-height:0.5 !important;">Share Via Email</a>
               <span class="show-copy-link btn btn-primary btn-small" id="submit-btn"  onclick="js:requestQuotation();" style="padding:none !important;line-height:0.5 !important;">Submit for a Quotation</span>
               <input type="hidden" id="wishlist-id" value="<?php echo $wishlist_id; ?>"/>
+
+            </div>
+              <div class="row"><div class="col-sm-12">&nbsp;</div>
             </div>
 
         </div>
@@ -53,11 +70,11 @@ $class = 'col-sm-12';
         <tr>
           <td class="text-left hidden-xs" width="15%"></td>
 
-          <td class="text-left" width="45%">Product</td>
+          <td class="text-left" width="45%"><strong>Product</strong></td>
 
-          <td class="text-left hidden-xs" width="25%">Selected Options</td>
+          <td class="text-left hidden-xs" width="25%"><strong>Selected Options</strong></td>
 
-          <td class="text-center " width="15%">Quantity</td>
+          <td class="text-center " width="15%"><strong>Quantity</strong></td>
         </tr>
         </thead>
         <tbody>
@@ -69,14 +86,14 @@ $class = 'col-sm-12';
                   <?php } ?></td>
             <td class="text-left">
             <a href="<?php echo $wishlistitem['href']; ?>" class="visible-xs no-print" style="display: block; margin-bottom: 8px"><img src="<?php echo $wishlistitem['thumb']; ?>" alt="<?php echo $wishlistitem['product_name']; ?>" title="<?php echo $wishlistitem['product_name']; ?>" style="width: 100%" /></a>
-            <a href="<?php echo $wishlistitem['href']; ?>"><?php echo $wishlistitem['product_name']; ?></a><br>
+              <a href="<?php echo $wishlistitem['href']; ?>"><strong><?php echo $wishlistitem['product_name']; ?></strong></a><br>
                 <small class="hidden-xs"><?php echo $wishlistitem['short_description'] ; ?></small>
 
             </td>
               <td  class="text-left hidden-xs">
               <?php
                 foreach ($wishlistitem['full_product_data'][0]['option'] as $option) {
-                  echo '<small>' . $option['name'] . ': ' . $option['value'] . '</small><br>';
+                  echo '<small><strong>' . $option['name'] . ':</strong> ' . $option['value'] . '</small><br>';
                 }
               ?>
               </td>
@@ -104,7 +121,7 @@ $class = 'col-sm-12';
           <?php if($wishlists_copy_url_status) { ?>
           <span class="show-copy-link btn btn-primary btn-small"  onclick="js:window.print();" style="padding:none !important;line-height:0.5 !important;">Print</span>
           <?php } ?>
-          <a class="show-copy-link btn btn-primary btn-small" href="mailto:?body=<?php echo str_replace("&amp;","%26", $mysharelink); ?>" style="padding:none !important;line-height:0.5 !important;">Share Via Email</a>
+          <a class="show-copy-link btn btn-primary btn-small share-button" style="padding:none !important;line-height:0.5 !important;">Share Via Email</a>
           <span class="show-copy-link btn btn-primary btn-small" id="submit-btn"  onclick="js:requestQuotation();" style="padding:none !important;line-height:0.5 !important;">Submit for a Quotation</span>
           <input type="hidden" id="wishlist-id" value="<?php echo $wishlist_id; ?>"/>
         </div>
@@ -114,8 +131,8 @@ $class = 'col-sm-12';
       <?php } ?>
 
       <?php } else { ?>
-      <h3>You currently don't have any items in your WISHLIST.</h3>
-      <p>To add items, simply browse our wide range and add your favourite products by clicking the "Add to WISHLIST" button. You can then sign up and save your WISHLIST to view it on your mobile device or print it off and bring it in store on your next trip to Backcare & Seating.</p>
+      <h3><bold>You currently don't have any items in your WISHLIST.</bold></h3>
+      <p>To add items to your Wishlist, simply browse through our wide range of products and add your preferred items by clicking the "Add to WISHLIST" button. You can then either print out or view directly on your mobile device while in store on your next trip to Backcare & Seating.</p>
       <?php } ?>
 
       <?php echo $content_bottom; ?></div>
@@ -131,7 +148,8 @@ $class = 'col-sm-12';
               url: 'index.php?route=account/wishlists/requestQuotation',
               type: 'get',
               data: {
-                  'wishlist_id': wishListId
+                  'wishlist_id': wishListId,
+                  'trigger' : 'quote'
               },
               dataType: 'json',
               beforeSend: function() {
@@ -150,6 +168,58 @@ $class = 'col-sm-12';
               }
           });
       }
+
+      function shareWishlist(){
+          var wishListId = $('#wishlist-id').val();
+          var shareName = $('#share-name').val();
+          var shareEmail = $('#share-email').val();
+
+          if(!shareEmail.length || !shareName.length){
+              alert('Please enter name and email');
+              return;
+          }
+          $.ajax({
+              url: 'index.php?route=account/wishlists/requestQuotation',
+              type: 'get',
+              data: {
+                  'wishlist_id': wishListId,
+                  'share-name': shareName,
+                  'share-email' : shareEmail,
+                  'trigger': 'share'
+              },
+              dataType: 'json',
+              beforeSend: function() {
+                  $(".share-wishlist").addClass('disabled');
+              },
+              complete: function() {
+                  $(".share-wishlist").removeClass('disabled');
+              },
+              success: function (json) {
+                  $('.share-wrapper').addClass('hidden');
+                  alertHandler.success(json);
+                  //close popover widget
+                  $('.popover').popover('hide');
+              },
+              error: function(xhr, ajaxOptions, thrownError) {
+                  alertHandler.error(xhr, ajaxOptions, thrownError);
+              }
+          });
+      }
+
+      $(document).on('click', '.share-wishlist', function() {
+          shareWishlist();
+      });
+
+      $(document).on('click', '.share-button', function() {
+          $('.share-wrapper').removeClass('hidden');
+          $('html, body').animate({scrollTop: 0}, 'slow');
+          return false;
+      });
+
+      $(document).on('click', '#share-cancel', function() {
+          $('.share-wrapper').addClass('hidden');
+          return false;
+      });
 
     function updateListItem(itemId, quantity, action){
         var wishListId = $('#wishlist-id').val();
@@ -204,34 +274,6 @@ $class = 'col-sm-12';
             updateListItem(itemId, '0', 'updateWishlistitemQty' );
         }
     });
-
-
-    $(".show-copy-link").click(function(){
-        $(".share-copy-link").css("display","block");
-    });
-
-
-    function popitup(url,share) {
-        shareurl = '';
-        if(url != ''){
-
-            if(share == "facebook"){
-                shareurl = "https://facebook.com/sharer.php?u="+url;
-            }
-            else if(share == "google+"){
-                shareurl = "https://plus.google.com/share?url="+url;
-            }
-            else if(share == "twitter"){
-                shareurl = "https://twitter.com/intent/tweet?url="+url;
-            }
-
-        //    alert(shareurl);
-
-            newwindow=window.open(url,'name','height=300,width=350');
-            if (window.focus) {newwindow.focus()}
-                return false;
-        }
-    }
 
     function CopyToClipboard(text) {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
@@ -306,7 +348,8 @@ $class = 'col-sm-12';
         }
         $('.popover').popover('hide');
     });
-		
+
+
    $(document).on('click', '.wishlist-close', function() { 
 		$('.popover').popover('hide');
 	});

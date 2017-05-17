@@ -903,6 +903,7 @@ class ControllerProductProduct extends Controller {
         $this->load->model('catalog/product');
         $this->load->model('account/customer');
         $this->load->model('account/address');
+        $this->load->model('tool/image');
         $json = array();
         $str = '';
 
@@ -924,53 +925,62 @@ class ControllerProductProduct extends Controller {
             . $address['country'] . '
         </p>';
 
-        $items = '<br><br><table cellpadding="10" style="width:100%"><TH  valign="top" align="left" style="width:40%">Product</TH><TH valign="top" align="left" style="width:40%">Options</TH><TH valign="top" align="left">Qty</TH>';
-        $items .= '<tr>';
-        $items .= '<td valign="top" align="left"><a href="' . $data['share'] = $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']) . '">' .  $product_info['name'] . '</a></td>';
-        $items .= '<td valign="top" align="left">' . str_replace("&lt;br&gt;", "<br>", $this->request->post['options']) .'</td>';
-        $items .= '<td valign="top" align="left">' . $this->request->post['quantity'] . '</td>';
-        $items .= '</tr></table>';
-
         if(isset($this->request->post['more-info'])){
-            $str = '<h2>More information request for: ' . $product_info['name'] . '</h2>';
+            $email_data['title'] = '<h2>More information request for: ' . $product_info['name'] . '</h2>';
         }else{
-            $str = '<h2>Quote request for: ' . $product_info['name'] . '</h2>';
+            $email_data['title'] = '<h2>Quote request for: ' . $product_info['name'] . '</h2>';
         }
 
-        $str .= $customer_details_str . $items;
+        if ($product_info['image']) {
+            $product_info['thumb'] = $this->model_tool_image->cropsize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+        } else {
+            $product_info['thumb'] = '';
+        }
+
+        $product_info['options'] = str_replace("&lt;br&gt;", "<br>", $this->request->post['options']);
+        $product_info['href'] =  $this->url->link('product/product', 'product_id=' . $product_info['product_id']);
+        $product_info['qty'] = $this->request->post['quantity'];
+
+        $email_data['products'] = [$product_info];
+        $email_data['subtitle'] = null;
+
+        $email_data['main_image_height'] = $this->config->get($this->config->get('config_theme') . '_image_popup_height');
+        $email_data['main_image_width'] = $this->config->get($this->config->get('config_theme') . '_image_popup_width');
+
+        $str .= $customer_details_str ;
         $str .= '<br><strong>Further Info:</strong><br>' . (strlen($this->request->post['notes']) > 0 ? $this->request->post['notes'] : 'None provided.');
 
 
         // send email
-
         if(isset($this->request->post['more-info'])){
-            $subject = sprintf('More information request for - ', html_entity_decode( $product_info['name'] , ENT_QUOTES, 'UTF-8'));
+            $subject = sprintf('More information request for - %s', html_entity_decode( $product_info['name'] , ENT_QUOTES, 'UTF-8'));
         }else{
-            $subject = sprintf('Quote request for - ', html_entity_decode( $product_info['name'] , ENT_QUOTES, 'UTF-8'));
+            $subject = sprintf('Quote request for - %s', html_entity_decode( $product_info['name'] , ENT_QUOTES, 'UTF-8'));
         }
 
 
-        $mail = new Mail();
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
-        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+        $to = $this->config->get('config_email');
 
-        $mail->setTo($this->config->get('config_email'));
-        $mail->setFrom($this->config->get('config_email'));
-        $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-        $mail->setSubject($subject);
-        $mail->setHtml($str);
-        $mail->send();
+        $email_data['intro'] = $str;
+        $html = $this->load->view('common/email', $email_data);
+
+        // send email to admin
+        $this->model_account_customer->sendMail($to, $subject, $html);
+
 
         if(isset($this->request->post['more-info'])) {
             $json['success'] = 'Your information request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
+            $client_msg = '<br>Your information reques will be forwarded to the relevant store and you will be contacted shortly.<br> Please do not replay to this email.<br><br>' ;
         }else{
             $json['success'] = 'Your quote request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
+            $client_msg = '<br>Your quote request will be forwarded to the relevant store and you will be contacted shortly.<br> Please do not replay to this email.<br><br>' ;
         }
+
+        // send copy to client
+        $to = $customerdata['email'];
+        $email_data['intro'] = 'Dear ' .  $customerdata['firstname'] . ' '  . $customerdata['lastname'] .  $client_msg . $email_data['intro'];
+        $html = $this->load->view('common/email', $email_data);
+        $this->model_account_customer->sendMail($to, $subject, $html);
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));

@@ -19,10 +19,7 @@
     <div id="content" class="col-sm-9"><?php echo $content_top; ?>
       <h2>Hi <?php echo $first_name; ?></h2>
 
-      <p>Welcome back!<br>
-      We have your details listed below. Edit your Account or Password at any time.</p>
-
-      <p><b>Email:</b> <?php echo $email; ?></p>
+      <p>Welcome back!</p>
 
       <p><a href='/index.php' class="btn btn-primary">Browse Products</a></p>
 
