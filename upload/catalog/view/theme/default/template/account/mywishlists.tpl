@@ -190,9 +190,11 @@ $class = 'col-sm-12';
               dataType: 'json',
               beforeSend: function() {
                   $(".share-wishlist").addClass('disabled');
+                  $(".share-wrapper").addClass('opacity3');
               },
               complete: function() {
                   $(".share-wishlist").removeClass('disabled');
+                  $(".share-wrapper").removeClass('opacity3');
               },
               success: function (json) {
                   $('.share-wrapper').addClass('hidden');
