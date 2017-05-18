@@ -343,6 +343,7 @@ class ControllerToolUpload extends Controller {
 			if (!empty($this->request->files['file']['name']) && is_file($this->request->files['file']['tmp_name'])) {
 				// Sanitize the filename
 				$filename = html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8');
+                $filename = preg_replace('/\s+/', '-', $filename);
 
 				if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 128)) {
 					$json['error'] = $this->language->get('error_filename');
