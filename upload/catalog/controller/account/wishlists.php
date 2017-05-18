@@ -178,6 +178,7 @@ class ControllerAccountWishLists extends Controller {
 
         }
 
+
         if($trigger == 'quote'){
             $subject = sprintf('Quote request for wishlist - %s', html_entity_decode( $data['heading_title'] , ENT_QUOTES, 'UTF-8'));
         }else{
