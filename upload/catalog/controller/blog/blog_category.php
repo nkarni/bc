@@ -44,10 +44,10 @@ class ControllerBlogBlogCategory extends Controller {
 			'href' => $this->url->link('common/home')
 		);
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->config->get('easy_blog_home_page_name'),
-			'href' => $this->url->link('blog/blog')
-		);
+//		$data['breadcrumbs'][] = array(
+//			'text' => $this->config->get('easy_blog_home_page_name'),
+//			'href' => $this->url->link('blog/blog')
+//		);
 
 		if (isset($this->request->get['blog_path'])) {
 			$url = '';

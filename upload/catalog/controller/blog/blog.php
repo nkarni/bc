@@ -65,10 +65,10 @@ class ControllerBlogBlog extends Controller {
                 $this->document->setKeywords($this->config->get('easy_blog_home_page_meta_keyword'));
             }
 
-            $data['breadcrumbs'][] = array(
-                'text' => $this->config->get('easy_blog_home_page_name'),
-                'href' => $this->url->link('blog/blog')
-            );
+//            $data['breadcrumbs'][] = array(
+//                'text' => $this->config->get('easy_blog_home_page_name'),
+//                'href' => $this->url->link('blog/blog')
+//            );
 
 			$url = '';
 
@@ -176,7 +176,7 @@ class ControllerBlogBlog extends Controller {
             if (isset($this->request->get['tag'])) {
                 $data['heading_title'] = $this->language->get('text_tag_result') . $this->request->get['tag'];
             } else {
-                $data['heading_title'] = html_entity_decode($this->config->get('easy_blog_home_page_name'), ENT_QUOTES, 'UTF-8');
+                $data['heading_title'] = false ; // html_entity_decode($this->config->get('easy_blog_home_page_name'), ENT_QUOTES, 'UTF-8');
             }
 
 			$data['column_left'] = $this->load->controller('common/column_left');
