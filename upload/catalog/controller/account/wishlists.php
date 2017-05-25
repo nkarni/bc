@@ -207,7 +207,7 @@ class ControllerAccountWishLists extends Controller {
             $json['success'] = 'Your quote request was sent, we will be in touch shortly.';
 
         }else{
-            $email_data['intro'] = 'Dear ' . $this->request->get['share-name'] . ',<br>' . $customerdata['firstname'] . ' '  . $customerdata['lastname'] . ' requested that we share this wishlist with you.';
+            $email_data['intro'] = 'Dear ' . $this->request->get['share-name'] . ',<br><br>' . $customerdata['firstname'] . ' '  . $customerdata['lastname'] . ' requested that we share this wishlist with you.';
             $html = $this->load->view('common/email', $email_data);
             $to = $this->request->get['share-email'];
 
