@@ -59,7 +59,11 @@
         </table>
       </div>
       <?php } else { ?>
-      <p><?php echo $text_empty; ?></p>
+      <h3><strong>You currently don't have any items in this Wishlist.</strong></h3>
+      <p>To ad items, simply browse through our wide range of products and add your preferred items by clicking the "Add to WISHLIST" button.</p>
+      <div class="buttons">
+        <a href="/" class="btn btn-primary">Browse Our Range</a>
+      </div>
       <?php } ?>
       <div class="buttons clearfix">
         <div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>

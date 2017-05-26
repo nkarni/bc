@@ -131,8 +131,11 @@ $class = 'col-sm-12';
       <?php } ?>
 
       <?php } else { ?>
-      <h3><bold>You currently don't have any items in your WISHLIST.</bold></h3>
-      <p>To add items to your Wishlist, simply browse through our wide range of products and add your preferred items by clicking the "Add to WISHLIST" button. You can then either print out or view directly on your mobile device while in store on your next trip to Backcare & Seating.</p>
+      <h3><strong>You currently don't have any items in this Wishlist.</strong></h3>
+      <p>To ad items, simply browse through our wide range of products and add your preferred items by clicking the "Add to WISHLIST" button.</p>
+      <div class="buttons">
+        <a href="/" class="btn btn-primary">Browse Our Range</a>
+      </div>
       <?php } ?>
 
       <?php echo $content_bottom; ?></div>

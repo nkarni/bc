@@ -50,7 +50,7 @@
         </div>
       <?php } else { ?>
       <h3><strong>You currently don't have any Wishlists.</strong></h3>
-      <p>o create Wishlists, simply browse through our wide range of products and add your preferred items by clicking the "Add to WISHLIST" button. You can then create, name and save your WISHLIST to either print out or view directly on your mobile device while in store on your next trip to Backcare & Seating.</p>
+      <p>To create Wishlists, simply browse through our wide range of products and add your preferred items by clicking the "Add to WISHLIST" button. You can then create, name and save your WISHLIST to either print out or view directly on your mobile device while in store on your next trip to Backcare & Seating.</p>
       <div class="buttons">
         <a href="/" class="btn btn-primary">Browse Our Range</a>
       </div>

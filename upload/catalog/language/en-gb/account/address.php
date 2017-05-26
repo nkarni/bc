@@ -4,7 +4,7 @@ $_['heading_title']      = 'Address Book';
 
 // Text
 $_['text_account']       = 'Account';
-$_['text_address_book']  = 'Address Book Entries';
+$_['text_address_book']  = 'Address Book';
 $_['text_edit_address']  = 'Edit Address';
 $_['text_add']           = 'Your address has been successfully inserted';
 $_['text_edit']          = 'Your address has been successfully updated';

@@ -970,10 +970,10 @@ class ControllerProductProduct extends Controller {
 
         if(isset($this->request->post['more-info'])) {
             $json['success'] = 'Your information request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
-            $client_msg = '<br>Your information reques will be forwarded to the relevant store and you will be contacted shortly.<br> Please do not replay to this email.<br><br>' ;
+            $client_msg = '<br>Your information request will be forwarded to the relevant store and you will be contacted shortly.<br>PLEASE DO NOT REPLY TO THIS EMAIL.<br><br>' ;
         }else{
             $json['success'] = 'Your quote request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
-            $client_msg = '<br>Your quote request will be forwarded to the relevant store and you will be contacted shortly.<br> Please do not replay to this email.<br><br>' ;
+            $client_msg = '<br>Your quote request will be forwarded to the relevant store and you will be contacted shortly.<br>PLEASE DO NOT REPLY TO THIS EMAIL.<br><br>' ;
         }
 
         // send copy to client

@@ -17,7 +17,7 @@
       <h1><?php echo $heading_title; ?></h1>
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
-          <legend><?php echo $text_password; ?></legend>
+          <!--- <legend><?php echo $text_password; ?></legend> !-->
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-password"><?php echo $entry_password; ?></label>
             <div class="col-sm-10">
