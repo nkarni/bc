@@ -173,6 +173,7 @@ class ControllerAccountWishLists extends Controller {
 
             $product_info['href'] =  $this->url->link('product/product', 'product_id=' . $product_info['product_id']);
             $product_info['qty'] = $wishlistitem['quantity'];
+            $product_info['short_description'] = html_entity_decode($product_info['short_description']);
 
             $email_data['products'][] = $product_info;
 
