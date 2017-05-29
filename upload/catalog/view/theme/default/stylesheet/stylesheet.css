@@ -1641,5 +1641,8 @@ h3.related {
 .brand-image img{
 	margin: auto;
 }
+.brand-cell{
+	margin-bottom:12px;
+}
 
 @media print{@page {size: landscape}}
