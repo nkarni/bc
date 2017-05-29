@@ -22,7 +22,10 @@
       <?php // foreach (array_chunk($category['manufacturer'], 4) as $manufacturers) { ?>
       <div class="row">
         <?php foreach ($manufacturers as $manufacturer) { ?>
-        <div class="col-sm-3 col-md-2 "><a href="<?php echo $manufacturer['href']; ?>"><?php echo $manufacturer['name']; ?></a></div>
+        <div class="col-sm-3 col-md-2 text-center ">
+          <div class="brand-image"><a href="<?php echo $manufacturer['href']; ?>"><img src="<?php echo $manufacturer['image']; ?>" alt="<?php echo $manufacturer['name']; ?>" title="<?php echo $manufacturer['name']; ?>" class="img-responsive" /></a></div>
+          <a href="<?php echo $manufacturer['href']; ?>"><?php echo $manufacturer['name']; ?></a>
+        </div>
         <?php } ?>
       </div>
       <?php // } ?>

@@ -51,9 +51,17 @@ class ControllerProductManufacturer extends Controller {
 //				'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])
 //			);
 
+            $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($result['manufacturer_id']);
+
+            if($manufacturer_info){
+                $mfg_img = $this->model_tool_image->resize( $manufacturer_info['image'] , 100, 100);
+            }else{
+                $mfg_img = false;
+            }
             $data['manufacturers'][] = array(
                 'name' => $result['name'],
-                'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])
+                'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id']),
+                'image' => $mfg_img
             );
 		}
 

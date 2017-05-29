@@ -120,10 +120,15 @@
     });
     // For add new wishlist with product
     $(document).on("click", '.addlist', function () {
+
         $('.popover').popover('hide');
         //  $product = $(this).attr('product');
         $product = $(this).parents('.popover-content').find("input.active_product_id").val();
         $wishlist = $(this).parent("span").parent("div").find("input#wishlist_name").val();
+        if (!$wishlist.trim()) {
+            alert("Please provide a name of your wishlist!");
+            return;
+        }
         $.ajax({
             url: 'index.php?route=account/wishlists/add',
             dataType: 'json',

@@ -132,7 +132,7 @@ $class = 'col-sm-12';
 
       <?php } else { ?>
       <h3><strong>You currently don't have any items in this Wishlist.</strong></h3>
-      <p>To ad items, simply browse through our wide range of products and add your preferred items by clicking the "Add to WISHLIST" button.</p>
+      <p>To add items, simply browse through our wide range of products and add your preferred items by clicking the "Add to WISHLIST" button.</p>
       <div class="buttons">
         <a href="/" class="btn btn-primary">Browse Our Range</a>
       </div>

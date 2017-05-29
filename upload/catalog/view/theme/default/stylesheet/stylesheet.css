@@ -1637,4 +1637,9 @@ h3.related {
 .opacity3{
 	opacity: 0.3;
 }
+
+.brand-image img{
+	margin: auto;
+}
+
 @media print{@page {size: landscape}}
