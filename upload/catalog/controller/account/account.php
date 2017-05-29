@@ -94,6 +94,13 @@ class ControllerAccountAccount extends Controller {
 
 		$data['first_name'] = $this->customer->getFirstName();
 		$data['email'] = $this->customer->getEmail();
+
+		if(isset($this->session->data['from_registration'])){
+		    $data['show_welcome_back'] = false;
+            unset($this->session->data['from_registration']);
+        }else{
+            $data['show_welcome_back'] = true;
+        }
 		
 		$this->response->setOutput($this->load->view('account/account', $data));
 	}

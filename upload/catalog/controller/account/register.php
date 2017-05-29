@@ -26,6 +26,7 @@ class ControllerAccountRegister extends Controller {
 			$this->customer->login($this->request->post['email'], $this->request->post['password']);
 
 			unset($this->session->data['guest']);
+            $this->session->data['from_registration'] = true;
 
 			// Add to activity log
 			if ($this->config->get('config_customer_activity')) {

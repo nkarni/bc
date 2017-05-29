@@ -19,7 +19,12 @@
     <div id="content" class="col-sm-9"><?php echo $content_top; ?>
       <h2>Hi <?php echo $first_name; ?></h2>
 
-      <p>Welcome back!</p>
+      <p>
+        <?php if($show_welcome_back){ ?>
+        Welcome back!
+        <?php } else { ?>
+        Welcome!<?php } ?>
+      </p>
 
       <p><a href='/index.php' class="btn btn-primary">Browse Products</a></p>
 
