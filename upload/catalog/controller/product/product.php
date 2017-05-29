@@ -937,7 +937,7 @@ class ControllerProductProduct extends Controller {
             $product_info['thumb'] = '';
         }
 
-        $product_info['options'] = str_replace("&lt;br&gt;", "<br>", $this->request->post['options']);
+        $product_info['options'] = $this->request->post['options'] ; //str_replace("&lt;br&gt;", "<br>", $this->request->post['options']);
         $product_info['href'] =  $this->url->link('product/product', 'product_id=' . $product_info['product_id']);
         $product_info['qty'] = $this->request->post['quantity'];
 
@@ -970,10 +970,10 @@ class ControllerProductProduct extends Controller {
 
         if(isset($this->request->post['more-info'])) {
             $json['success'] = 'Your information request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
-            $client_msg = '<br>Your information request will be forwarded to the relevant store and you will be contacted shortly.<br>PLEASE DO NOT REPLY TO THIS EMAIL.<br><br>' ;
+            $client_msg = '<br>Your information request will be forwarded to the relevant store and you will be contacted shortly.<br><br>PLEASE DO NOT REPLY TO THIS EMAIL.<br><br>' ;
         }else{
             $json['success'] = 'Your quote request was sent, we will be in touch shortly.'; // no way to know if send worked!!!
-            $client_msg = '<br>Your quote request will be forwarded to the relevant store and you will be contacted shortly.<br>PLEASE DO NOT REPLY TO THIS EMAIL.<br><br>' ;
+            $client_msg = '<br>Your quote request will be forwarded to the relevant store and you will be contacted shortly.<br><br>PLEASE DO NOT REPLY TO THIS EMAIL.<br><br>' ;
         }
 
         // send copy to client

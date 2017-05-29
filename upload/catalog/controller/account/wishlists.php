@@ -199,7 +199,7 @@ class ControllerAccountWishLists extends Controller {
 
             // send copy to client
             $to = $customerdata['email'];
-            $client_msg = 'Your quote request was sent to the relevant store, we will get in touch shortly.<br>PLEASE DO NOT REPLAY TO THIS EMAIL.<br><br>';
+            $client_msg = 'Your quote request was sent to the relevant store, we will get in touch shortly.<br><br>PLEASE DO NOT REPLAY TO THIS EMAIL.<br><br>';
             $email_data['intro'] = 'Dear ' .  $customerdata['firstname'] . ' '  . $customerdata['lastname'] . ',<br>' . $client_msg . $email_data['intro'];
             $html = $this->load->view('common/email', $email_data);
             $this->model_account_customer->sendMail($to, $subject, $html);

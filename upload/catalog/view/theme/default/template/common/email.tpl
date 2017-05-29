@@ -394,7 +394,7 @@
                                 </div>
                               </td>
                               <td width="50%" class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:0;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" ><a href="<?php echo $product['href'] ; ?> " style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-family:'Open Sans', sans-serif;color:#b5b38c;font-weight:bold;text-decoration:none;font-size:16px;display:block;" ><?php echo $product['name'] ; ?></a><br style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
-                                <?php echo $product['short_description'] ; ?>
+                                <div><?php echo $product['short_description'] ; ?></div>
                               </td>
                               <td class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:0;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" >
                                 <?php echo $product['options'] ; ?>
