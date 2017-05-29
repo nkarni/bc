@@ -232,7 +232,9 @@ class ModelCatalogProduct extends Model {
 		}
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$product_id . "'");
-		$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE related_id = '" . (int)$product_id . "'");
+
+		// IN BACKCARE - WE DON'T WANT TO REMOVE PRODUCTS THAT THIS ITEM IS RELATED TO! OEN WAY RELATIONSHIP IS OK!
+//		$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE related_id = '" . (int)$product_id . "'");
 
 		if (isset($data['product_related'])) {
 			foreach ($data['product_related'] as $related_id) {
