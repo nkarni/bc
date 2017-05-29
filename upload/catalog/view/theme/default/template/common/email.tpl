@@ -364,7 +364,7 @@
                 <?php } ?>
                 <tr style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
                   <td class="content-block " style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:0;padding-bottom:20px;padding-right:0;padding-left:0;" >
-                    <table class="invoice" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;text-align:left;" >
+                    <table class="invoice" width="100%"  style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;text-align:left;" >
                       <tr style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
                         <td style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-right:0;padding-left:0;" >
                          <?php echo $intro ; ?>
@@ -373,13 +373,13 @@
                       <?php if(count($products)>0){ ?>
                       <tr style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
                         <td style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-right:0;padding-left:0;" >
-                          <table class="invoice-items" cellpadding="4" cellspacing="0" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;width:100%;" >
+                          <table class="invoice-items" width="100%" cellpadding="4" cellspacing="0" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;width:100%;" >
                             <thead style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
 
                               <th colspan="2" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;text-align: left;" >Product</th>
                               <th class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;text-align: left;" >Selected Options</th>
                               <th class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;text-align: left;" >Qty</th>
-
+                              <th class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;text-align: left;" >Price (each)</th>
                               </thead>
                             <?php foreach($products as $product) { ?>
                             <tr style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
@@ -387,25 +387,33 @@
                                 <a href="<?php echo $product['href'] ; ?> " style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-family:'Open Sans', sans-serif;color:#b5b38c;font-weight:bold;text-decoration:none;font-size:16px;display:block;" >
                                   <img src="<?php echo $product['thumb'] ; ?>" alt="<?php echo $product['name'] ; ?>" title="<?php echo $product['name'] ; ?>" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;width:100%;max-width:150px;" />
                                 </a>
-                                <div class="show-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;display:none;" >
+                                <div class="show-small-screen" style="padding-left:4px;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;display:none;" >
                                   <a href="<?php echo $product['href'] ; ?> " style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-family:'Open Sans', sans-serif;color:#b5b38c;font-weight:bold;text-decoration:none;font-size:16px;display:block;" ><?php echo $product['name'] ; ?>  <?php echo $product['thumb'] ; ?></a><br style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
                                 <?php echo $product['short_description'] ; ?>  <h4 style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-family:'Open Sans', sans-serif;color:#404040;font-size:14px;font-weight:600;" >Options: </h4>
                                   <?php echo $product['options'] ; ?>
                                 </div>
                               </td>
-                              <td width="50%" class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:0;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" ><a href="<?php echo $product['href'] ; ?> " style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-family:'Open Sans', sans-serif;color:#b5b38c;font-weight:bold;text-decoration:none;font-size:16px;display:block;" ><?php echo $product['name'] ; ?></a><br style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
+                              <td width="50%" class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:4px;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" ><a href="<?php echo $product['href'] ; ?> " style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-family:'Open Sans', sans-serif;color:#b5b38c;font-weight:bold;text-decoration:none;font-size:16px;display:block;" ><?php echo $product['name'] ; ?></a>
                                 <div><?php echo $product['short_description'] ; ?></div>
                               </td>
-                              <td class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:0;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" >
+                              <td class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:4px;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" >
                                 <?php echo $product['options'] ; ?>
                               </td>
-                              <td class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:0;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" ><?php echo $product['qty'] ; ?> </td>
+                              <td class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:4px;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" ><?php echo $product['qty'] ; ?> </td>
+                              <td class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:4px;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" >T.B.A.</td>
                             </tr>
                             <?php } //end or each product ?>
+                            <tr style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;" >
+                              <td colspan="4" class="hide-small-screen" style="text-align:right;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:4px;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" >
+                                Freight:
+                              </td>
+                              <td class="hide-small-screen" style="margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;box-sizing:border-box;font-size:14px;font-family:'Open Sans', sans-serif;color:#404040;vertical-align:top;padding-top:5px;padding-bottom:5px;padding-left:4px;border-top-width:1px;border-top-style:solid;border-top-color:#eee;padding-right:12px;" >T.B.A.</td>
+                            </tr>
                           </table>
                         </td>
                       </tr>
                       <?php } // end if count products > 0 ?>
+
                     </table>
                   </td>
                 </tr>

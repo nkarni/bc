@@ -937,9 +937,10 @@ class ControllerProductProduct extends Controller {
             $product_info['thumb'] = '';
         }
 
-        $product_info['options'] = $this->request->post['options'] ; //str_replace("&lt;br&gt;", "<br>", $this->request->post['options']);
+        $product_info['options'] =  html_entity_decode($this->request->post['options']);  // str_replace("&lt;br&gt;", "<br>", $this->request->post['options']);
         $product_info['href'] =  $this->url->link('product/product', 'product_id=' . $product_info['product_id']);
         $product_info['qty'] = $this->request->post['quantity'];
+        $product_info['short_description'] = html_entity_decode($product_info['short_description']);
 
         $email_data['products'] = [$product_info];
         $email_data['subtitle'] = null;
