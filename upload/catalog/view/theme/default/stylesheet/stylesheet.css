@@ -841,7 +841,7 @@ i.fa.fa-chevron-right, #product_submenu i.fa.fa-chevron-up {
 #product_submenu i.fa.fa-chevron-up {
 	margin-right: 0px;
 }
-#accordion a {
+#accordion .panel-heading a {
 	line-height: 20px;
 	margin-bottom: 12px;
 	font-size: 18px;
@@ -1612,6 +1612,12 @@ h3.related {
 	.print-only{
 		display: inline;
 	}
+}
+
+.easy-blog .btn {
+	font-size: 14px;
+	width: 100%;
+	margin-bottom: 12px;
 }
 
 .account-btn {

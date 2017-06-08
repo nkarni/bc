@@ -23,31 +23,15 @@
       <hr>
       <?php } ?>
       <?php if ($blog_categories) { ?>
-      <?php if (count($blog_categories) <= 5) { ?>
-      <div class="row">
-        <div class="col-sm-3">
-          <ul>
-            <?php foreach ($blog_categories as $blog_category) { ?>
-            <li><a href="<?php echo $blog_category['href']; ?>"><?php echo $blog_category['name']; ?></a></li>
-            <?php } ?>
-          </ul>
-        </div>
-      </div>
-      <hr>
-      <?php } else { ?>
+
       <div class="row">
         <?php foreach (array_chunk($blog_categories, ceil(count($blog_categories) / 4)) as $blog_categories) { ?>
-        <div class="col-sm-3">
-          <ul>
-            <?php foreach ($blog_categories as $blog_category) { ?>
-            <li><a href="<?php echo $blog_category['href']; ?>"><?php echo $blog_category['name']; ?></a></li>
-            <?php } ?>
-          </ul>
-        </div>
+          <?php foreach ($blog_categories as $blog_category) { ?>
+        <div class="col-sm-3"><a class="btn btn-primary" href="<?php echo $blog_category['href']; ?>"><?php echo $blog_category['name']; ?></a></div>
+          <?php } ?>
         <?php } ?>
       <hr>
       </div>
-      <?php } ?>
       <?php } ?>
       <?php if ($articles && count($blog_categories) === 0) { ?>
         <div class="row">
