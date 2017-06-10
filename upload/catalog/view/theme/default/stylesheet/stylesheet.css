@@ -1620,6 +1620,16 @@ h3.related {
 	margin-bottom: 12px;
 }
 
+footer ul.list-unstyled a{
+	color : #FFFFFF !important;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+footer ul.list-unstyled {
+	margin-bottom: 22px;
+}
+
 .account-btn {
 	background: #D82C27;
 	color: #fff;

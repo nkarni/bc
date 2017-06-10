@@ -8,22 +8,28 @@
 <footer>
   <div class="container no-print">
     <div class="row">
-    <div class="col-sm-3">
-        <h5>Our Products</h5>
-        <ul class="list-unstyled">
-            <?php echo $footer_menu ; ?>
-        </ul>
+      <div class="col-sm-3">
+          <h5>Our Products</h5>
+          <ul class="list-unstyled">
+              <?php echo $footer_menu ; ?>
+          </ul>
+      </div>
+      <div class="col-sm-3">
+          <h5>Connect</h5>
+          <ul class="social_icons">
+              <li><a target="_blank" href="https://www.facebook.com/BCS.com.au"><i class="fa fa-facebook"></i></a></li>
+              <li><a target="_blank" href="https://twitter.com/Backcareseating"><i class="fa fa-twitter"></i></a></li>
+              <li><a target="_blank" href="http://backcareandseating.tumblr.com/"><i class="fa fa-tumblr"></i></a></li>
+          </ul>
+      </div>
     </div>
-    <div class="col-sm-3">
-        <h5>Connect</h5>
-        <ul class="social_icons">
-            <li><a target="_blank" href="https://www.facebook.com/BCS.com.au"><i class="fa fa-facebook"></i></a></li>
-            <li><a target="_blank" href="https://twitter.com/Backcareseating"><i class="fa fa-twitter"></i></a></li>
-            <li><a target="_blank" href="http://backcareandseating.tumblr.com/"><i class="fa fa-tumblr"></i></a></li>
-        </ul>
+
+    <div class="row">
+      <div class="col-sm-12 text-right">
+        <p>© <?php echo date("Y"); ?> BACKCARE &amp; SEATING. ALL RIGHTS RESERVED. <a href="/disclaimer/">DISCLAIMER</a></p>
+      </div>
     </div>
-	  
-    </div>
+
   </div>
 </footer>
 <script>
@@ -52,3 +58,4 @@
 </script>
 
 </body></html>
+
