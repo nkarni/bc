@@ -1,10 +1,3 @@
-<style type="text/css">
-    footer ul.list-unstyled a{
-        color : #FFFFFF !important;
-        font-size: 12px;
-        line-height: 1.5;
-    }
-</style>
 <footer>
   <div class="container no-print">
     <div class="row">
