@@ -156,10 +156,10 @@ $class = 'col-sm-12';
               },
               dataType: 'json',
               beforeSend: function() {
-                  $("#submit-btn").addClass('disabled');
+                  $("#submit-btn").addClass('disabled').prop('disabled', true);
               },
               complete: function() {
-                  $("#submit-btn").removeClass('disabled');
+                  $("#submit-btn").removeClass('disabled').prop('disabled', false);
               },
               success: function (json) {
                   alertHandler.success(json);
@@ -192,11 +192,11 @@ $class = 'col-sm-12';
               },
               dataType: 'json',
               beforeSend: function() {
-                  $(".share-wishlist").addClass('disabled');
+                  $(".share-wishlist").addClass('disabled').prop('disabled', true);
                   $(".share-wrapper").addClass('opacity3');
               },
               complete: function() {
-                  $(".share-wishlist").removeClass('disabled');
+                  $(".share-wishlist").removeClass('disabled').prop('disabled', false);
                   $(".share-wrapper").removeClass('opacity3');
               },
               success: function (json) {

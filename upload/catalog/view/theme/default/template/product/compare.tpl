@@ -135,10 +135,10 @@
             type: 'post',
             data: 'wishlist_name=' + encodeURIComponent($wishlist) + '&index=' + $product,
             beforeSend: function() {
-                $(".addlist").addClass('disabled');
+                $(".addlist").addClass('disabled').prop('disabled', true);
             },
             complete: function() {
-                $(".addlist").removeClass('disabled');
+                $(".addlist").removeClass('disabled').prop('disabled', false);
             },
             success: function (json) {
                 alertHandler.success(json);
@@ -212,10 +212,10 @@
                 'index': index
             },
             beforeSend: function() {
-                $(".add-product-to-wishlist").addClass('disabled');
+                $(".add-product-to-wishlist").addClass('disabled').prop('disabled', true);
             },
             complete: function() {
-                $(".add-product-to-wishlist").removeClass('disabled');
+                $(".add-product-to-wishlist").removeClass('disabled').prop('disabled', false);
             },
             success: function (json) {
                 alertHandler.success(json);

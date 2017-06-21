@@ -895,10 +895,10 @@
                 'quantity' : quantity
             },
             beforeSend: function() {
-                $(".add-product-to-wishlist").addClass('disabled');
+                $(".add-product-to-wishlist").addClass('disabled').prop('disabled', true);
             },
             complete: function() {
-                $(".add-product-to-wishlist").removeClass('disabled');
+                $(".add-product-to-wishlist").removeClass('disabled').prop('disabled', false);
             },
             success: function (json) {
                 alertHandler.success(json);
@@ -967,10 +967,10 @@
                     'options': options
                 },
                 beforeSend: function() {
-                    $("#btn-compare").addClass('disabled');
+                    $("#btn-compare").addClass('disabled').prop('disabled', true);
                 },
                 complete: function() {
-                    $("#btn-compare").removeClass('disabled');
+                    $("#btn-compare").removeClass('disabled').prop('disabled', false);
                 },
                 success: function(json) {
                   alertHandler.success(json);
@@ -1029,10 +1029,10 @@
                 'notes' : notes
             },
             beforeSend: function() {
-                $("#send-quote-request").addClass('disabled');
+                $("#send-quote-request").addClass('disabled').prop('disabled', true);
             },
             complete: function() {
-                $("#send-quote-request").removeClass('disabled');
+                $("#send-quote-request").removeClass('disabled').prop('disabled', false);
             },
             success: function (json) {
                 alertHandler.success(json);
@@ -1068,10 +1068,10 @@
                     'trigger' : 'more-info'
                 },
                 beforeSend: function() {
-                    $("#send-more-info-request").addClass('disabled');
+                    $("#send-more-info-request").addClass('disabled').prop('disabled', true);
                 },
                 complete: function() {
-                    $("#send-more-info-request").removeClass('disabled');
+                    $("#send-more-info-request").removeClass('disabled').prop('disabled', false);
                 },
                 success: function (json) {
                     alertHandler.success(json);

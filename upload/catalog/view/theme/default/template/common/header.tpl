@@ -90,7 +90,7 @@
 	  
 	  <div class="row no-print">
 	  <div class="col-sm-12 prinav">
-    		<nav id="menu" class="navbar topmenu">
+      <nav id="menu" class="navbar topmenu">
         <div class="navbar-header"><!--<span id="category" class="visible-xs"><?php //echo $text_category; ?></span>-->
           <button type="button" class="btn btn-navbar navbar-toggle topnav" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
         </div>
@@ -103,10 +103,9 @@
         </div>
       </nav>
     </div>
-		</nav>
     <!-- <div class="col-sm-2 cart"><?php echo $cart; ?></div> -->
 	  
-	  <div class="col-sm-12">
+	  <div class="col-sm-12" id="menu-container">
 	  <nav id="menu" class="navbar secondary-navigation">
 		<div class="navbar-header"><!--<span id="category" class="visible-xs"><?php //echo $text_category; ?></span>-->
 		  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">Main Navigation</button>
